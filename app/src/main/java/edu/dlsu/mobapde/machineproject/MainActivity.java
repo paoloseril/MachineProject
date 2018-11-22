@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
         Expense expense = new Expense();
         expense.setName("Hello");
 
-        // expenseDatabase.dao().addExpense(expense);
+        expenseDatabase = ExpenseDatabase.getDatabase(this);
 
-        //for (Expense e: expenseDatabase.dao().getAllExpenses()) {
-          //  Log.d("Expense", e.getName());
-        //}
+        for (Expense e: expenseDatabase.dao().getAllExpenses()) {
+            Log.d("Expense", e.getName());
+        }
     }
 }
