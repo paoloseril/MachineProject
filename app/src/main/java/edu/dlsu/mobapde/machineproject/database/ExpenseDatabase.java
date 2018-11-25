@@ -22,9 +22,4 @@ public abstract class ExpenseDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
-
-    public static void destroyInstance() {
-        INSTANCE = null;
-    }
-
 }

@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
         expenseDatabase = ExpenseDatabase.getDatabase(this);
 
+        // uncomment code below to clear the contents of the database
+        // expenseDatabase.clearAllTables();
+
         for (Expense e: expenseDatabase.dao().getAllExpenses()) {
             Log.d("Expense", e.getName());
         }

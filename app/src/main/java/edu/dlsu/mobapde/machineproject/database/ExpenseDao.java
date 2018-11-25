@@ -22,4 +22,5 @@ public interface ExpenseDao {
 
     @Delete
     void deleteExpense(Expense expense);
+
 }
