@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Main colors -->
     <color name="colorLight1">#CFD8CD</color>
     <color name="colorLight2">#88CCAF</color>
     <color name="colorHeavy1">#54B791</color>
     <color name="colorHeavy2">#178393</color>
     <color name="colorAccent">#CE9154</color>
+
+    <!-- Functional colors -->
+
+    <color name="colorTextLight">#ffffff</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorTextDark">#252525</color>
+
 </resources>
