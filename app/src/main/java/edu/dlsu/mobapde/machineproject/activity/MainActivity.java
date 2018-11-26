@@ -3,6 +3,7 @@ package edu.dlsu.mobapde.machineproject.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 
 import java.time.LocalDate;
 
@@ -20,6 +21,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Hide title bar
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+
+        // initialize db
+        // expenseDatabase = ExpenseDatabase.getDatabase(this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////
         // Testing if can insert and retrieve values properly
 
         /*Expense expense = new Expense();
