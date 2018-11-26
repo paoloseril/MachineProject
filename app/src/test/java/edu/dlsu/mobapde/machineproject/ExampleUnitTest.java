@@ -1,11 +1,6 @@
 package edu.dlsu.mobapde.machineproject;
 
-import android.arch.persistence.room.Room;
-
 import org.junit.Test;
-
-import edu.dlsu.mobapde.machineproject.database.Expense;
-import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
 
 import static org.junit.Assert.*;
 
