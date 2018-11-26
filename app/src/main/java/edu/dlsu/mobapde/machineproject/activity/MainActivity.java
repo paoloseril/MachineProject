@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Hide title bar
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
 
         // initialize db

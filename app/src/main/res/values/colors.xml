@@ -2,16 +2,16 @@
 <resources>
 
     <!-- Main colors -->
-    <color name="colorLight1">#CFD8CD</color>
-    <color name="colorLight2">#88CCAF</color>
-    <color name="colorHeavy1">#54B791</color>
+    <color name="colorLight1">#cfd8cd</color>
+    <color name="colorLight2">#88ccaf</color>
+    <color name="colorHeavy1">#54b791</color>
     <color name="colorHeavy2">#178393</color>
-    <color name="colorAccent">#CE9154</color>
+    <color name="colorAccent">#ce9154</color>
 
     <!-- Functional colors -->
 
     <color name="colorTextLight">#ffffff</color>
     <color name="colorWhite">#ffffff</color>
-    <color name="colorTextDark">#252525</color>
+    <color name="colorTextDark">#a7252525</color>
 
 </resources>

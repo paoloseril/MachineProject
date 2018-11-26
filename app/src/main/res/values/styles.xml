@@ -12,7 +12,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         -->
 
-        <item name="android:colorBackground">@color/colorLight1</item>
+        <item name="android:colorBackground">@color/colorWhite</item>
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
