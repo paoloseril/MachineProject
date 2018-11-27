@@ -26,15 +26,6 @@ public class Converter {
         return BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
     }
 
-    // convert a File object to a Bitmap image
-    // to be used in setting image for ImageView
-    // ImageView img = (ImageView) findViewById();
-    // img.setImageBitmap(<the converted Bitmap object>);
-    //
-    public static Bitmap toImage(File imageFile) {
-        return BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-    }
-
     //public static byte[] toByteArray(Bitmap bitmap) {
       //  Bitmap bitmap = BitmapFactory.decodeResource();
         //ByteArrayOutputStream opstream = new ByteArrayOutputStream();
