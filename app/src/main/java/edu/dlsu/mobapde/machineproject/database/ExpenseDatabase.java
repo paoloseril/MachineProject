@@ -3,14 +3,12 @@ package edu.dlsu.mobapde.machineproject.database;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
-import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-import edu.dlsu.mobapde.machineproject.converter.DateTimeConverter;
 import edu.dlsu.mobapde.machineproject.dao.ExpenseDao;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 
-@Database(entities = {Expense.class}, version = 2, exportSchema = false)
+@Database(entities = {Expense.class}, version = 3, exportSchema = false)
 public abstract class ExpenseDatabase extends RoomDatabase {
 
     private static ExpenseDatabase INSTANCE;
@@ -27,5 +25,10 @@ public abstract class ExpenseDatabase extends RoomDatabase {
                             .build();
         }
         return INSTANCE;
+    }
+
+    // avoid instantiation
+    private ExpenseDatabase() {
+
     }
 }

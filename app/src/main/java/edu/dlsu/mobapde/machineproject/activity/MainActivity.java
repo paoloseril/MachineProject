@@ -1,21 +1,29 @@
 package edu.dlsu.mobapde.machineproject.activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
+import android.view.View;
 
-import java.time.LocalDate;
+import java.io.File;
+import java.io.IOException;
 
 import edu.dlsu.mobapde.machineproject.R;
-import edu.dlsu.mobapde.machineproject.converter.DateTimeConverter;
-import edu.dlsu.mobapde.machineproject.entity.Expense;
+import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
 import edu.dlsu.mobapde.machineproject.values.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
     private ExpenseDatabase expenseDatabase;
+    private File photoFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,16 +32,10 @@ public class MainActivity extends AppCompatActivity {
         // Hide title bar
         getSupportActionBar().hide();
 
-        // initialize db
+        // initialize database
         // expenseDatabase = ExpenseDatabase.getDatabase(this);
 
-
-
-
-
-
-
-
+        // initialize components
 
 
 
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         expense.setName("Hello");
         expense.setType(Constants.TYPE_BILL);
         expense.setRegretLevel(1);
-        expense.setDateTimeMillis(DateTimeConverter.toMilliseconds("01/21/1998 4:56 am"));
+        expense.setDateTimeMillis(Converter.toMilliseconds("01/21/1998 4:56 am"));
 
         expenseDatabase = ExpenseDatabase.getDatabase(this);
 
@@ -59,14 +61,85 @@ public class MainActivity extends AppCompatActivity {
         for (Expense e: expenseDatabase.dao().getAllExpenses()) {
             Log.d("Expense", e.getName());
             Log.d("Expense RL", String.valueOf(e.getRegretLevel()));
-            Log.d("Expense Date", DateTimeConverter.toDate(e.getDateTimeMillis()));
+            Log.d("Expense Date", Converter.toDate(e.getDateTimeMillis()));
             Log.d("Expense Type", e.getType());
         }*/
 
         // Testing to drop the table
         // expenseDatabase = ExpenseDatabase.getDatabase(this);
         // expenseDatabase.clearAllTables();
+        //////////////////////////////////////////////////////////
 
+    }
 
+    // Display image gallery
+    public void pickPhoto(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            // Bring up gallery to select a photo
+            startActivityForResult(intent, Constants.ACCESS_PHOTO_LIBRARY_REQUEST_CODE);
+        }
+    }
+
+    private File getPhotoFileUri() {
+        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "PayNa");
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+            Log.d("PayNa", "failed to create directory");
+        }
+
+        // Return the file target for the photo based on filename
+
+        return new File(mediaStorageDir.getPath() + File.separator + Constants.CAPTURED_PHOTO_FILENAME);
+    }
+
+    // opens the camera and lets user take a photo
+    public void capturePhoto(View view) {
+        // create Intent to take a picture and return control to the calling application
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Create a File reference to access to future access
+        photoFile = getPhotoFileUri();
+
+        // wrap File object into a content provider
+        // required for API >= 24
+        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
+        //Uri fileProvider = FileProvider.getUriForFile(this, "com.codepath.fileprovider", photoFile);
+        //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+
+        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+        // So as long as the result is not null, it's safe to use the intent.
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            // Start the image capture intent to take photo
+            startActivityForResult(intent, Constants.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // when accessing photo library
+        if (requestCode == Constants.ACCESS_PHOTO_LIBRARY_REQUEST_CODE) {
+            if (data != null) {
+                try {
+                    Uri photoUri = data.getData();
+                    Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+
+                    // ImageView.setImageBitmap(selectedImage);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else if (requestCode == Constants.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                Bitmap bitmap = Converter.toImage(photoFile);
+                // ImageView.setImageBitmap(bitmap);
+
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package edu.dlsu.mobapde.machineproject.entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -16,6 +17,9 @@ public class Expense {
     private String type;
 
     private long dateTimeMillis;
+
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image;
 
     public int getId() {
         return id;
@@ -55,5 +59,13 @@ public class Expense {
 
     public void setDateTimeMillis(long dateTimeMillis) {
         this.dateTimeMillis = dateTimeMillis;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

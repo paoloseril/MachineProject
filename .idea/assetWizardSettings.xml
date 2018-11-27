@@ -35,7 +35,7 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="D:\logo2.png" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Desktop/logo2.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
