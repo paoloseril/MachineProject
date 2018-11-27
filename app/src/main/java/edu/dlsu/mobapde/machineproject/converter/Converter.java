@@ -26,12 +26,12 @@ public class Converter {
         return BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
     }
 
-    //public static byte[] toByteArray(Bitmap bitmap) {
-      //  Bitmap bitmap = BitmapFactory.decodeResource();
-        //ByteArrayOutputStream opstream = new ByteArrayOutputStream();
-        //bitmap.compress(Bitmap.CompressFormat.PNG, 100, opstream);
-    //    return opstream.toByteArray();
-    //}
+    // convert Bitmap object to byte array
+    public static byte[] toByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
 
     // Convert milliseconds to date and time in string format
     public static String toDate(Long value) {
