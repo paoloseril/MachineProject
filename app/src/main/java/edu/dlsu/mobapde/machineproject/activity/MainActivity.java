@@ -89,25 +89,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private File getPhotoFileUri() {
-        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "PayNa");
-
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d("PayNa", "failed to create directory");
-        }
-
-        // Return the file target for the photo based on filename
-        return new File(mediaStorageDir.getPath() + File.separator + Constants.CAPTURED_PHOTO_FILENAME);
-    }
-
     // opens the camera and lets user take a photo
     public void capturePhoto(View view) {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        // Create a File reference to access to future access
-        photoFile = getPhotoFileUri();
 
         // wrap File object into a content provider
         // required for API >= 24
@@ -140,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else if (requestCode == Constants.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-
             Bundle extras = data.getExtras();
 
             Bitmap bitmap = (Bitmap) extras.get("data");
