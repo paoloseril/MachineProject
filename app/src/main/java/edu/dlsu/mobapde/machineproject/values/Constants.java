@@ -22,5 +22,4 @@ public class Constants {
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public final static int ACCESS_PHOTO_LIBRARY_REQUEST_CODE = 1046;
 
-    public final static String CAPTURED_PHOTO_FILENAME = "captured_photo.png";
 }
