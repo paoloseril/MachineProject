@@ -26,9 +26,4 @@ public abstract class ExpenseDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
-
-    // avoid instantiation
-    private ExpenseDatabase() {
-
-    }
 }

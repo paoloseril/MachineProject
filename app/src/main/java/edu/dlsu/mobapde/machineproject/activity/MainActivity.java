@@ -77,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = pictureDirectory.getPath();
+        Uri data = Uri.parse(pictureDirectoryPath);
+
+        intent.setDataAndType(data, "image/*");
+
         if (intent.resolveActivity(getPackageManager()) != null) {
             // Bring up gallery to select a photo
             startActivityForResult(intent, Constants.ACCESS_PHOTO_LIBRARY_REQUEST_CODE);
@@ -99,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     public void capturePhoto(View view) {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         // Create a File reference to access to future access
         photoFile = getPhotoFileUri();
 
@@ -132,13 +139,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        else if (requestCode == Constants.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
+        else if (requestCode == Constants.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
-                Bitmap bitmap = Converter.toImage(photoFile);
-                // ImageView.setImageBitmap(bitmap);
+            Bundle extras = data.getExtras();
 
-            }
+            Bitmap bitmap = (Bitmap) extras.get("data");
+
+            // Log.d("Bitmap", String.valueOf(bitmap.getByteCount()));
+            // ImageView.setImageBitmap(bitmap);
         }
     }
 }

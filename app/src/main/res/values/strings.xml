@@ -1,6 +1,6 @@
 <resources>
     <!-- Title bar text -->
-    <string name="app_name">MachineProject</string>
+    <string name="app_name">PayNa</string>
 
     <!-- Expense types -->
     <string name="exp_type0">General</string>
