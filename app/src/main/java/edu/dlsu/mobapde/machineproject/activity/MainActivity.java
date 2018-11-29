@@ -5,13 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import java.io.File;
-import java.io.IOException;
-
 import edu.dlsu.mobapde.machineproject.R;
-import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
-import edu.dlsu.mobapde.machineproject.values.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
