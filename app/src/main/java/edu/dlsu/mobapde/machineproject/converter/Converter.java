@@ -37,19 +37,18 @@ public class Converter {
     public static String toDate(Long value) {
         if (value != null) {
 
-            Date date = new Date(value);
-            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.ENGLISH);
-            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy|h:mm a", Locale.ENGLISH);
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 
-            return formatter.format(date);
+            return formatter.format(value);
         }
         return null;
     }
 
     // Convert datetime in string to milliseconds
     public static Long toMilliseconds(String value) {
-        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy h:mm a", Locale.ENGLISH);
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy|h:mm a", Locale.ENGLISH);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 
         try {
             return value == null ? null : formatter.parse(value).getTime();

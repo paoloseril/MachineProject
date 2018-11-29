@@ -16,9 +16,6 @@ public interface ExpenseDao {
     @Insert
     void addExpense(Expense expense);
 
-    @Query("select * from Expense")
-    List<Expense> getAllExpenses();
-
     @Update
     void updateExpense(Expense expense);
 
@@ -31,7 +28,14 @@ public interface ExpenseDao {
     @Query("select * from Expense where regretLevel = :regretLevel")
     List<Expense> getExpensesByRegretLevel(int regretLevel);
 
-    // List<Expense> filterExpensesByTime(long dateTimeMillis);
+    //@Query("select * from Expense where dateTimeMillis ")
+    //List<Expense> filterExpensesDuring(long dateTimeMillis);
 
+    // future expenses
+    @Query("select * from Expense where dateTimeMillis > :currentMillis order by dateTimeMillis desc")
+    List<Expense> getFutureExpenses(long currentMillis);
 
+    // expense history
+    @Query("select * from Expense where dateTimeMillis <= :currentMillis order by dateTimeMillis desc")
+    List<Expense> getPastExpenses(long currentMillis);
 }
