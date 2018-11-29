@@ -18,6 +18,8 @@ public class Expense {
 
     private long dateTimeMillis;
 
+    private long vibratorSeconds;
+
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[] image;
 
@@ -67,5 +69,13 @@ public class Expense {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public long getVibratorSeconds() {
+        return vibratorSeconds;
+    }
+
+    public void setVibratorSeconds(long vibratorSeconds) {
+        this.vibratorSeconds = vibratorSeconds;
     }
 }
