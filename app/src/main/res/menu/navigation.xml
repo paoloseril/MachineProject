@@ -4,7 +4,6 @@
     <item android:title="@string/your_profile"
         android:icon="@drawable/cutlery"
         />
-
     <item android:title="@string/expense_list"
         android:icon="@drawable/invoice"
         />
