@@ -25,8 +25,8 @@ public class ExpenseModel {
             case Constants.TYPE_DEBT:
                 icon = R.drawable.debt;
                 break;
-            case Constants.TYPE_GAME:
-                icon = R.drawable.console;
+            case Constants.TYPE_EDUCATION:
+                icon = R.drawable.book;
                 break;
         }
         this.timestamp = timestamp;

@@ -3,7 +3,7 @@ package edu.dlsu.mobapde.machineproject.values;
 public class Constants {
 
     // Types
-    public static final String TYPE_GAME = "game";
+    public static final String TYPE_EDUCATION = "education";
     public static final String TYPE_GENERAL = "general";
     public static final String TYPE_FOOD = "food";
     public static final String TYPE_DEBT = "debt";
