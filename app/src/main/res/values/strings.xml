@@ -9,4 +9,6 @@
     <string name="exp_type3">Debt</string>
     <string name="exp_type4">Education</string>
 
+    <string name="peso_sign">₱</string>
+
 </resources>

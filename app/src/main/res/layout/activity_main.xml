@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
-                    android:text="P 100"
+                    android:text="P 1.50"
                     android:textColor="@color/colorLight1"
                     android:textSize="36sp"
                     android:textStyle="bold" />
