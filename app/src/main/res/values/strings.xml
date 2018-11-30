@@ -12,5 +12,10 @@
     <string name="peso_sign">₱</string>
     <string name="your_profile">Your Profile</string>
     <string name="expense_list">Expense List</string>
+    <string name="warning_if_empty">You have not yet added any future expenses yet.</string>
+    <string name="title_2">Expense History</string>
+    <string name="warning_if_empty_2">You have not added anything yet.</string>
+    <string name="label_1">avg. cost</string>
+    <string name="satisfaction">satisfaction</string>
 
 </resources>
