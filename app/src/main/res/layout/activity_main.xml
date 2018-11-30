@@ -227,6 +227,13 @@
             </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
+
+        <include
+            layout="@layout/element_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            />
     </RelativeLayout>
 
 </ScrollView>

@@ -10,5 +10,7 @@
     <string name="exp_type4">Education</string>
 
     <string name="peso_sign">₱</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="expense_list">Expense List</string>
 
 </resources>
