@@ -6,11 +6,11 @@ import java.math.RoundingMode;
 public class Constants {
 
     // Types
-    public static final String TYPE_EDUCATION = "education";
-    public static final String TYPE_GENERAL = "general";
-    public static final String TYPE_FOOD = "food";
-    public static final String TYPE_DEBT = "debt";
-    public static final String TYPE_BILL = "bill";
+    public static final String TYPE_EDUCATION = "Education";
+    public static final String TYPE_GENERAL = "General";
+    public static final String TYPE_FOOD = "Food";
+    public static final String TYPE_DEBT = "Debt";
+    public static final String TYPE_BILL = "Bills";
 
     // avoid instantiation
     private Constants() {
@@ -25,6 +25,7 @@ public class Constants {
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public final static int ACCESS_PHOTO_LIBRARY_REQUEST_CODE = 1046;
 
+    // thanks stackoverflow!
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
