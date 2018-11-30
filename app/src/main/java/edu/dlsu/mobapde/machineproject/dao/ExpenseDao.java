@@ -41,8 +41,4 @@ public interface ExpenseDao {
     // expense history
     @Query("select * from Expense where dateTimeMillis <= :currentMillis order by dateTimeMillis desc")
     List<Expense> getPastExpenses(long currentMillis);
-
-    // when viewing a specific expense
-    @Query("select * from Expense where id == :id")
-    Expense getExpense(int id);
 }
