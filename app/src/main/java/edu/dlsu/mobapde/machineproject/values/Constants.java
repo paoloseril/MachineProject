@@ -1,5 +1,8 @@
 package edu.dlsu.mobapde.machineproject.values;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Constants {
 
     // Types
@@ -22,4 +25,11 @@ public class Constants {
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public final static int ACCESS_PHOTO_LIBRARY_REQUEST_CODE = 1046;
 
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 }

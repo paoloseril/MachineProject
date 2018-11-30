@@ -12,6 +12,7 @@ import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseHolder;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseModel;
+import edu.dlsu.mobapde.machineproject.values.Constants;
 
 public class FutureExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
 
@@ -33,7 +34,7 @@ public class FutureExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
     @Override
     public void onBindViewHolder(@NonNull ExpenseHolder expenseHolder, int i) {
         expenseHolder.setLogo(futureExpenses.get(i).getIcon());
-        expenseHolder.setCost(futureExpenses.get(i).getCost());
+        expenseHolder.setCost(Constants.round(futureExpenses.get(i).getCost(), 2));
         expenseHolder.setName(futureExpenses.get(i).getName());
         expenseHolder.setTimeStamp(futureExpenses.get(i).getTimestamp());
     }
