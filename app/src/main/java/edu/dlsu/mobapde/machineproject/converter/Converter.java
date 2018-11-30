@@ -14,7 +14,7 @@ import java.util.TimeZone;
 
 public class Converter {
 
-    // avoid instiantiation
+    // avoid instantiation
     private Converter() { }
 
     // convert byte array to Bitmap image
@@ -37,7 +37,7 @@ public class Converter {
     public static String toDate(Long value) {
         if (value != null) {
 
-            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy|h:mm a", Locale.ENGLISH);
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH);
             formatter.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 
             return formatter.format(value);
@@ -47,7 +47,7 @@ public class Converter {
 
     // Convert datetime in string to milliseconds
     public static Long toMilliseconds(String value) {
-        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy|h:mm a", Locale.ENGLISH);
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH);
         formatter.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 
         try {
