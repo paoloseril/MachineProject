@@ -6,6 +6,6 @@
         />
 
     <item android:title="@string/expense_list"
-        android:icon="@drawable/general"
+        android:icon="@drawable/invoice"
         />
 </menu>
