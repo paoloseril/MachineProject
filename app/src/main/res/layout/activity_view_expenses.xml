@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ViewExpensesActivity">
+    tools:context=".activity.ViewExpensesFragment">
 
     <SearchView
         android:layout_width="match_parent"
@@ -14,10 +14,4 @@
 
     </SearchView>
 
-    <include
-        layout="@layout/element_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        />
 </RelativeLayout>
