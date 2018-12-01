@@ -44,4 +44,7 @@ public interface ExpenseDao {
 
     @Query("select * from Expense order by name")
     List<Expense> getAllExpenses();
+
+    @Query("select * from Expense where id = :id")
+    Expense getExpense(int id);
 }

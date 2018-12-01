@@ -7,12 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import edu.dlsu.mobapde.machineproject.R;
+import edu.dlsu.mobapde.machineproject.database.Database;
 import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
+import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview3.ExpensesViewAdapter;
@@ -47,6 +50,18 @@ public class ViewExpensesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
+
+        //if (expenseRecyclerView.getVisibility() == View.GONE) {
+          //  expenseRecyclerView.setVisibility(View.VISIBLE);
+        //}
+    }
+
+    public void addExpenseEntry(View view) {
+
+    }
+
+    public void filterExpenses(View view) {
 
     }
 }

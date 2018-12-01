@@ -11,17 +11,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
+import edu.dlsu.mobapde.machineproject.database.Database;
 import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
+import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
+import edu.dlsu.mobapde.machineproject.values.Constants;
 
 public class MainActivityFragment extends Fragment {
 
@@ -29,11 +34,15 @@ public class MainActivityFragment extends Fragment {
     private RecyclerView expenseHistoryRecyclerArea, futureExpensesRecyclerArea;
     private PastExpenseAdapter pastExpenseAdapter;
     private FutureExpenseAdapter futureExpenseAdapter;
+    LinearLayout emptymessageLayoutH, emptymessageLayoutF;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_main, container, false);
+
+        emptymessageLayoutH = root.findViewById(R.id.noexpense_added);
+        emptymessageLayoutF = root.findViewById(R.id.noexpensefuture_added);
 
         expenseHistoryRecyclerArea = root.findViewById(R.id.expense_history_rarea);
         futureExpensesRecyclerArea = root.findViewById(R.id.future_expense_rarea);
@@ -53,7 +62,6 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        expenseDatabase = ExpenseDatabase.getDatabase(getContext());
     }
 
     @Override
@@ -61,14 +69,28 @@ public class MainActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
+        //Expense e = new Expense("Hello", 1, Constants.TYPE_BILL, System.currentTimeMillis(), 250.00);
+        //Database.getInstance().dao().addExpense(e);
+
     }
 
-    public void addExpenseEntry(View view) {
+    public void refresh() {
 
+        // add to database
 
+        if (futureExpensesRecyclerArea.getVisibility() == View.GONE) {
+            futureExpensesRecyclerArea.setVisibility(View.VISIBLE);
+            emptymessageLayoutF.setVisibility(View.GONE);
+        }
+
+        if (expenseHistoryRecyclerArea.getVisibility() == View.GONE) {
+            expenseHistoryRecyclerArea.setVisibility(View.VISIBLE);
+            emptymessageLayoutH.setVisibility(View.GONE);
+        }
     }
 
-    public void viewExpenseEntry(View view) {
+    public void viewExpenseEntry() {
 
     }
 }
