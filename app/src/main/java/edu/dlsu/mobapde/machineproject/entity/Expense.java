@@ -24,21 +24,25 @@ public class Expense {
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[] image;
 
-    public Expense(String name, int regretLevel, String type, long dateTimeMillis) {
+    private double cost;
+
+    public Expense(String name, int regretLevel, String type, long dateTimeMillis, double cost) {
         this.name = name;
         this.regretLevel = regretLevel;
         this.type = type;
         this.dateTimeMillis = dateTimeMillis;
+        this.cost = cost;
     }
 
     @Ignore
-    public Expense(String name, int regretLevel, String type, long dateTimeMillis, long vibratorSeconds, byte[] image) {
+    public Expense(String name, int regretLevel, String type, long dateTimeMillis, long vibratorSeconds, byte[] image, double cost) {
         this.name = name;
         this.regretLevel = regretLevel;
         this.type = type;
         this.dateTimeMillis = dateTimeMillis;
         this.vibratorSeconds = vibratorSeconds;
         this.image = image;
+        this.cost = cost;
     }
 
     public int getId() {
@@ -95,5 +99,13 @@ public class Expense {
 
     public void setVibratorSeconds(long vibratorSeconds) {
         this.vibratorSeconds = vibratorSeconds;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 }
