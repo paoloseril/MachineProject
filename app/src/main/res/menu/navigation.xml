@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="@string/your_profile"
-        android:icon="@drawable/cutlery"
+        android:icon="@drawable/peso_symbol"
         />
     <item android:title="@string/expense_list"
         android:icon="@drawable/invoice"
