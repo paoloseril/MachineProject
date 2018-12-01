@@ -1,23 +1,28 @@
 package edu.dlsu.mobapde.machineproject.activity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import edu.dlsu.mobapde.machineproject.R;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    BottomNavigationView navigationView;
+    protected BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
 
+        Log.d("Hi", "Hello");
+
         navigationView = findViewById(R.id.e_navigation);
+        navigationView.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -34,21 +39,21 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.main_screen: {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-                return true;
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        navigationView.postDelayed(() -> {
+            switch (item.getItemId()) {
+                case R.id.main_screen:
+                    Log.d("Selected", "Main Activity");
+                    startActivity(new Intent(this, MainActivity.class));
+                    break;
+                case R.id.list_expenses:
+                    Log.d("Selected", "List Activity");
+                    startActivity(new Intent(this, ViewExpensesActivity.class));
+                    break;
             }
-            case R.id.list_expenses: {
-                startActivity(new Intent(getApplicationContext(), ViewExpensesActivity.class));
-                finish();
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+            finish();
+        }, 300);
+        return true;
     }
 
     private void updateNavigationBarState(){
@@ -57,12 +62,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     void selectBottomNavigationBarItem(int itemId) {
-        MenuItem item = navigationView.getMenu().findItem(itemId);
-        item.setChecked(true);
+        Menu menu = navigationView.getMenu();
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            boolean shouldBeChecked = item.getItemId() == itemId;
+            if (shouldBeChecked) {
+                item.setChecked(true);
+                break;
+            }
+        }
     }
 
     abstract int getContentViewId();
 
     abstract int getNavigationMenuItemId();
-
 }
