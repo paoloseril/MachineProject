@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/your_profile"
+    <item
+        android:id="@+id/main_screen"
+        android:title="@string/your_profile"
         android:icon="@drawable/peso_symbol"
         />
-    <item android:title="@string/expense_list"
+    <item
+        android:id="@+id/list_expenses"
+        android:title="@string/expense_list"
         android:icon="@drawable/invoice"
         />
 </menu>
