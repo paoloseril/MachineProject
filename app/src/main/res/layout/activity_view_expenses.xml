@@ -6,6 +6,7 @@
     tools:context=".activity.ViewExpensesFragment">
 
     <SearchView
+        android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
@@ -13,5 +14,15 @@
         >
 
     </SearchView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/all_expenses_rarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:layout_below="@id/sv">
+
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
