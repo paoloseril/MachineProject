@@ -5,10 +5,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import edu.dlsu.mobapde.machineproject.R;
+import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private ExpenseDatabase expenseDatabase;
 
@@ -24,12 +30,6 @@ public class MainActivity extends AppCompatActivity {
         // expenseDatabase = ExpenseDatabase.getDatabase(this);
 
         // initialize components
-
-
-
-
-
-
 
 
 
@@ -58,6 +58,22 @@ public class MainActivity extends AppCompatActivity {
         // expenseDatabase.clearAllTables();
         //////////////////////////////////////////////////////////
 
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy|h:mm a", Locale.ENGLISH);
+
+        Log.d("Date", formatter.format(System.currentTimeMillis()));
+
+        Log.d("Date2", Converter.toDate(System.currentTimeMillis()));
     }
+
+    @Override
+    int getContentViewId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    int getNavigationMenuItemId() {
+        return R.id.main_screen;
+    }
+
 
 }

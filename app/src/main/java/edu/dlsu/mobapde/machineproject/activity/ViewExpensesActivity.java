@@ -1,6 +1,5 @@
 package edu.dlsu.mobapde.machineproject.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import edu.dlsu.mobapde.machineproject.R;
