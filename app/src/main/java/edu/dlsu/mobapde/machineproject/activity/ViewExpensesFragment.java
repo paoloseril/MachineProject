@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.dlsu.mobapde.machineproject.R;
+import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview3.ExpensesViewAdapter;
 
 public class ViewExpensesFragment extends Fragment {
 
+    private ExpenseDatabase expenseDatabase;
     private RecyclerView expenseRecyclerView;
     private ExpensesViewAdapter adapter;
 
@@ -38,6 +40,7 @@ public class ViewExpensesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        expenseDatabase = ExpenseDatabase.getDatabase(getContext());
     }
 
     @Override
