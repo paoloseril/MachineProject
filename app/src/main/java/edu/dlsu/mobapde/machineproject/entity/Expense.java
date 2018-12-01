@@ -2,6 +2,7 @@ package edu.dlsu.mobapde.machineproject.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
@@ -22,6 +23,23 @@ public class Expense {
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[] image;
+
+    public Expense(String name, int regretLevel, String type, long dateTimeMillis) {
+        this.name = name;
+        this.regretLevel = regretLevel;
+        this.type = type;
+        this.dateTimeMillis = dateTimeMillis;
+    }
+
+    @Ignore
+    public Expense(String name, int regretLevel, String type, long dateTimeMillis, long vibratorSeconds, byte[] image) {
+        this.name = name;
+        this.regretLevel = regretLevel;
+        this.type = type;
+        this.dateTimeMillis = dateTimeMillis;
+        this.vibratorSeconds = vibratorSeconds;
+        this.image = image;
+    }
 
     public int getId() {
         return id;

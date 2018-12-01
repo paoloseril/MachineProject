@@ -9,17 +9,25 @@
         android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:layout_margin="20sp"
         android:background="@drawable/border"
         >
 
     </SearchView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expenses"
+        android:textStyle="bold"
+        android:layout_margin="20sp"
+        android:textSize="35sp"
+        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/all_expenses_rarea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:layout_margin="20sp"
         android:layout_below="@id/sv">
 
 

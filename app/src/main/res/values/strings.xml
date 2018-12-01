@@ -17,5 +17,6 @@
     <string name="warning_if_empty_2">Nothing to see here yet.</string>
     <string name="label_1">avg. cost</string>
     <string name="satisfaction">satisfaction</string>
+    <string name="expenses">Expenses</string>
 
 </resources>
