@@ -26,6 +26,8 @@ public class ViewExpensesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_view_expenses, container, false);
 
+        adapter = new ExpensesViewAdapter();
+
         expenseRecyclerView = root.findViewById(R.id.all_expenses_rarea);
         expenseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         expenseRecyclerView.setAdapter(adapter);

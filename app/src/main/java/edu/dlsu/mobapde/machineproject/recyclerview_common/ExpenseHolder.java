@@ -20,11 +20,8 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
 
         LinearLayout ll = view.findViewById(R.id.entry);
 
-        ll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        ll.setOnClickListener(ev -> {
 
-            }
         });
         iconView = view.findViewById(R.id.logo);
         nameTextComponent = view.findViewById(R.id.nameofexpense);
