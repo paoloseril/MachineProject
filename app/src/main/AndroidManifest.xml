@@ -32,6 +32,7 @@
 
         <activity android:name=".activity.EditExpenseActivity" />
         <activity android:name=".activity.ViewExpensesActivity"></activity>
+        <activity android:name=".activity.BaseActivity"/>
     </application>
 
 </manifest>
