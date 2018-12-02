@@ -31,9 +31,6 @@ public interface ExpenseDao {
     @Query("select * from Expense where regretLevel = :regretLevel")
     List<Expense> getExpensesByRegretLevel(int regretLevel);
 
-    //@Query("select * from Expense where dateTimeMillis ")
-    //List<Expense> filterExpensesDuring(long dateTimeMillis);
-
     // future expenses
     @Query("select * from Expense where dateTimeMillis > :currentMillis order by dateTimeMillis desc")
     List<Expense> getFutureExpenses(long currentMillis);

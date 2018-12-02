@@ -7,33 +7,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import edu.dlsu.mobapde.machineproject.R;
-import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.database.Database;
 import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
-import edu.dlsu.mobapde.machineproject.values.Constants;
 
 public class MainActivityFragment extends Fragment {
 
-    private ExpenseDatabase expenseDatabase;
     private RecyclerView expenseHistoryRecyclerArea, futureExpensesRecyclerArea;
     private PastExpenseAdapter pastExpenseAdapter;
     private FutureExpenseAdapter futureExpenseAdapter;
+
     LinearLayout emptymessageLayoutH, emptymessageLayoutF;
 
     @Nullable
@@ -60,37 +51,36 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        //Expense e = new Expense("Hello", 1, Constants.TYPE_BILL, System.currentTimeMillis(), 250.00);
-        //Database.getInstance().dao().addExpense(e);
+        // Refresh the views if there are changes from the database
+        refreshFutureExpenses();
+        refreshHistory();
 
     }
 
-    public void refresh() {
-
-        // add to database
-
-        if (futureExpensesRecyclerArea.getVisibility() == View.GONE) {
-            futureExpensesRecyclerArea.setVisibility(View.VISIBLE);
-            emptymessageLayoutF.setVisibility(View.GONE);
+    private void refreshHistory() {
+        for (Expense e: Database.getInstance().dao().getPastExpenses(System.currentTimeMillis())) {
+            pastExpenseAdapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
         }
-
-        if (expenseHistoryRecyclerArea.getVisibility() == View.GONE) {
+        if (expenseHistoryRecyclerArea.getVisibility() == View.GONE
+                && pastExpenseAdapter.getItemCount() != 0) {
             expenseHistoryRecyclerArea.setVisibility(View.VISIBLE);
             emptymessageLayoutH.setVisibility(View.GONE);
         }
     }
 
-    public void viewExpenseEntry() {
-
+    private void refreshFutureExpenses() {
+        for (Expense e: Database.getInstance().dao().getFutureExpenses(System.currentTimeMillis())) {
+            futureExpenseAdapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+        }
+        if (futureExpensesRecyclerArea.getVisibility() == View.GONE
+                && futureExpenseAdapter.getItemCount() != 0) {
+            futureExpensesRecyclerArea.setVisibility(View.VISIBLE);
+            emptymessageLayoutF.setVisibility(View.GONE);
+        }
     }
 }

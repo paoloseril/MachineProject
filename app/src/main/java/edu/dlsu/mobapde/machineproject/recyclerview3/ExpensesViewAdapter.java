@@ -50,15 +50,4 @@ public class ExpensesViewAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         notifyItemInserted(listOfExpenses.size() - 1);
     }
 
-    // notify when an expense is deleted from the list
-    public void removeView(int position) {
-        listOfExpenses.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public void removeAll() {
-        listOfExpenses.clear();
-        notifyItemRangeRemoved(0, listOfExpenses.size());
-    }
-
 }

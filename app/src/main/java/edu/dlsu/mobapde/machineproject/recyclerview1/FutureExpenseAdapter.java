@@ -48,10 +48,4 @@ public class FutureExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         futureExpenses.add(new ExpenseModel(name, type, Converter.toDate(millis), cost));
         notifyItemInserted(futureExpenses.size() - 1);
     }
-
-    // notify when an expense is deleted from the list
-    public void removeView(int position) {
-        futureExpenses.remove(position);
-        notifyItemRemoved(position);
-    }
 }

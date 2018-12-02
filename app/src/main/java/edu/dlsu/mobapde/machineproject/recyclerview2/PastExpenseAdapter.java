@@ -47,10 +47,4 @@ public class PastExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         expenseHistory.add(0, new ExpenseModel(name, type, Converter.toDate(millis), cost));
         notifyItemInserted(0);
     }
-
-    // notify when an expense is deleted from the list
-    public void removeView(int position) {
-        expenseHistory.remove(position);
-        notifyItemRemoved(position);
-    }
 }
