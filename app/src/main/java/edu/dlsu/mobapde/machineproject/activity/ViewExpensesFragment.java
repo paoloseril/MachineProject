@@ -256,5 +256,9 @@ public class ViewExpensesFragment extends Fragment {
             expenseRecyclerView.setVisibility(View.VISIBLE);
             warningIfEmptyView.setVisibility(View.GONE);
         }
+        else {
+            expenseRecyclerView.setVisibility(View.GONE);
+            warningIfEmptyView.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -77,6 +77,10 @@ public class MainActivityFragment extends Fragment {
             expenseHistoryRecyclerArea.setVisibility(View.VISIBLE);
             emptymessageLayoutH.setVisibility(View.GONE);
         }
+        else {
+            expenseHistoryRecyclerArea.setVisibility(View.GONE);
+            emptymessageLayoutH.setVisibility(View.VISIBLE);
+        }
     }
 
     private void refreshFutureExpenses() {
@@ -88,6 +92,10 @@ public class MainActivityFragment extends Fragment {
                 && futureExpenseAdapter.getItemCount() != 0) {
             futureExpensesRecyclerArea.setVisibility(View.VISIBLE);
             emptymessageLayoutF.setVisibility(View.GONE);
+        }
+        else {
+            futureExpensesRecyclerArea.setVisibility(View.GONE);
+            emptymessageLayoutF.setVisibility(View.VISIBLE);
         }
     }
 }
