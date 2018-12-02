@@ -68,6 +68,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void refreshHistory() {
+        pastExpenseAdapter.removeAllViews();
         for (Expense e: Database.getInstance().dao().getPastExpenses(System.currentTimeMillis())) {
             pastExpenseAdapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
         }
@@ -79,6 +80,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void refreshFutureExpenses() {
+        futureExpenseAdapter.removeAllViews();
         for (Expense e: Database.getInstance().dao().getFutureExpenses(System.currentTimeMillis())) {
             futureExpenseAdapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
         }
