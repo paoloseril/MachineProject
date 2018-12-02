@@ -20,7 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import edu.dlsu.mobapde.machineproject.R;
-import edu.dlsu.mobapde.machineproject.database.Database;
+import edu.dlsu.mobapde.machineproject.values.Static;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview3.ExpensesViewAdapter;
 import edu.dlsu.mobapde.machineproject.values.Constants;
@@ -223,7 +223,7 @@ public class ViewExpensesFragment extends Fragment {
         switch (key) {
             case "name": {
                 String val = String.valueOf(value);
-                for (Expense e : Database.getInstance().dao().getExpensesBy("%".concat(val).concat("%"))) {
+                for (Expense e : Static.getDatabaseInstance().dao().getExpensesBy("%".concat(val).concat("%"))) {
                     adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
                 }
 
@@ -233,21 +233,21 @@ public class ViewExpensesFragment extends Fragment {
             // regret level
             case "regret level": {
                 Integer val = (Integer) value;
-                for (Expense e : Database.getInstance().dao().getExpensesByRegretLevel(val)) {
+                for (Expense e : Static.getDatabaseInstance().dao().getExpensesByRegretLevel(val)) {
                     adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
                 }
                 break;
             }
             case "type": {
                 String val = String.valueOf(value);
-                for (Expense e : Database.getInstance().dao().getExpensesByType(val)) {
+                for (Expense e : Static.getDatabaseInstance().dao().getExpensesByType(val)) {
                     adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
                 }
                 break;
             }
             // by default
             default:
-                for (Expense e : Database.getInstance().dao().getAllExpenses()) {
+                for (Expense e : Static.getDatabaseInstance().dao().getAllExpenses()) {
                     adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
                 }
                 break;

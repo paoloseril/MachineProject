@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import edu.dlsu.mobapde.machineproject.R;
-import edu.dlsu.mobapde.machineproject.database.Database;
+import edu.dlsu.mobapde.machineproject.values.Static;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
@@ -68,7 +68,7 @@ public class MainActivityFragment extends Fragment {
 
     private void refreshHistory() {
         pastExpenseAdapter.removeAllViews();
-        for (Expense e: Database.getInstance().dao().getPastExpenses(System.currentTimeMillis())) {
+        for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses(System.currentTimeMillis())) {
             pastExpenseAdapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
         }
         if (expenseHistoryRecyclerArea.getVisibility() == View.GONE
@@ -84,7 +84,7 @@ public class MainActivityFragment extends Fragment {
 
     private void refreshFutureExpenses() {
         futureExpenseAdapter.removeAllViews();
-        for (Expense e: Database.getInstance().dao().getFutureExpenses(System.currentTimeMillis())) {
+        for (Expense e: Static.getDatabaseInstance().dao().getFutureExpenses(System.currentTimeMillis())) {
             futureExpenseAdapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
         }
         if (futureExpensesRecyclerArea.getVisibility() == View.GONE

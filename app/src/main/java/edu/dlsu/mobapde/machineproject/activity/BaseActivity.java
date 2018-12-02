@@ -9,6 +9,7 @@ import edu.dlsu.mobapde.machineproject.R;
 
 public class BaseActivity extends AppCompatActivity {
 
+
     BottomNavigationView navigationView;
     Fragment mainActivityFragment, viewExpensesFragment;
 
@@ -44,6 +45,8 @@ public class BaseActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
+
     }
 
 }
