@@ -21,10 +21,7 @@ import android.widget.TextView;
 
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.database.Database;
-import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
-import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
-import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview3.ExpensesViewAdapter;
 import edu.dlsu.mobapde.machineproject.values.Constants;
 
@@ -133,8 +130,8 @@ public class ViewExpensesFragment extends Fragment {
                         break;
                     }
                     case "Regret Level": {
-                        valueSpinner.setEnabled(true);
                         categoryText.setEnabled(false);
+                        valueSpinner.setEnabled(true);
                         ArrayAdapter<CharSequence> valueAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
                                 R.array.regret_levels, android.R.layout.simple_spinner_item);
                         valueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -147,26 +144,33 @@ public class ViewExpensesFragment extends Fragment {
                                 switch (selected) {
                                     case "0": {
                                         value = 0;
+                                        refresh("regret level");
                                         break;
                                     }
                                     case "1": {
                                         value = 1;
+                                        refresh("regret level");
                                         break;
                                     }
                                     case "2": {
                                         value = 2;
+                                        refresh("regret level");
                                         break;
                                     }
                                     case "3": {
                                         value = 3;
+                                        refresh("regret level");
                                         break;
                                     }
                                     case "4": {
                                         value = 4;
+                                        refresh("regret level");
                                         break;
                                     }
+                                    default: {
+                                        refresh("default");
+                                    }
                                 }
-                                refresh("regret level");
                             }
 
                             @Override
@@ -211,6 +215,7 @@ public class ViewExpensesFragment extends Fragment {
     }
 
     private void refresh(String key) {
+        adapter.removeAllViews();
         // name
         switch (key) {
             case "name": {
