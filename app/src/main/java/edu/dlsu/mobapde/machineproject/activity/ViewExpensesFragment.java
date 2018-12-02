@@ -132,6 +132,7 @@ public class ViewExpensesFragment extends Fragment {
                     case "Regret Level": {
                         categoryText.setEnabled(false);
                         valueSpinner.setEnabled(true);
+                        Log.d("Enabled", String.valueOf(valueSpinner.isEnabled()));
                         ArrayAdapter<CharSequence> valueAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
                                 R.array.regret_levels, android.R.layout.simple_spinner_item);
                         valueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -178,6 +179,7 @@ public class ViewExpensesFragment extends Fragment {
 
                             }
                         });
+                        break;
                     }
                     case "Default": {
                         valueSpinner.setEnabled(false);
