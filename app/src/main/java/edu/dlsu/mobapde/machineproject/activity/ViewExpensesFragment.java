@@ -26,6 +26,7 @@ import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview3.ExpensesViewAdapter;
+import edu.dlsu.mobapde.machineproject.values.Constants;
 
 public class ViewExpensesFragment extends Fragment {
 
@@ -53,6 +54,141 @@ public class ViewExpensesFragment extends Fragment {
 
         adapter = new ExpensesViewAdapter();
 
+        categoryText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        ArrayAdapter<CharSequence> keyAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
+                R.array.the_keys, android.R.layout.simple_spinner_item);
+
+        keyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        keySpinner.setAdapter(keyAdapter);
+        keySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selected = adapterView.getItemAtPosition(i).toString();
+                Log.d("Selected", selected);
+                switch (selected) {
+                    case "Name": {
+                        categoryText.setEnabled(true);
+                        valueSpinner.setEnabled(false);
+                        break;
+                    }
+                    case "Type": {
+                        categoryText.setEnabled(false);
+                        valueSpinner.setEnabled(true);
+                        ArrayAdapter<CharSequence> valueAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
+                                R.array.types, android.R.layout.simple_spinner_item);
+                        valueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        valueSpinner.setAdapter(valueAdapter);
+                        valueSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                String selected = adapterView.getItemAtPosition(i).toString();
+                                Log.d("Selected", selected);
+                                switch (selected) {
+                                    case Constants.TYPE_BILL: {
+                                        value = Constants.TYPE_BILL;
+                                        break;
+                                    }
+                                    case Constants.TYPE_DEBT: {
+                                        value = Constants.TYPE_DEBT;
+                                        break;
+                                    }
+                                    case Constants.TYPE_EDUCATION: {
+                                        value = Constants.TYPE_EDUCATION;
+                                        break;
+                                    }
+                                    case Constants.TYPE_FOOD: {
+                                        value = Constants.TYPE_FOOD;
+                                        break;
+                                    }
+                                    case Constants.TYPE_GENERAL: {
+                                        value = Constants.TYPE_GENERAL;
+                                        break;
+                                    }
+                                }
+                                refresh("type");
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                        break;
+                    }
+                    case "Regret Level": {
+                        valueSpinner.setEnabled(true);
+                        categoryText.setEnabled(false);
+                        ArrayAdapter<CharSequence> valueAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
+                                R.array.regret_levels, android.R.layout.simple_spinner_item);
+                        valueAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        valueSpinner.setAdapter(valueAdapter);
+                        valueSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                String selected = adapterView.getItemAtPosition(i).toString();
+                                Log.d("Selected", selected);
+                                switch (selected) {
+                                    case "0": {
+                                        value = 0;
+                                        break;
+                                    }
+                                    case "1": {
+                                        value = 1;
+                                        break;
+                                    }
+                                    case "2": {
+                                        value = 2;
+                                        break;
+                                    }
+                                    case "3": {
+                                        value = 3;
+                                        break;
+                                    }
+                                    case "4": {
+                                        value = 4;
+                                        break;
+                                    }
+                                }
+                                refresh("regret level");
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                    }
+                    case "Default": {
+                        valueSpinner.setEnabled(false);
+                        categoryText.setEnabled(false);
+                        refresh("default");
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         expenseRecyclerView = root.findViewById(R.id.all_expenses_rarea);
         expenseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         expenseRecyclerView.setAdapter(adapter);
@@ -61,45 +197,11 @@ public class ViewExpensesFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            key = bundle.getString("key");
-            value = bundle.get("value");
-        }
-    }
-
-    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        ArrayAdapter<CharSequence> keyAdapter =
-                ArrayAdapter.createFromResource(getActivity().getApplicationContext(), R.array.the_keys, android.R.layout.simple_spinner_item);
-
-        keyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        keySpinner.setAdapter(keyAdapter);
-        keySpinner.setOnItemClickListener((adapterView, view, i, l) -> {
-            String selectedItem = String.valueOf(keySpinner.getSelectedItem());
-            switch (selectedItem) {
-                case "Name":
-
-                    break;
-                case "Type":
-                case "Regret Level":
-                case "Default": {
-                    valueSpinner.setClickable(false);
-                    categoryText.setEnabled(false);
-                    refresh("default");
-                }
-            }
-        });
-        if (key != null && value != null) {
-            refresh(key);
-        }
-        else {
+        if (keySpinner.getSelectedItem().toString().equals("Default")) {
             refresh("default");
         }
     }
@@ -108,39 +210,39 @@ public class ViewExpensesFragment extends Fragment {
 
     }
 
-    public void filterExpenses() {
-
-    }
-
     private void refresh(String key) {
         // name
-        if (key.equals("name")) {
-            String val = String.valueOf(value);
-            for (Expense e: Database.getInstance().dao().getExpensesBy("%".concat(val).concat("%"))) {
-                adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+        switch (key) {
+            case "name": {
+                String val = String.valueOf(value);
+                for (Expense e : Database.getInstance().dao().getExpensesBy("%".concat(val).concat("%"))) {
+                    adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                }
+
+                break;
             }
 
-        }
-
-        // regret level
-        else if (key.equals("regretlevel")) {
-            Integer val = Integer.valueOf((String) value);
-            for (Expense e: Database.getInstance().dao().getExpensesByRegretLevel(val)) {
-                adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+            // regret level
+            case "regret level": {
+                Integer val = (Integer) value;
+                for (Expense e : Database.getInstance().dao().getExpensesByRegretLevel(val)) {
+                    adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                }
+                break;
             }
-        }
-
-        else if (key.equals("type")) {
-            String val = String.valueOf(value);
-            for (Expense e: Database.getInstance().dao().getExpensesByType(val)) {
-                adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+            case "type": {
+                String val = String.valueOf(value);
+                for (Expense e : Database.getInstance().dao().getExpensesByType(val)) {
+                    adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                }
+                break;
             }
-        }
-        // by default
-        else {
-            for (Expense e: Database.getInstance().dao().getAllExpenses()) {
-                adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
-            }
+            // by default
+            default:
+                for (Expense e : Database.getInstance().dao().getAllExpenses()) {
+                    adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                }
+                break;
         }
         if (expenseRecyclerView.getVisibility() == View.GONE
                 && adapter.getItemCount() != 0) {

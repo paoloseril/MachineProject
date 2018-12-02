@@ -17,6 +17,7 @@
     </string-array>
 
     <string-array name="types">
+        <item>…</item>
         <item>@string/exp_type0</item>
         <item>@string/exp_type1</item>
         <item>@string/exp_type2</item>
@@ -25,6 +26,7 @@
     </string-array>
 
     <string-array name="regret_levels">
+        <item>…</item>
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -35,7 +37,7 @@
     <string name="peso_sign">₱</string>
     <string name="your_profile">Your Profile</string>
     <string name="expense_list">Expense List</string>
-    <string name="warning_if_empty">Nothing to see here yet.</string>
+    <string name="warning_if_empty_1">Nothing to see here yet.</string>
     <string name="title_2">Expense History</string>
     <string name="warning_if_empty_2">Nothing to see here yet.</string>
     <string name="label_1">avg. cost</string>

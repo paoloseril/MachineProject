@@ -50,34 +50,50 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Filter Expenses by:"/>
+                    android:id="@+id/filterText"
+                    android:text="Filter Expenses by:"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginTop="10sp"/>
 
-                <Spinner
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/keySpinner"
-                    android:layout_centerVertical="true">
+                    android:layout_below="@id/filterText">
 
-                </Spinner>
+                    <Spinner
+                        android:layout_marginStart="15sp"
+                        android:layout_marginEnd="15sp"
+                        android:layout_width="130sp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/keySpinner"
+                        android:layout_centerVertical="true"
+                        android:entries="@array/the_keys">
 
-                <Spinner
-                    android:clickable="false"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/valueSpinner"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/keySpinner"
-                    >
+                    </Spinner>
 
-                </Spinner>
+                    <Spinner
+                        android:clickable="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/valueSpinner"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/keySpinner"
+                        >
 
-                <EditText
-                    android:enabled="false"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/valueSpinner"
-                    android:id="@+id/categoricalText"
-                    android:ems="20"/>
+                    </Spinner>
+
+                    <EditText
+                        android:enabled="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/valueSpinner"
+                        android:id="@+id/categoricalText"
+                        android:ems="10"/>
+
+
+                </RelativeLayout>
+
             </RelativeLayout>
 
             <TextView
