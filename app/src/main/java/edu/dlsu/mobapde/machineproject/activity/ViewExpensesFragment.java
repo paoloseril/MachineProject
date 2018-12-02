@@ -59,7 +59,8 @@ public class ViewExpensesFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                value = charSequence.toString();
+                refresh("name");
             }
 
             @Override
@@ -83,6 +84,7 @@ public class ViewExpensesFragment extends Fragment {
                     case "Name": {
                         categoryText.setEnabled(true);
                         valueSpinner.setEnabled(false);
+
                         break;
                     }
                     case "Type": {
