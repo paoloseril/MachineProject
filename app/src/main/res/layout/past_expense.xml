@@ -51,7 +51,7 @@
         <TextView
             android:gravity="end"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_toEndOf="@id/nameAndTS"
             android:id="@+id/totalCost"
             android:layout_marginStart="10sp"
