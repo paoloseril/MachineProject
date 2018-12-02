@@ -30,7 +30,6 @@ public class ViewExpensesFragment extends Fragment {
     private RecyclerView expenseRecyclerView;
     private ExpensesViewAdapter adapter;
 
-    private String key;
     private Object value;
 
     private Spinner keySpinner, valueSpinner;
