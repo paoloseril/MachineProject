@@ -1,5 +1,6 @@
 package edu.dlsu.mobapde.machineproject.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,12 +37,19 @@ public class ViewExpensesFragment extends Fragment {
     private Spinner keySpinner, valueSpinner;
     private TextView warningIfEmptyView;
     private EditText categoryText;
+    ImageButton addButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_view_expenses, container, false);
 
+        addButton = root.findViewById(R.id.addButton);
+        addButton.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), EditExpenseActivity.class);
+            intent.putExtra("Status", "New");
+            startActivity(intent);
+        });
         warningIfEmptyView = root.findViewById(R.id.empty_warning);
 
         keySpinner = root.findViewById(R.id.keySpinner);

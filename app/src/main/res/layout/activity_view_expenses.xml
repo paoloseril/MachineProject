@@ -35,6 +35,7 @@
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:id="@+id/addButton"
             android:src="@drawable/plus"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"

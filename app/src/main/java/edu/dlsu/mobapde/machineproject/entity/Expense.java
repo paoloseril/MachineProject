@@ -26,6 +26,8 @@ public class Expense {
 
     private double cost;
 
+    private int jobId;
+
     public Expense(String name, int regretLevel, String type, long dateTimeMillis, double cost) {
         this.name = name;
         this.regretLevel = regretLevel;
@@ -35,7 +37,7 @@ public class Expense {
     }
 
     @Ignore
-    public Expense(String name, int regretLevel, String type, long dateTimeMillis, long vibratorSeconds, byte[] image, double cost) {
+    public Expense(String name, int regretLevel, String type, long dateTimeMillis, long vibratorSeconds, byte[] image, double cost, int jobId) {
         this.name = name;
         this.regretLevel = regretLevel;
         this.type = type;
@@ -43,6 +45,7 @@ public class Expense {
         this.vibratorSeconds = vibratorSeconds;
         this.image = image;
         this.cost = cost;
+        this.jobId = jobId;
     }
 
     public int getId() {
@@ -107,5 +110,13 @@ public class Expense {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    public int getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(int jobId) {
+        this.jobId = jobId;
     }
 }

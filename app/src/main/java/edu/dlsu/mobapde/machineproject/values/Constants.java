@@ -18,6 +18,7 @@ public class Constants {
     }
 
     // For AlarmService and Notifications
+    public static final int JOB_ID = 1000;
     public final static String UI_UPDATE_TAG = "ph.mobapde.machineproject";
     public final static String UI_NOTIFICATION_CHANNEL = "ph.mobapde.notifs.machineproject";
 
