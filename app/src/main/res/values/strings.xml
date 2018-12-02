@@ -9,6 +9,29 @@
     <string name="exp_type3">Debt</string>
     <string name="exp_type4">Education</string>
 
+    <string-array name="the_keys">
+        <item>Default</item>
+        <item>Name</item>
+        <item>Type</item>
+        <item>Regret Level</item>
+    </string-array>
+
+    <string-array name="types">
+        <item>@string/exp_type0</item>
+        <item>@string/exp_type1</item>
+        <item>@string/exp_type2</item>
+        <item>@string/exp_type3</item>
+        <item>@string/exp_type4</item>
+    </string-array>
+
+    <string-array name="regret_levels">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
     <string name="peso_sign">₱</string>
     <string name="your_profile">Your Profile</string>
     <string name="expense_list">Expense List</string>

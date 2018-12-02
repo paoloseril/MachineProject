@@ -7,10 +7,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import edu.dlsu.mobapde.machineproject.R;
@@ -25,10 +31,13 @@ public class ViewExpensesFragment extends Fragment {
 
     private RecyclerView expenseRecyclerView;
     private ExpensesViewAdapter adapter;
+
     private String key;
     private Object value;
 
-    TextView warningIfEmptyView;
+    private Spinner keySpinner, valueSpinner;
+    private TextView warningIfEmptyView;
+    private EditText categoryText;
 
     @Nullable
     @Override
@@ -36,6 +45,12 @@ public class ViewExpensesFragment extends Fragment {
         View root = inflater.inflate(R.layout.activity_view_expenses, container, false);
 
         warningIfEmptyView = root.findViewById(R.id.empty_warning);
+
+        keySpinner = root.findViewById(R.id.keySpinner);
+        valueSpinner = root.findViewById(R.id.valueSpinner);
+
+        categoryText = root.findViewById(R.id.categoricalText);
+
         adapter = new ExpensesViewAdapter();
 
         expenseRecyclerView = root.findViewById(R.id.all_expenses_rarea);
@@ -60,6 +75,27 @@ public class ViewExpensesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
+        ArrayAdapter<CharSequence> keyAdapter =
+                ArrayAdapter.createFromResource(getActivity().getApplicationContext(), R.array.the_keys, android.R.layout.simple_spinner_item);
+
+        keyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        keySpinner.setAdapter(keyAdapter);
+        keySpinner.setOnItemClickListener((adapterView, view, i, l) -> {
+            String selectedItem = String.valueOf(keySpinner.getSelectedItem());
+            switch (selectedItem) {
+                case "Name":
+
+                    break;
+                case "Type":
+                case "Regret Level":
+                case "Default": {
+                    valueSpinner.setClickable(false);
+                    categoryText.setEnabled(false);
+                    refresh("default");
+                }
+            }
+        });
         if (key != null && value != null) {
             refresh(key);
         }
@@ -72,7 +108,7 @@ public class ViewExpensesFragment extends Fragment {
 
     }
 
-    public void filterExpenses(View view) {
+    public void filterExpenses() {
 
     }
 

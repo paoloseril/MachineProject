@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.database.Database;
@@ -25,7 +26,8 @@ public class MainActivityFragment extends Fragment {
     private PastExpenseAdapter pastExpenseAdapter;
     private FutureExpenseAdapter futureExpenseAdapter;
 
-    LinearLayout emptymessageLayoutH, emptymessageLayoutF;
+    private LinearLayout emptymessageLayoutH, emptymessageLayoutF;
+    private TextView avgText, satisfactionText;
 
     @Nullable
     @Override
@@ -34,6 +36,9 @@ public class MainActivityFragment extends Fragment {
 
         emptymessageLayoutH = root.findViewById(R.id.noexpense_added);
         emptymessageLayoutF = root.findViewById(R.id.noexpensefuture_added);
+
+        avgText = root.findViewById(R.id.avgCostText);
+        satisfactionText = root.findViewById(R.id.satisfactionText);
 
         expenseHistoryRecyclerArea = root.findViewById(R.id.expense_history_rarea);
         futureExpensesRecyclerArea = root.findViewById(R.id.future_expense_rarea);

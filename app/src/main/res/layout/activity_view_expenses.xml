@@ -47,24 +47,37 @@
                 android:id="@+id/svv"
                 >
 
-                <SearchView
-                    android:id="@+id/sv"
-                    android:layout_width="310sp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20sp"
-                    android:background="@drawable/border"
-                    >
-
-                </SearchView>
+                    android:text="Filter Expenses by:"/>
 
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/sv"
-                    android:id="@+id/spinner">
+                    android:id="@+id/keySpinner"
+                    android:layout_centerVertical="true">
 
                 </Spinner>
+
+                <Spinner
+                    android:clickable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/valueSpinner"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/keySpinner"
+                    >
+
+                </Spinner>
+
+                <EditText
+                    android:enabled="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/valueSpinner"
+                    android:id="@+id/categoricalText"
+                    android:ems="20"/>
             </RelativeLayout>
 
             <TextView
