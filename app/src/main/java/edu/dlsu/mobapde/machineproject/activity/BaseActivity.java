@@ -27,7 +27,6 @@ public class BaseActivity extends AppCompatActivity {
         viewExpensesFragment = new ViewExpensesFragment();
 
         navigationView = findViewById(R.id.e_navigation);
-        loadFragment(viewExpensesFragment);
 
         navigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
@@ -42,6 +41,7 @@ public class BaseActivity extends AppCompatActivity {
             }
             return false;
         });
+        navigationView.setSelectedItemId(R.id.list_expenses);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UI_UPDATE_TAG);
         registerReceiver(alarmReceiver, intentFilter);
