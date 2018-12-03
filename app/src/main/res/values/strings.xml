@@ -44,5 +44,18 @@
     <string name="satisfaction">satisfaction</string>
     <string name="expenses">Expenses</string>
     <string name="warning_if_empty_3">You have not added any expenses yet.\n\nTap on the \'+\' button to get started.</string>
+    <string name="seamless_vibration_time">Vibration Time When Notified</string>
+    <string name="condition">Not applied if set date or time has already passed</string>
+    <string name="seconds">seconds</string>
+    <string name="name">Name *</string>
+    <string name="type">Type *</string>
+    <string name="regret_level">Regret Level *</string>
+    <string name="cost">Cost *</string>
+    <string name="date_time">Date/Time *</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="photo_gallery">Photo Gallery</string>
+    <string name="capture_photo">Capture Photo</string>
 
 </resources>
