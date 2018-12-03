@@ -53,7 +53,7 @@
             android:layout_toEndOf="@id/nameAndTS"
             android:id="@+id/totalCost"
             android:layout_marginStart="10sp"
-            android:text="₱ 450.05"
+            android:text="P 450.05"
             android:textStyle="bold"
             android:layout_centerVertical="true"
             android:autoSizeTextType="uniform"

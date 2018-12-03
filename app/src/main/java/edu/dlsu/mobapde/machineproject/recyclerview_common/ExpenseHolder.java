@@ -51,7 +51,7 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
     }
 
     public void setCost(double cost) {
-        String withPeso = R.string.peso_sign + " " + String.valueOf(cost);
+        String withPeso = "P".concat(" ").concat(String.valueOf(cost));
         costTextComponent.setText(withPeso);
     }
 
