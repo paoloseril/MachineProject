@@ -1,5 +1,6 @@
 package edu.dlsu.mobapde.machineproject.recyclerview1;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import edu.dlsu.mobapde.machineproject.R;
-import edu.dlsu.mobapde.machineproject.activity.BaseActivity;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseHolder;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseModel;
@@ -18,8 +18,10 @@ import edu.dlsu.mobapde.machineproject.values.Constants;
 public class FutureExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
 
     private ArrayList<ExpenseModel> futureExpenses;
+    private Context context;
 
-    public FutureExpenseAdapter() {
+    public FutureExpenseAdapter(Context context) {
+        this.context = context;
         futureExpenses = new ArrayList<>();
     }
 
@@ -38,7 +40,7 @@ public class FutureExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         expenseHolder.setCost(Constants.round(futureExpenses.get(i).getCost(), 2));
         expenseHolder.setName(futureExpenses.get(i).getName());
         expenseHolder.setTimeStamp(futureExpenses.get(i).getTimestamp());
-        expenseHolder.setContext(new BaseActivity().getApplicationContext());
+        expenseHolder.setContext(context);
         expenseHolder.setId(futureExpenses.get(i).getId());
     }
 

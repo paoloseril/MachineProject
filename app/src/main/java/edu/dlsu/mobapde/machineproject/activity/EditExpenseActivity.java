@@ -1,8 +1,11 @@
 package edu.dlsu.mobapde.machineproject.activity;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -37,9 +40,8 @@ public class EditExpenseActivity extends AppCompatActivity {
     private TimePickerDialog timePickerDialog;
     private ImageView thumbnailView;
     private Spinner typeSpinner, regretLvlSpinner;
-    private Button cancelBtn, saveBtn, deleteBtn;
-
-    private Expense existingEntry;
+    private Button saveBtn, deleteBtn;
+    private Bitmap selectedImage;
 
     private String dateTime = "";
 
@@ -58,14 +60,14 @@ public class EditExpenseActivity extends AppCompatActivity {
         regretLvlSpinner = findViewById(R.id.regret_level);
         thumbnailView = findViewById(R.id.image_receipt);
 
-        cancelBtn = findViewById(R.id.cancelBtn);
         saveBtn = findViewById(R.id.saveBtn);
         deleteBtn = findViewById(R.id.deleteBtn);
+        vibrationText = findViewById(R.id.time);
 
         if (getIntent().getStringExtra("Status").equals("Existing")) {
             deleteBtn.setVisibility(View.VISIBLE);
             int id = getIntent().getIntExtra("Id", 0);
-            existingEntry = Static.getDatabaseInstance().dao().getExpense(id);
+            Expense existingEntry = Static.getDatabaseInstance().dao().getExpense(id);
 
             List<String> types = Arrays.asList(getResources().getStringArray(R.array.types));
             List<String> regretLevels = Arrays.asList(getResources().getStringArray(R.array.regret_levels));
@@ -87,11 +89,10 @@ public class EditExpenseActivity extends AppCompatActivity {
             regretLvlSpinner.setSelection(regretLevels.indexOf(String.valueOf(existingEntry.getRegretLevel())));
 
             if (existingEntry.getImage() != null) {
-                thumbnailView.setImageBitmap(Converter.toImage(existingEntry.getImage()));
+                selectedImage = Converter.toImage(existingEntry.getImage());
+                thumbnailView.setImageBitmap(selectedImage);
             }
-
         }
-
         // if adding a new expense entry
         else {
             deleteBtn.setVisibility(View.GONE);
@@ -183,7 +184,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             if (data != null) {
                 try {
                     Uri photoUri = data.getData();
-                    Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+                    selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
                     thumbnailView.setImageBitmap(selectedImage);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -191,9 +192,9 @@ public class EditExpenseActivity extends AppCompatActivity {
             }
         }
         else if (requestCode == Constants.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            Log.d("Bitmap", String.valueOf(bitmap.getByteCount()));
-            thumbnailView.setImageBitmap(bitmap);
+            selectedImage = (Bitmap) data.getExtras().get("data");
+            Log.d("Bitmap", String.valueOf(selectedImage.getByteCount()));
+            thumbnailView.setImageBitmap(selectedImage);
         }
     }
 
@@ -203,8 +204,43 @@ public class EditExpenseActivity extends AppCompatActivity {
     }
 
     public void saveInformation(View view) {
+        // update expense
+        if (getIntent().getStringExtra("Status").equals("Existing")) {
 
+        }
+        // add a new expense
+        else {
+            String name = nameText.getText().toString();
+            double cost = Double.parseDouble(costText.getText().toString());
+            int levelOfRegret = Integer.parseInt(regretLvlSpinner.getSelectedItem().toString());
+            String type = (String) typeSpinner.getSelectedItem();
+            long millis = Converter.toMilliseconds(datetimeText.getText().toString());
 
+            Expense newEntry = new Expense(name, levelOfRegret, type, millis, cost);
+
+            if (millis > System.currentTimeMillis()) {
+                int jobId = Constants.JOB_ID;
+                newEntry.setJobId(jobId);
+
+                Intent alarmIntent = new Intent(Constants.UI_UPDATE_TAG);
+                alarmIntent.putExtra("AlarmVibration", jobId);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
+                Constants.JOB_ID++;
+                Static.getManagerInstance().set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
+            }
+
+            if (selectedImage != null) {
+                newEntry.setImage(Converter.toByteArray(selectedImage));
+                selectedImage = null;
+            }
+
+            Static.getDatabaseInstance().dao().addExpense(newEntry);
+        }
+        Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     public void revertBack(View view) {
@@ -218,6 +254,7 @@ public class EditExpenseActivity extends AppCompatActivity {
         // display alert dialog
 
         // if yes to delete, call dao function to delete expense then this code below
+
         Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

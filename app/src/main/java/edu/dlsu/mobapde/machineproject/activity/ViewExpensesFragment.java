@@ -56,7 +56,7 @@ public class ViewExpensesFragment extends Fragment {
 
         categoryText = root.findViewById(R.id.categoricalText);
 
-        adapter = new ExpensesViewAdapter();
+        adapter = new ExpensesViewAdapter(getActivity().getApplicationContext());
 
         categoryText.addTextChangedListener(new TextWatcher() {
             @Override

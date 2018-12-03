@@ -1,5 +1,6 @@
 package edu.dlsu.mobapde.machineproject.recyclerview2;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,9 +19,11 @@ import edu.dlsu.mobapde.machineproject.values.Constants;
 public class PastExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
 
     private ArrayList<ExpenseModel> expenseHistory;
+    private Context context;
 
-    public PastExpenseAdapter() {
+    public PastExpenseAdapter(Context context) {
         expenseHistory = new ArrayList<>();
+        this.context = context;
     }
     @NonNull
     @Override
@@ -37,7 +40,7 @@ public class PastExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         expenseHolder.setCost(Constants.round(expenseHistory.get(i).getCost(), 2));
         expenseHolder.setName(expenseHistory.get(i).getName());
         expenseHolder.setTimeStamp(expenseHistory.get(i).getTimestamp());
-        expenseHolder.setContext(new BaseActivity().getApplicationContext());
+        expenseHolder.setContext(context);
         expenseHolder.setId(expenseHistory.get(i).getId());
     }
 

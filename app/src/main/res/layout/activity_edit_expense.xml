@@ -344,7 +344,7 @@
                     android:onClick="saveInformation"
                     android:text="@string/save"
                     android:layout_alignParentEnd="true"
-                    android:enabled="false"/>
+                    />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

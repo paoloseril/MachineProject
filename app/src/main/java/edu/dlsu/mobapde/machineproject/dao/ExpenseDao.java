@@ -44,4 +44,7 @@ public interface ExpenseDao {
 
     @Query("select * from Expense where id = :id")
     Expense getExpense(int id);
+
+    @Query("select * from Expense where dateTimeMillis == :dateTimeMillis")
+    List<Expense> getAllExpensesHappeningNow(long dateTimeMillis);
 }

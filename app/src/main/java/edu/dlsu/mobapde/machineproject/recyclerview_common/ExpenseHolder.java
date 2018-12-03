@@ -29,6 +29,7 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
             Intent intent = new Intent(context, EditExpenseActivity.class);
             intent.putExtra("Status", "Existing");
             intent.putExtra("Id", id);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
         iconView = view.findViewById(R.id.logo);
