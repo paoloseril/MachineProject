@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity
 public class Expense {
@@ -118,5 +119,13 @@ public class Expense {
 
     public void setJobId(int jobId) {
         this.jobId = jobId;
+    }
+
+    @Ignore
+    @NonNull
+    @Override
+    public String toString() {
+        return "Name: ".concat(name).concat("\n").concat("Regret Level: ").concat(String.valueOf(regretLevel))
+                .concat("\n").concat(String.valueOf(dateTimeMillis));
     }
 }

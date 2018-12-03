@@ -54,8 +54,13 @@ public class FutureExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         notifyItemInserted(futureExpenses.size() - 1);
     }
 
-    public void removeAllViews() {
-        futureExpenses.clear();
-        notifyItemRangeRemoved(0, futureExpenses.size());
+    public void clear() {
+        final int size = futureExpenses.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                futureExpenses.remove(0);
+            }
+            notifyItemRangeRemoved(0, size);
+        }
     }
 }

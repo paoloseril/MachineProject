@@ -21,7 +21,12 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.dlsu.mobapde.machineproject.R;
+import edu.dlsu.mobapde.machineproject.converter.Converter;
+import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseModel;
 import edu.dlsu.mobapde.machineproject.values.Static;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview3.ExpensesViewAdapter;
@@ -38,25 +43,33 @@ public class ViewExpensesFragment extends Fragment {
     private TextView warningIfEmptyView;
     private EditText categoryText;
 
+    public static ViewExpensesFragment newInstance() {
+        return new ViewExpensesFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_view_expenses, container, false);
+        return inflater.inflate(R.layout.activity_view_expenses, container, false);
+    }
 
-        ImageButton addButton = root.findViewById(R.id.addButton);
-        addButton.setOnClickListener(view -> {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ImageButton addButton = view.findViewById(R.id.addButton);
+        addButton.setOnClickListener(ev -> {
             Intent intent = new Intent(getContext(), EditExpenseActivity.class);
             intent.putExtra("Status", "New");
             startActivity(intent);
         });
-        warningIfEmptyView = root.findViewById(R.id.empty_warning);
+        warningIfEmptyView = view.findViewById(R.id.empty_warning);
 
-        keySpinner = root.findViewById(R.id.keySpinner);
-        valueSpinner = root.findViewById(R.id.valueSpinner);
+        keySpinner = view.findViewById(R.id.keySpinner);
+        valueSpinner = view.findViewById(R.id.valueSpinner);
 
-        categoryText = root.findViewById(R.id.categoricalText);
+        categoryText = view.findViewById(R.id.categoricalText);
 
-        adapter = new ExpensesViewAdapter(getActivity().getApplicationContext());
+        adapter = new ExpensesViewAdapter(getContext());
 
         categoryText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -204,11 +217,10 @@ public class ViewExpensesFragment extends Fragment {
             }
         });
 
-        expenseRecyclerView = root.findViewById(R.id.all_expenses_rarea);
+        expenseRecyclerView = view.findViewById(R.id.all_expenses_rarea);
         expenseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         expenseRecyclerView.setAdapter(adapter);
 
-        return root;
     }
 
     @Override
@@ -216,54 +228,81 @@ public class ViewExpensesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        if (keySpinner.getSelectedItem().toString().equals("Default")) {
-            refresh("default");
-        }
+        refresh("default");
+    }
+
+    private void enableRecyclerView() {
+        expenseRecyclerView.setVisibility(View.VISIBLE);
+        warningIfEmptyView.setVisibility(View.GONE);
+    }
+
+    private void disableRecyclerView() {
+        expenseRecyclerView.setVisibility(View.GONE);
+        warningIfEmptyView.setVisibility(View.VISIBLE);
     }
 
     private void refresh(String key) {
-        adapter.removeAllViews();
+        adapter.clear();
+        disableRecyclerView();
         // name
         switch (key) {
             case "name": {
                 String val = String.valueOf(value);
-                for (Expense e : Static.getDatabaseInstance().dao().getExpensesBy("%".concat(val).concat("%"))) {
-                    adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                int size = Static.getDatabaseInstance().dao().getExpensesBy("%".concat(val).concat("%")).size();
+                if (size != 0) {
+                    enableRecyclerView();
+                    for (Expense e : Static.getDatabaseInstance().dao().getExpensesBy("%".concat(val).concat("%"))) {
+                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                    }
                 }
-
+                else {
+                    disableRecyclerView();
+                }
                 break;
             }
 
             // regret level
             case "regret level": {
                 Integer val = (Integer) value;
-                for (Expense e : Static.getDatabaseInstance().dao().getExpensesByRegretLevel(val)) {
-                    adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                int size = Static.getDatabaseInstance().dao().getExpensesByRegretLevel(val).size();
+                if (size != 0) {
+                    enableRecyclerView();
+                    for (Expense e : Static.getDatabaseInstance().dao().getExpensesByRegretLevel(val)) {
+                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                    }
+                }
+                else {
+                    disableRecyclerView();
                 }
                 break;
             }
             case "type": {
                 String val = String.valueOf(value);
-                for (Expense e : Static.getDatabaseInstance().dao().getExpensesByType(val)) {
-                    adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                int size = Static.getDatabaseInstance().dao().getExpensesByType(val).size();
+                if (size != 0) {
+                    enableRecyclerView();
+                    for (Expense e : Static.getDatabaseInstance().dao().getExpensesByType(val)) {
+                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                    }
+                }
+                else {
+                    disableRecyclerView();
                 }
                 break;
             }
             // by default
-            default:
-                for (Expense e : Static.getDatabaseInstance().dao().getAllExpenses()) {
-                    adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+            default: {
+                int size = Static.getDatabaseInstance().dao().getAllExpenses().size();
+                if (size != 0) {
+                    enableRecyclerView();
+                    for (Expense e : Static.getDatabaseInstance().dao().getAllExpenses()) {
+                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                    }
+                } else {
+                    disableRecyclerView();
                 }
                 break;
-        }
-        if (expenseRecyclerView.getVisibility() == View.GONE
-                && adapter.getItemCount() != 0) {
-            expenseRecyclerView.setVisibility(View.VISIBLE);
-            warningIfEmptyView.setVisibility(View.GONE);
-        }
-        else {
-            expenseRecyclerView.setVisibility(View.GONE);
-            warningIfEmptyView.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

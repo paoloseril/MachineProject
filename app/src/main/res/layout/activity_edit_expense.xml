@@ -49,9 +49,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/name"
-                    android:textSize="15sp"
-                    android:paddingTop="20sp"
-                    android:paddingBottom="20sp"/>
+                    android:textSize="20sp"
+                    />
 
             </LinearLayout>
 
@@ -277,35 +276,24 @@
                         android:text="Image"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:layout_marginEnd="20sp"
                         android:layout_centerVertical="true"
+                        android:id="@+id/image_text"
                         />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/capturePhotoBtn"
-                        android:onClick="capturePhoto"
-                        android:text="@string/capture_photo"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@id/takePhotoBtn"
-                        android:layout_marginEnd="10sp"
-                        />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="pickPhoto"
-                        android:id="@+id/takePhotoBtn"
-                        android:text="@string/photo_gallery"
-                        android:layout_alignParentEnd="true"
-                        />
+                        android:text="..."
+                        android:layout_toEndOf="@id/image_text"
+                        android:onClick="prompt"/>
 
                 </RelativeLayout>
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="500sp"
-                    android:src="@mipmap/ic_launcher_round"
+                    android:src="@color/colorHeavy2"
                     android:layout_marginTop="5sp"
                     android:layout_marginBottom="5sp"
                     android:id="@+id/image_receipt" />

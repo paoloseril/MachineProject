@@ -50,12 +50,18 @@ public class PastExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
     }
 
     public void addView(int id, String name, String type, long millis, double cost) {
-        expenseHistory.add(0, new ExpenseModel(id, name, type, Converter.toDate(millis), cost));
-        notifyItemInserted(0);
+        expenseHistory.add(new ExpenseModel(id, name, type, Converter.toDate(millis), cost));
+        notifyItemInserted(expenseHistory.size() - 1);
     }
 
-    public void removeAllViews() {
-        expenseHistory.clear();
-        notifyItemRangeRemoved(0, expenseHistory.size());
+    public void clear() {
+        final int size = expenseHistory.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                expenseHistory.remove(0);
+            }
+
+            notifyItemRangeRemoved(0, size);
+        }
     }
 }

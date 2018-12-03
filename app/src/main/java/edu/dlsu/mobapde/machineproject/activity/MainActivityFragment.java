@@ -28,6 +28,9 @@ public class MainActivityFragment extends Fragment {
     private LinearLayout emptymessageLayoutH, emptymessageLayoutF;
     private TextView avgText, satisfactionText;
 
+    public static MainActivityFragment newInstance() {
+        return new MainActivityFragment();
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,38 +66,55 @@ public class MainActivityFragment extends Fragment {
         // Refresh the views if there are changes from the database
         refreshFutureExpenses();
         refreshHistory();
-
     }
 
     private void refreshHistory() {
-        pastExpenseAdapter.removeAllViews();
-        for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses(System.currentTimeMillis())) {
-            pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
-        }
-        if (expenseHistoryRecyclerArea.getVisibility() == View.GONE
-                && pastExpenseAdapter.getItemCount() != 0) {
-            expenseHistoryRecyclerArea.setVisibility(View.VISIBLE);
-            emptymessageLayoutH.setVisibility(View.GONE);
+        pastExpenseAdapter.clear();
+        int size = Static.getDatabaseInstance().dao().getPastExpenses(System.currentTimeMillis()).size();
+        if (size != 0) {
+            enableRecyclerViewH();
+
+            for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses(System.currentTimeMillis())) {
+                pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+            }
         }
         else {
-            expenseHistoryRecyclerArea.setVisibility(View.GONE);
-            emptymessageLayoutH.setVisibility(View.VISIBLE);
+            disableRecyclerViewH();
         }
     }
 
     private void refreshFutureExpenses() {
-        futureExpenseAdapter.removeAllViews();
-        for (Expense e: Static.getDatabaseInstance().dao().getFutureExpenses(System.currentTimeMillis())) {
-            futureExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
-        }
-        if (futureExpensesRecyclerArea.getVisibility() == View.GONE
-                && futureExpenseAdapter.getItemCount() != 0) {
-            futureExpensesRecyclerArea.setVisibility(View.VISIBLE);
-            emptymessageLayoutF.setVisibility(View.GONE);
+        futureExpenseAdapter.clear();
+        int size = Static.getDatabaseInstance().dao().getFutureExpenses(System.currentTimeMillis()).size();
+        if (size != 0) {
+            enableRecyclerViewF();
+
+            for (Expense e: Static.getDatabaseInstance().dao().getFutureExpenses(System.currentTimeMillis())) {
+                futureExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+            }
         }
         else {
-            futureExpensesRecyclerArea.setVisibility(View.GONE);
-            emptymessageLayoutF.setVisibility(View.VISIBLE);
+            disableRecyclerViewF();
         }
+    }
+
+    private void enableRecyclerViewH() {
+        expenseHistoryRecyclerArea.setVisibility(View.VISIBLE);
+        emptymessageLayoutH.setVisibility(View.GONE);
+    }
+
+    private void enableRecyclerViewF() {
+        futureExpensesRecyclerArea.setVisibility(View.VISIBLE);
+        emptymessageLayoutF.setVisibility(View.GONE);
+    }
+
+    private void disableRecyclerViewH() {
+        expenseHistoryRecyclerArea.setVisibility(View.GONE);
+        emptymessageLayoutH.setVisibility(View.VISIBLE);
+    }
+
+    private void disableRecyclerViewF() {
+        futureExpensesRecyclerArea.setVisibility(View.GONE);
+        emptymessageLayoutF.setVisibility(View.VISIBLE);
     }
 }

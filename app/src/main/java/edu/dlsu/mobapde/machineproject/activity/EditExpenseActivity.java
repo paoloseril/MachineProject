@@ -1,9 +1,11 @@
 package edu.dlsu.mobapde.machineproject.activity;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,6 +66,7 @@ public class EditExpenseActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
         deleteBtn = findViewById(R.id.deleteBtn);
         vibrationText = findViewById(R.id.time);
+        datetimeText = findViewById(R.id.datetime);
 
         if (getIntent().getStringExtra("Status").equals("Existing")) {
             deleteBtn.setVisibility(View.VISIBLE);
@@ -72,9 +76,12 @@ public class EditExpenseActivity extends AppCompatActivity {
             List<String> types = Arrays.asList(getResources().getStringArray(R.array.types));
             List<String> regretLevels = Arrays.asList(getResources().getStringArray(R.array.regret_levels));
 
+            Log.d("Expense", String.valueOf(existingEntry));
+
             nameText.setText(existingEntry.getName());
             costText.setText(String.valueOf(existingEntry.getCost()));
 
+            Log.d("Date", Converter.toDate(existingEntry.getDateTimeMillis()));
             datetimeText.setText(Converter.toDate(existingEntry.getDateTimeMillis()));
             if (existingEntry.getDateTimeMillis() > System.currentTimeMillis()) {
                 vibrationText.setEnabled(true);
@@ -142,7 +149,7 @@ public class EditExpenseActivity extends AppCompatActivity {
     }
 
     // Display image gallery
-    public void pickPhoto(View view) {
+    public void pickPhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
@@ -159,7 +166,7 @@ public class EditExpenseActivity extends AppCompatActivity {
     }
 
     // opens the camera and lets user take a photo
-    public void capturePhoto(View view) {
+    public void capturePhoto() {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -251,13 +258,34 @@ public class EditExpenseActivity extends AppCompatActivity {
     }
 
     public void deleteExpense(View view) {
-        // display alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        // if yes to delete, call dao function to delete expense then this code below
+        builder.setTitle("Confirm Deletion")
+                .setMessage("Are you sure you want to permanently erase this expense?")
+                .setNegativeButton("No", ((dialogInterface, i) -> {
 
-        Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
+                }))
+                .setPositiveButton("Yes", (dialogInterface, i) -> {
+                    Expense e = Static.getDatabaseInstance().dao().getExpense(getIntent().getIntExtra("Id", 0));
+                    Static.getDatabaseInstance().dao().deleteExpense(e);
+                    Toast.makeText(this, "Expense successfully removed,", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                });
+
+        builder.show();
+    }
+
+    public void prompt(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Image Preference")
+                .setMessage("Choose to take photo or get image from gallery")
+                .setNegativeButton("Choose from Image Gallery", ((dialogInterface, i) -> pickPhoto()))
+                .setPositiveButton("Take Photo", (dialogInterface, i) -> capturePhoto())
+                .setNeutralButton("Cancel", (dialogInterface, i) -> {});
+        builder.show();
     }
 }

@@ -23,8 +23,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame);
 
-        mainActivityFragment = new MainActivityFragment();
-        viewExpensesFragment = new ViewExpensesFragment();
+        mainActivityFragment = MainActivityFragment.newInstance();
+        viewExpensesFragment = ViewExpensesFragment.newInstance();
 
         navigationView = findViewById(R.id.e_navigation);
 
@@ -41,6 +41,12 @@ public class BaseActivity extends AppCompatActivity {
             }
             return false;
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         navigationView.setSelectedItemId(R.id.list_expenses);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UI_UPDATE_TAG);

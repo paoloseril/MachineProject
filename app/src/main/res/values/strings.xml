@@ -34,6 +34,11 @@
         <item>4</item>
     </string-array>
 
+    <string-array name="procedures">
+        <item>Take Photo</item>
+        <item>Choose</item>
+    </string-array>
+
     <string name="peso_sign">₱</string>
     <string name="your_profile">Your Profile</string>
     <string name="expense_list">Expense List</string>

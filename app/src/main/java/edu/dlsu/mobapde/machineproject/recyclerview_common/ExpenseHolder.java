@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import edu.dlsu.mobapde.machineproject.R;
@@ -23,9 +22,7 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
     public ExpenseHolder(@NonNull View view) {
         super(view);
 
-        LinearLayout ll = view.findViewById(R.id.entry);
-
-        ll.setOnClickListener(ev -> {
+        view.setOnClickListener(ev -> {
             Intent intent = new Intent(context, EditExpenseActivity.class);
             intent.putExtra("Status", "Existing");
             intent.putExtra("Id", id);
