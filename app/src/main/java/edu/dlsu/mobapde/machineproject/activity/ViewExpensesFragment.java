@@ -222,10 +222,6 @@ public class ViewExpensesFragment extends Fragment {
         }
     }
 
-    public void addExpenseEntry(View view) {
-
-    }
-
     private void refresh(String key) {
         adapter.removeAllViews();
         // name

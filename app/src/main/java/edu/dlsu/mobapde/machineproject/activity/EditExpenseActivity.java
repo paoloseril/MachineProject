@@ -8,10 +8,9 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +23,7 @@ import java.util.Calendar;
 
 
 import edu.dlsu.mobapde.machineproject.R;
+import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.values.Constants;
 
 public class EditExpenseActivity extends AppCompatActivity {
@@ -56,6 +56,15 @@ public class EditExpenseActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
         deleteBtn = findViewById(R.id.deleteBtn);
 
+        if (getIntent().getStringExtra("Status").equals("Existing")) {
+            deleteBtn.setVisibility(View.VISIBLE);
+
+        }
+        // if adding a new expense entry
+        else {
+            deleteBtn.setVisibility(View.GONE);
+        }
+
         datetimeText = findViewById(R.id.datetime);
 
         timePickerDialog = new TimePickerDialog(this, (timePicker, hour, minute) -> {
@@ -82,6 +91,12 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             dateTime = dateTime.concat(", ").concat(String.valueOf(hour)).concat(":").concat(String.valueOf(minutes).concat(" ").concat(label));
             timePickerDialog.dismiss();
+            if (Converter.toMilliseconds(dateTime) > System.currentTimeMillis()) {
+                vibrationText.setEnabled(true);
+            }
+            else {
+                vibrationText.setEnabled(false);
+            }
             datetimeText.setText(dateTime);
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), false);
 
@@ -138,20 +153,16 @@ public class EditExpenseActivity extends AppCompatActivity {
                 try {
                     Uri photoUri = data.getData();
                     Bitmap selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
-
-                    // ImageView.setImageBitmap(selectedImage);
-
+                    thumbnailView.setImageBitmap(selectedImage);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
         else if (requestCode == Constants.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-
-            // Log.d("Bitmap", String.valueOf(bitmap.getByteCount()));
-            // ImageView.setImageBitmap(bitmap);
+            Log.d("Bitmap", String.valueOf(bitmap.getByteCount()));
+            thumbnailView.setImageBitmap(bitmap);
         }
     }
 
@@ -162,13 +173,23 @@ public class EditExpenseActivity extends AppCompatActivity {
 
     public void saveInformation(View view) {
 
+
     }
 
     public void revertBack(View view) {
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction()
-                .add(R.id.frame_container, new ViewExpensesFragment())
-                .addToBackStack(null)
-                .commit();
+        Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    public void deleteExpense(View view) {
+        // display alert dialog
+
+        // if yes to delete, call dao function then this code below
+        Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

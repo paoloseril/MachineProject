@@ -44,8 +44,5 @@ public class BaseActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-
-
     }
-
 }

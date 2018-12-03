@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import edu.dlsu.mobapde.machineproject.R;
+import edu.dlsu.mobapde.machineproject.activity.BaseActivity;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseHolder;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseModel;
@@ -36,6 +37,7 @@ public class PastExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         expenseHolder.setCost(Constants.round(expenseHistory.get(i).getCost(), 2));
         expenseHolder.setName(expenseHistory.get(i).getName());
         expenseHolder.setTimeStamp(expenseHistory.get(i).getTimestamp());
+        expenseHolder.setContext(new BaseActivity().getApplicationContext());
     }
 
     @Override
