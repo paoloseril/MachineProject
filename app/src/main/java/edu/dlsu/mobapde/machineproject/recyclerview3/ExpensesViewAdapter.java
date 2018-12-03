@@ -40,6 +40,7 @@ public class ExpensesViewAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         expenseHolder.setName(listOfExpenses.get(i).getName());
         expenseHolder.setTimeStamp(listOfExpenses.get(i).getTimestamp());
         expenseHolder.setContext(new BaseActivity().getApplicationContext());
+        expenseHolder.setId(listOfExpenses.get(i).getId());
     }
 
     @Override
@@ -47,8 +48,8 @@ public class ExpensesViewAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         return listOfExpenses.size();
     }
 
-    public void addView(String name, String type, long millis, double cost) {
-        listOfExpenses.add(new ExpenseModel(name, type, Converter.toDate(millis), cost));
+    public void addView(int id, String name, String type, long millis, double cost) {
+        listOfExpenses.add(new ExpenseModel(id, name, type, Converter.toDate(millis), cost));
         notifyItemInserted(listOfExpenses.size() - 1);
     }
 

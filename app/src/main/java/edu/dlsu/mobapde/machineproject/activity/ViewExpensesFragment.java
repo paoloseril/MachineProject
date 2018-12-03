@@ -37,14 +37,13 @@ public class ViewExpensesFragment extends Fragment {
     private Spinner keySpinner, valueSpinner;
     private TextView warningIfEmptyView;
     private EditText categoryText;
-    ImageButton addButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_view_expenses, container, false);
 
-        addButton = root.findViewById(R.id.addButton);
+        ImageButton addButton = root.findViewById(R.id.addButton);
         addButton.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(), EditExpenseActivity.class);
             intent.putExtra("Status", "New");
@@ -229,7 +228,7 @@ public class ViewExpensesFragment extends Fragment {
             case "name": {
                 String val = String.valueOf(value);
                 for (Expense e : Static.getDatabaseInstance().dao().getExpensesBy("%".concat(val).concat("%"))) {
-                    adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                    adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
                 }
 
                 break;
@@ -239,21 +238,21 @@ public class ViewExpensesFragment extends Fragment {
             case "regret level": {
                 Integer val = (Integer) value;
                 for (Expense e : Static.getDatabaseInstance().dao().getExpensesByRegretLevel(val)) {
-                    adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                    adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
                 }
                 break;
             }
             case "type": {
                 String val = String.valueOf(value);
                 for (Expense e : Static.getDatabaseInstance().dao().getExpensesByType(val)) {
-                    adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                    adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
                 }
                 break;
             }
             // by default
             default:
                 for (Expense e : Static.getDatabaseInstance().dao().getAllExpenses()) {
-                    adapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                    adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
                 }
                 break;
         }

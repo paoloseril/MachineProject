@@ -19,12 +19,16 @@ import android.widget.Spinner;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
+import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.values.Constants;
+import edu.dlsu.mobapde.machineproject.values.Static;
 
 public class EditExpenseActivity extends AppCompatActivity {
 
@@ -34,6 +38,8 @@ public class EditExpenseActivity extends AppCompatActivity {
     private ImageView thumbnailView;
     private Spinner typeSpinner, regretLvlSpinner;
     private Button cancelBtn, saveBtn, deleteBtn;
+
+    private Expense existingEntry;
 
     private String dateTime = "";
 
@@ -58,8 +64,34 @@ public class EditExpenseActivity extends AppCompatActivity {
 
         if (getIntent().getStringExtra("Status").equals("Existing")) {
             deleteBtn.setVisibility(View.VISIBLE);
+            int id = getIntent().getIntExtra("Id", 0);
+            existingEntry = Static.getDatabaseInstance().dao().getExpense(id);
+
+            List<String> types = Arrays.asList(getResources().getStringArray(R.array.types));
+            List<String> regretLevels = Arrays.asList(getResources().getStringArray(R.array.regret_levels));
+
+            nameText.setText(existingEntry.getName());
+            costText.setText(String.valueOf(existingEntry.getCost()));
+
+            datetimeText.setText(Converter.toDate(existingEntry.getDateTimeMillis()));
+            if (existingEntry.getDateTimeMillis() > System.currentTimeMillis()) {
+                vibrationText.setEnabled(true);
+                vibrationText.setText(String.valueOf(existingEntry.getVibratorSeconds()));
+            }
+            else {
+                vibrationText.setEnabled(false);
+            }
+
+            typeSpinner.setSelection(types.indexOf(existingEntry.getType()));
+
+            regretLvlSpinner.setSelection(regretLevels.indexOf(String.valueOf(existingEntry.getRegretLevel())));
+
+            if (existingEntry.getImage() != null) {
+                thumbnailView.setImageBitmap(Converter.toImage(existingEntry.getImage()));
+            }
 
         }
+
         // if adding a new expense entry
         else {
             deleteBtn.setVisibility(View.GONE);
@@ -88,7 +120,6 @@ public class EditExpenseActivity extends AppCompatActivity {
                 minutes = "0".concat(String.valueOf(minute));
             else
                 minutes = String.valueOf(minute);
-
             dateTime = dateTime.concat(", ").concat(String.valueOf(hour)).concat(":").concat(String.valueOf(minutes).concat(" ").concat(label));
             timePickerDialog.dismiss();
             if (Converter.toMilliseconds(dateTime) > System.currentTimeMillis()) {
@@ -186,7 +217,7 @@ public class EditExpenseActivity extends AppCompatActivity {
     public void deleteExpense(View view) {
         // display alert dialog
 
-        // if yes to delete, call dao function then this code below
+        // if yes to delete, call dao function to delete expense then this code below
         Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

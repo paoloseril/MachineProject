@@ -15,6 +15,7 @@ import edu.dlsu.mobapde.machineproject.activity.EditExpenseActivity;
 public class ExpenseHolder extends RecyclerView.ViewHolder {
 
     private ImageView iconView;
+    private int id;
     private TextView nameTextComponent, timestampTextComponent;
     private TextView costTextComponent;
     private Context context;
@@ -27,6 +28,7 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
         ll.setOnClickListener(ev -> {
             Intent intent = new Intent(context, EditExpenseActivity.class);
             intent.putExtra("Status", "Existing");
+            intent.putExtra("Id", id);
             context.startActivity(intent);
         });
         iconView = view.findViewById(R.id.logo);
@@ -54,5 +56,9 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

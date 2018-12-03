@@ -5,12 +5,14 @@ import edu.dlsu.mobapde.machineproject.values.Constants;
 
 public class ExpenseModel {
 
+    private int id;
     private String name;
     private int icon;
     private String timestamp;
     private double cost;
 
-    public ExpenseModel(String name, String type, String timestamp, double cost) {
+    public ExpenseModel(int id, String name, String type, String timestamp, double cost) {
+        this.id = id;
         this.name = name;
         switch (type) {
             case Constants.TYPE_GENERAL:
@@ -31,6 +33,10 @@ public class ExpenseModel {
         }
         this.timestamp = timestamp;
         this.cost = cost;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

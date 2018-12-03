@@ -69,7 +69,7 @@ public class MainActivityFragment extends Fragment {
     private void refreshHistory() {
         pastExpenseAdapter.removeAllViews();
         for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses(System.currentTimeMillis())) {
-            pastExpenseAdapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+            pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
         }
         if (expenseHistoryRecyclerArea.getVisibility() == View.GONE
                 && pastExpenseAdapter.getItemCount() != 0) {
@@ -85,7 +85,7 @@ public class MainActivityFragment extends Fragment {
     private void refreshFutureExpenses() {
         futureExpenseAdapter.removeAllViews();
         for (Expense e: Static.getDatabaseInstance().dao().getFutureExpenses(System.currentTimeMillis())) {
-            futureExpenseAdapter.addView(e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+            futureExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
         }
         if (futureExpensesRecyclerArea.getVisibility() == View.GONE
                 && futureExpenseAdapter.getItemCount() != 0) {

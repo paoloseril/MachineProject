@@ -38,6 +38,7 @@ public class PastExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         expenseHolder.setName(expenseHistory.get(i).getName());
         expenseHolder.setTimeStamp(expenseHistory.get(i).getTimestamp());
         expenseHolder.setContext(new BaseActivity().getApplicationContext());
+        expenseHolder.setId(expenseHistory.get(i).getId());
     }
 
     @Override
@@ -45,8 +46,8 @@ public class PastExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         return expenseHistory.size();
     }
 
-    public void addView(String name, String type, long millis, double cost) {
-        expenseHistory.add(0, new ExpenseModel(name, type, Converter.toDate(millis), cost));
+    public void addView(int id, String name, String type, long millis, double cost) {
+        expenseHistory.add(0, new ExpenseModel(id, name, type, Converter.toDate(millis), cost));
         notifyItemInserted(0);
     }
 
