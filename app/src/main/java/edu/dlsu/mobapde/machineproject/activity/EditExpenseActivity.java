@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -163,6 +165,10 @@ public class EditExpenseActivity extends AppCompatActivity {
     }
 
     public void revertBack(View view) {
-
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction()
+                .add(R.id.frame_container, new ViewExpensesFragment())
+                .addToBackStack(null)
+                .commit();
     }
 }

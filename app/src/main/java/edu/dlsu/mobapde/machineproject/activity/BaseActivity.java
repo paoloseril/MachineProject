@@ -9,7 +9,6 @@ import edu.dlsu.mobapde.machineproject.R;
 
 public class BaseActivity extends AppCompatActivity {
 
-
     BottomNavigationView navigationView;
     Fragment mainActivityFragment, viewExpensesFragment;
 
@@ -22,7 +21,7 @@ public class BaseActivity extends AppCompatActivity {
         viewExpensesFragment = new ViewExpensesFragment();
 
         navigationView = findViewById(R.id.e_navigation);
-        loadFragment(mainActivityFragment);
+        loadFragment(viewExpensesFragment);
 
         navigationView.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
