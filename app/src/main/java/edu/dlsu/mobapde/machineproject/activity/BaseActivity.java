@@ -11,6 +11,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.values.Constants;
@@ -90,6 +91,8 @@ public class BaseActivity extends AppCompatActivity {
 
             String name = getIntent().getStringExtra("Name");
             int id = getIntent().getIntExtra("Id", 0);
+
+            Log.d("Name", name);
 
             long vibration = Static.getDatabaseInstance().dao().getExpense(id).getVibratorSeconds();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
