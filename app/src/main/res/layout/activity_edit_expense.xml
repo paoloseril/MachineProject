@@ -276,7 +276,6 @@
                         android:text="Image"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:layout_marginEnd="20sp"
                         android:layout_centerVertical="true"
                         android:id="@+id/image_text"
                         />
@@ -284,6 +283,7 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
                         android:text="..."
                         android:layout_toEndOf="@id/image_text"
                         android:onClick="prompt"/>
@@ -313,6 +313,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/deleteBtn"
                     android:text="@string/delete"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:background="@android:color/transparent"
                     android:onClick="deleteExpense"
                     android:visibility="gone"
                     />
@@ -320,6 +322,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cancel"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:background="@android:color/transparent"
                     android:id="@+id/cancelBtn"
                     android:onClick="revertBack"
                     android:layout_toStartOf="@id/saveBtn"
@@ -328,6 +332,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:background="@android:color/transparent"
                     android:id="@+id/saveBtn"
                     android:onClick="saveInformation"
                     android:text="@string/save"
