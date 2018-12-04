@@ -223,7 +223,6 @@ public class ViewExpensesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        refresh("default");
     }
 
     private void enableRecyclerView() {
