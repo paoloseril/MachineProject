@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.activity.EditExpenseActivity;
+import edu.dlsu.mobapde.machineproject.values.Constants;
 
 public class ExpenseHolder extends RecyclerView.ViewHolder {
 
@@ -48,7 +49,8 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
     }
 
     public void setCost(double cost) {
-        String withPeso = "P".concat(" ").concat(String.valueOf(cost));
+        String formatted = Constants.format.format(cost);
+        String withPeso = "P".concat(" ").concat(formatted);
         costTextComponent.setText(withPeso);
     }
 

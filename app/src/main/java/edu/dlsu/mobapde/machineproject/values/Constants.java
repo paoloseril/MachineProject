@@ -2,6 +2,7 @@ package edu.dlsu.mobapde.machineproject.values;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class Constants {
 
@@ -34,4 +35,6 @@ public class Constants {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
+    public static DecimalFormat format = new DecimalFormat("#.00");
 }
