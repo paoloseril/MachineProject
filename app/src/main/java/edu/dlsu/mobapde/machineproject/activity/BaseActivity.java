@@ -91,32 +91,27 @@ public class BaseActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            List<Expense> expensesNow = Static.getDatabaseInstance()
-                                                .dao()
-                                                .getAllExpensesHappeningNow(Constants.dateToday().toString());
+            String name = getIntent().getStringExtra("Name");
+            int id = getIntent().getIntExtra("Id", 0);
 
-            if (expensesNow.size() != 0) {
-
-                long vibration = expensesNow.get(0).getVibratorSeconds();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    Static.getVibratorInstance().vibrate(VibrationEffect.createOneShot(vibration, VibrationEffect.DEFAULT_AMPLITUDE));
-                    if (Static.isActivityVisible()) {
-                        alert(expensesNow);
-                    }
-                    else {
-                        // createNotification
-                    }
+            long vibration = Static.getDatabaseInstance().dao().getExpense(id).getVibratorSeconds();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Static.getVibratorInstance().vibrate(VibrationEffect.createOneShot(vibration, VibrationEffect.DEFAULT_AMPLITUDE));
+                if (Static.isActivityVisible()) {
+                    alert(name);
                 }
                 else {
-                    Static.getVibratorInstance().vibrate(vibration);
-                    if (Static.isActivityVisible()) {
-                        alert(expensesNow);
-                    }
-                    else {
-                        // createNotification
-                    }
+                    // createNotification
                 }
-
+            }
+            else {
+                Static.getVibratorInstance().vibrate(vibration);
+                if (Static.isActivityVisible()) {
+                    alert(name);
+                }
+                else {
+                    // createNotification
+                }
             }
         }
     }
@@ -129,35 +124,39 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    private void alert(List<Expense> expenses) {
+    private void alert(String... expenseNames) {
 
         StringBuilder messageBuilder = new StringBuilder();
 
-        if (expenses.size() == 1) {
-            messageBuilder.append("Item");
+        if (expenseNames.length == 1) {
+            messageBuilder.append("Item ");
         }
         else {
-            messageBuilder.append("Items");
+            messageBuilder.append("Items ");
         }
 
-        for (int i = 0; i < expenses.size(); i++) {
-            if (i != expenses.size() - 1)
-                messageBuilder.append(expenses.get(i).getName())
-                        .append(" ")
-                        .append("and");
+        for (int i = 0; i < expenseNames.length; i++) {
+            if (i != expenseNames.length - 1)
+                messageBuilder.append("'").append(expenseNames[i])
+                        .append("'")
+                        .append("and ");
             else
-                messageBuilder.append(expenses.get(i).getName());
+                messageBuilder.append("'").append(expenseNames[i]).append("'.");
         }
 
-        messageBuilder.append(" are due today.");
+        if (expenseNames.length == 1) {
+            messageBuilder.append(" is due today.");
+        }
+        else {
+            messageBuilder.append(" are due today.");
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Alarm Alarm")
                 .setMessage(messageBuilder.toString())
-        .setPositiveButton("OK", (dialogInterface, i) -> {
-
-        });
+                .setPositiveButton("OK", (dialogInterface, i) -> {
+                });
 
         builder.show();
     }

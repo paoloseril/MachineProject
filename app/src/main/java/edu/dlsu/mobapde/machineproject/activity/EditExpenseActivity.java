@@ -243,7 +243,8 @@ public class EditExpenseActivity extends AppCompatActivity {
                 existingEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
-                alarmIntent.putExtra("AlarmVibration", jobId);
+                alarmIntent.putExtra("Name", existingEntry.getName());
+                alarmIntent.putExtra("Id", existingEntry.getId());
 
                 PendingIntent newPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
                 Constants.JOB_ID++;
@@ -280,6 +281,7 @@ public class EditExpenseActivity extends AppCompatActivity {
                 newEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
+                alarmIntent.putExtra("Name", newEntry.getName());
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
                 Constants.JOB_ID++;
