@@ -240,6 +240,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             if (millis > System.currentTimeMillis()) {
                 int jobId = Constants.JOB_ID;
                 existingEntry.setJobId(jobId);
+                existingEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
                 alarmIntent.putExtra("AlarmVibration", jobId);
@@ -252,16 +253,15 @@ public class EditExpenseActivity extends AppCompatActivity {
                 existingEntry.setJobId(0);
             }
 
-            existingEntry.setName(name);
             if (selectedImage != null) {
                 existingEntry.setImage(Converter.toByteArray(selectedImage));
                 selectedImage = null;
             }
 
+            existingEntry.setName(name);
             existingEntry.setCost(cost);
             existingEntry.setRegretLevel(levelOfRegret);
             existingEntry.setType(type);
-
             Static.getDatabaseInstance().dao().updateExpense(existingEntry);
         }
         // add a new expense
@@ -277,9 +277,9 @@ public class EditExpenseActivity extends AppCompatActivity {
             if (millis > System.currentTimeMillis()) {
                 int jobId = Constants.JOB_ID;
                 newEntry.setJobId(jobId);
+                newEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
-                alarmIntent.putExtra("AlarmVibration", jobId);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
                 Constants.JOB_ID++;

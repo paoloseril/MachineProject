@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Date;
-
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.values.Constants;
 import edu.dlsu.mobapde.machineproject.values.Static;
