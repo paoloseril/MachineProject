@@ -32,12 +32,12 @@ public interface ExpenseDao {
     List<Expense> getExpensesByRegretLevel(int regretLevel);
 
     // future expenses
-    @Query("select * from Expense where datetime(dateTime) > datetime(:dateTime) order by dateTime desc")
-    List<Expense> getFutureExpenses(String dateTime);
+    @Query("select * from Expense where past = 0 order by dateTime desc")
+    List<Expense> getFutureExpenses();
 
     // expense history
-    @Query("select * from Expense where datetime(dateTime) <= datetime(:dateTime) order by dateTime desc")
-    List<Expense> getPastExpenses(String dateTime);
+    @Query("select * from Expense where past = 1 order by dateTime desc")
+    List<Expense> getPastExpenses();
 
     @Query("select * from Expense order by name")
     List<Expense> getAllExpenses();

@@ -3,7 +3,6 @@ package edu.dlsu.mobapde.machineproject.values;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.Date;
 
 public class Constants {
 
@@ -38,8 +37,4 @@ public class Constants {
     }
 
     public static DecimalFormat format = new DecimalFormat("#.00");
-
-    public static Date dateToday() {
-        return new Date();
-    }
 }

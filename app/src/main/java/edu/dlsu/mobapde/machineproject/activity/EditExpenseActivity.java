@@ -27,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -88,7 +89,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             datetimeText.setText(existingEntry.getDateTime());
             try {
-                if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(Constants.dateToday())) {
+                if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
                     vibrationText.setEnabled(true);
                     vibrationText.setText(String.valueOf(existingEntry.getVibratorSeconds()));
                 }
@@ -139,7 +140,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             dateTime = dateTime.concat(", ").concat(String.valueOf(hour)).concat(":").concat(String.valueOf(minutes).concat(" ").concat(label));
             timePickerDialog.dismiss();
             try {
-                if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(Constants.dateToday())) {
+                if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
                     vibrationText.setEnabled(true);
                 }
                 else {
@@ -238,6 +239,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             Static.getManagerInstance().cancel(oldPendingIntent);
 
             if (millis > System.currentTimeMillis()) {
+                existingEntry.setPast(false);
                 int jobId = Constants.JOB_ID;
                 existingEntry.setJobId(jobId);
                 existingEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
@@ -251,6 +253,7 @@ public class EditExpenseActivity extends AppCompatActivity {
                 Static.getManagerInstance().set(AlarmManager.RTC_WAKEUP, millis, newPendingIntent);
             }
             else {
+                existingEntry.setPast(true);
                 existingEntry.setJobId(0);
             }
 
@@ -276,6 +279,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             Expense newEntry = new Expense(name, levelOfRegret, type, dateTime, cost);
 
             if (millis > System.currentTimeMillis()) {
+                newEntry.setPast(false);
                 int jobId = Constants.JOB_ID;
                 newEntry.setJobId(jobId);
                 newEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
@@ -286,6 +290,10 @@ public class EditExpenseActivity extends AppCompatActivity {
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
                 Constants.JOB_ID++;
                 Static.getManagerInstance().set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
+            }
+
+            else {
+                newEntry.setPast(true);
             }
 
             if (selectedImage != null) {

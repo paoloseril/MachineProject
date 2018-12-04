@@ -20,6 +20,8 @@ public class Expense {
 
     private String dateTime;
 
+    private boolean past;
+
     private long vibratorSeconds;
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
@@ -38,7 +40,7 @@ public class Expense {
     }
 
     @Ignore
-    public Expense(String name, int regretLevel, String type, String dateTime, long vibratorSeconds, byte[] image, double cost, int jobId) {
+    public Expense(String name, int regretLevel, String type, boolean past, String dateTime, long vibratorSeconds, byte[] image, double cost, int jobId) {
         this.name = name;
         this.regretLevel = regretLevel;
         this.type = type;
@@ -47,6 +49,7 @@ public class Expense {
         this.image = image;
         this.cost = cost;
         this.jobId = jobId;
+        this.past = past;
     }
 
     public int getId() {
@@ -127,5 +130,13 @@ public class Expense {
     public String toString() {
         return "Name: ".concat(name).concat("\n").concat("Regret Level: ").concat(String.valueOf(regretLevel))
                 .concat("\n").concat(String.valueOf(dateTime));
+    }
+
+    public boolean getPast() {
+        return past;
+    }
+
+    public void setPast(boolean past) {
+        this.past = past;
     }
 }
