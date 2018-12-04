@@ -243,7 +243,7 @@ public class ViewExpensesFragment extends Fragment {
         switch (key) {
             case "name": {
                 String val = String.valueOf(value);
-                int size = Static.getDatabaseInstance().dao().getExpensesBy("%".concat(val).concat("%")).size();
+                int size = Static.getDatabaseInstance().dao().getExpensesBy("%".concat(val)).size();
                 if (size != 0) {
                     enableRecyclerView();
                     for (Expense e : Static.getDatabaseInstance().dao().getExpensesBy("%".concat(val).concat("%"))) {

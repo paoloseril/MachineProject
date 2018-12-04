@@ -71,10 +71,10 @@ public class MainActivityFragment extends Fragment {
 
     private void refreshHistory() {
         pastExpenseAdapter.clear();
-        int size = Static.getDatabaseInstance().dao().getPastExpenses(Constants.dateToday().toString()).size();
+        int size = Static.getDatabaseInstance().dao().getPastExpenses().size();
         if (size != 0) {
             enableRecyclerViewH();
-            for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses(Constants.dateToday().toString())) {
+            for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses()) {
                 pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
             }
         }
@@ -85,11 +85,11 @@ public class MainActivityFragment extends Fragment {
 
     private void refreshFutureExpenses() {
         futureExpenseAdapter.clear();
-        int size = Static.getDatabaseInstance().dao().getFutureExpenses(Constants.dateToday().toString()).size();
+        int size = Static.getDatabaseInstance().dao().getFutureExpenses().size();
         if (size != 0) {
             enableRecyclerViewF();
 
-            for (Expense e: Static.getDatabaseInstance().dao().getFutureExpenses(Constants.dateToday().toString())) {
+            for (Expense e: Static.getDatabaseInstance().dao().getFutureExpenses()) {
                 futureExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
             }
         }
