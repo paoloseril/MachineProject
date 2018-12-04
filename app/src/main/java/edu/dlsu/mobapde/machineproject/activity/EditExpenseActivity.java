@@ -341,9 +341,8 @@ public class EditExpenseActivity extends AppCompatActivity {
     public void prompt(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Image Preference")
-                .setMessage("Choose.")
-                .setNegativeButton("Image Gallery", ((dialogInterface, i) -> pickPhoto()))
+        builder.setTitle("Image Preference?")
+                .setNegativeButton("Choose from Image Gallery", ((dialogInterface, i) -> pickPhoto()))
                 .setPositiveButton("Take Photo", (dialogInterface, i) -> capturePhoto())
                 .setNeutralButton("Cancel", (dialogInterface, i) -> {});
         builder.show();
