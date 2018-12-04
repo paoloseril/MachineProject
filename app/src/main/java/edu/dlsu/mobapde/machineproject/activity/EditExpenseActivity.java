@@ -88,6 +88,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             costText.setText(String.valueOf(existingEntry.getCost()));
 
             datetimeText.setText(existingEntry.getDateTime());
+            dateTime = existingEntry.getDateTime();
             try {
                 if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
                     vibrationText.setEnabled(true);
