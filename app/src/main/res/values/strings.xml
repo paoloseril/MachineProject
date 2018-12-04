@@ -17,7 +17,6 @@
     </string-array>
 
     <string-array name="types">
-        <item>…</item>
         <item>@string/exp_type0</item>
         <item>@string/exp_type1</item>
         <item>@string/exp_type2</item>
@@ -26,7 +25,6 @@
     </string-array>
 
     <string-array name="regret_levels">
-        <item>…</item>
         <item>0</item>
         <item>1</item>
         <item>2</item>
