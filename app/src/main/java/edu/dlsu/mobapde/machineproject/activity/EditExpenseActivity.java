@@ -85,7 +85,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             Log.d("Expense", String.valueOf(existingEntry));
 
             nameText.setText(existingEntry.getName());
-            costText.setText(String.valueOf(existingEntry.getCost()));
+            costText.setText(Constants.format.format(existingEntry.getCost()));
 
             datetimeText.setText(existingEntry.getDateTime());
             dateTime = existingEntry.getDateTime();
