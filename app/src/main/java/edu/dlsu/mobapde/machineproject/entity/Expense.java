@@ -18,7 +18,7 @@ public class Expense {
 
     private String type;
 
-    private long dateTimeMillis;
+    private String dateTime;
 
     private long vibratorSeconds;
 
@@ -29,20 +29,20 @@ public class Expense {
 
     private int jobId;
 
-    public Expense(String name, int regretLevel, String type, long dateTimeMillis, double cost) {
+    public Expense(String name, int regretLevel, String type, String dateTime, double cost) {
         this.name = name;
         this.regretLevel = regretLevel;
         this.type = type;
-        this.dateTimeMillis = dateTimeMillis;
+        this.dateTime = dateTime;
         this.cost = cost;
     }
 
     @Ignore
-    public Expense(String name, int regretLevel, String type, long dateTimeMillis, long vibratorSeconds, byte[] image, double cost, int jobId) {
+    public Expense(String name, int regretLevel, String type, String dateTime, long vibratorSeconds, byte[] image, double cost, int jobId) {
         this.name = name;
         this.regretLevel = regretLevel;
         this.type = type;
-        this.dateTimeMillis = dateTimeMillis;
+        this.dateTime = dateTime;
         this.vibratorSeconds = vibratorSeconds;
         this.image = image;
         this.cost = cost;
@@ -81,12 +81,12 @@ public class Expense {
         this.type = type;
     }
 
-    public long getDateTimeMillis() {
-        return dateTimeMillis;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setDateTimeMillis(long dateTimeMillis) {
-        this.dateTimeMillis = dateTimeMillis;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public byte[] getImage() {
@@ -126,6 +126,6 @@ public class Expense {
     @Override
     public String toString() {
         return "Name: ".concat(name).concat("\n").concat("Regret Level: ").concat(String.valueOf(regretLevel))
-                .concat("\n").concat(String.valueOf(dateTimeMillis));
+                .concat("\n").concat(String.valueOf(dateTime));
     }
 }

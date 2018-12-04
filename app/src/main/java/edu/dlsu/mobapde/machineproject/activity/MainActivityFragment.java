@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import edu.dlsu.mobapde.machineproject.R;
+import edu.dlsu.mobapde.machineproject.values.Constants;
 import edu.dlsu.mobapde.machineproject.values.Static;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
@@ -70,12 +73,11 @@ public class MainActivityFragment extends Fragment {
 
     private void refreshHistory() {
         pastExpenseAdapter.clear();
-        int size = Static.getDatabaseInstance().dao().getPastExpenses(System.currentTimeMillis()).size();
+        int size = Static.getDatabaseInstance().dao().getPastExpenses(Constants.dateToday().toString()).size();
         if (size != 0) {
             enableRecyclerViewH();
-
-            for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses(System.currentTimeMillis())) {
-                pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+            for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses(Constants.dateToday().toString())) {
+                pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
             }
         }
         else {
@@ -85,12 +87,12 @@ public class MainActivityFragment extends Fragment {
 
     private void refreshFutureExpenses() {
         futureExpenseAdapter.clear();
-        int size = Static.getDatabaseInstance().dao().getFutureExpenses(System.currentTimeMillis()).size();
+        int size = Static.getDatabaseInstance().dao().getFutureExpenses(Constants.dateToday().toString()).size();
         if (size != 0) {
             enableRecyclerViewF();
 
-            for (Expense e: Static.getDatabaseInstance().dao().getFutureExpenses(System.currentTimeMillis())) {
-                futureExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+            for (Expense e: Static.getDatabaseInstance().dao().getFutureExpenses(Constants.dateToday().toString())) {
+                futureExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
             }
         }
         else {

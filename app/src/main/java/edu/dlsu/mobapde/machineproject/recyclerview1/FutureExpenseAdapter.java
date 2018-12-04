@@ -49,8 +49,8 @@ public class FutureExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         return futureExpenses.size();
     }
 
-    public void addView(int id, String name, String type, long millis, double cost) {
-        futureExpenses.add(new ExpenseModel(id, name, type, Converter.toDate(millis), cost));
+    public void addView(int id, String name, String type, String date, double cost) {
+        futureExpenses.add(new ExpenseModel(id, name, type, date, cost));
         notifyItemInserted(futureExpenses.size() - 1);
     }
 

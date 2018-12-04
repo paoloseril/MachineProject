@@ -49,8 +49,8 @@ public class PastExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         return expenseHistory.size();
     }
 
-    public void addView(int id, String name, String type, long millis, double cost) {
-        expenseHistory.add(new ExpenseModel(id, name, type, Converter.toDate(millis), cost));
+    public void addView(int id, String name, String type, String date, double cost) {
+        expenseHistory.add(new ExpenseModel(id, name, type, date, cost));
         notifyItemInserted(expenseHistory.size() - 1);
     }
 

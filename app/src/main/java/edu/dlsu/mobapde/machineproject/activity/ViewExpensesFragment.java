@@ -21,12 +21,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.dlsu.mobapde.machineproject.R;
-import edu.dlsu.mobapde.machineproject.converter.Converter;
-import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseModel;
 import edu.dlsu.mobapde.machineproject.values.Static;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview3.ExpensesViewAdapter;
@@ -252,7 +247,7 @@ public class ViewExpensesFragment extends Fragment {
                 if (size != 0) {
                     enableRecyclerView();
                     for (Expense e : Static.getDatabaseInstance().dao().getExpensesBy("%".concat(val).concat("%"))) {
-                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
                     }
                 }
                 else {
@@ -268,7 +263,7 @@ public class ViewExpensesFragment extends Fragment {
                 if (size != 0) {
                     enableRecyclerView();
                     for (Expense e : Static.getDatabaseInstance().dao().getExpensesByRegretLevel(val)) {
-                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
                     }
                 }
                 else {
@@ -282,7 +277,7 @@ public class ViewExpensesFragment extends Fragment {
                 if (size != 0) {
                     enableRecyclerView();
                     for (Expense e : Static.getDatabaseInstance().dao().getExpensesByType(val)) {
-                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
                     }
                 }
                 else {
@@ -296,7 +291,7 @@ public class ViewExpensesFragment extends Fragment {
                 if (size != 0) {
                     enableRecyclerView();
                     for (Expense e : Static.getDatabaseInstance().dao().getAllExpenses()) {
-                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTimeMillis(), e.getCost());
+                        adapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
                     }
                 } else {
                     disableRecyclerView();
