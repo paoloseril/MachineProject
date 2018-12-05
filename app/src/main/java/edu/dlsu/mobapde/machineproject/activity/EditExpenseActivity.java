@@ -348,4 +348,13 @@ public class EditExpenseActivity extends AppCompatActivity {
                 .setNeutralButton("Cancel", (dialogInterface, i) -> {});
         builder.show();
     }
+
+    public void accessLvlRegretInfo(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("About the Regret Level")
+                .setMessage("")
+                .setPositiveButton("OK, Got it", (dialogInterface, i) -> {});
+        builder.show();
+    }
 }

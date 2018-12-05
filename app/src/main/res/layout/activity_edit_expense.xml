@@ -111,6 +111,7 @@
                             android:layout_height="wrap_content"
                             android:src="@drawable/info"
                             android:id="@+id/info_btn"
+                            android:onClick="accessLvlRegretInfo"
                             android:background="@null"
                             android:layout_centerVertical="true"
                             android:layout_toEndOf="@id/regret_title"
