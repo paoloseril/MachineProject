@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import edu.dlsu.mobapde.machineproject.R;
-import edu.dlsu.mobapde.machineproject.values.Constants;
 import edu.dlsu.mobapde.machineproject.values.Static;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
@@ -23,7 +22,7 @@ import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
 public class MainActivityFragment extends Fragment {
 
     private RecyclerView expenseHistoryRecyclerArea, futureExpensesRecyclerArea;
-    private PastExpenseAdapter pastExpenseAdapter;
+    private PastExpenseAdapter view;
     private FutureExpenseAdapter futureExpenseAdapter;
 
     private LinearLayout emptymessageLayoutH, emptymessageLayoutF;
@@ -35,27 +34,29 @@ public class MainActivityFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_main, container, false);
+        return inflater.inflate(R.layout.activity_main, container, false);
+    }
 
-        emptymessageLayoutH = root.findViewById(R.id.noexpense_added);
-        emptymessageLayoutF = root.findViewById(R.id.noexpensefuture_added);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        emptymessageLayoutH = view.findViewById(R.id.noexpense_added);
+        emptymessageLayoutF = view.findViewById(R.id.noexpensefuture_added);
 
-        avgText = root.findViewById(R.id.avgCostText);
-        satisfactionText = root.findViewById(R.id.satisfactionText);
+        avgText = view.findViewById(R.id.avgCostText);
+        satisfactionText = view.findViewById(R.id.satisfactionText);
 
-        expenseHistoryRecyclerArea = root.findViewById(R.id.expense_history_rarea);
-        futureExpensesRecyclerArea = root.findViewById(R.id.future_expense_rarea);
+        expenseHistoryRecyclerArea = view.findViewById(R.id.expense_history_rarea);
+        futureExpensesRecyclerArea = view.findViewById(R.id.future_expense_rarea);
 
-        pastExpenseAdapter = new PastExpenseAdapter(getActivity().getApplicationContext());
+        this.view = new PastExpenseAdapter(getActivity().getApplicationContext());
         futureExpenseAdapter = new FutureExpenseAdapter(getActivity().getApplicationContext());
 
         expenseHistoryRecyclerArea.setLayoutManager(new LinearLayoutManager(getActivity()));
-        expenseHistoryRecyclerArea.setAdapter(pastExpenseAdapter);
+        expenseHistoryRecyclerArea.setAdapter(this.view);
 
         futureExpensesRecyclerArea.setLayoutManager(new LinearLayoutManager(getActivity()));
         futureExpensesRecyclerArea.setAdapter(futureExpenseAdapter);
-
-        return root;
     }
 
     @Override
@@ -70,12 +71,12 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void refreshHistory() {
-        pastExpenseAdapter.clear();
+        view.clear();
         int size = Static.getDatabaseInstance().dao().getPastExpenses().size();
         if (size != 0) {
             enableRecyclerViewH();
             for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses()) {
-                pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
+                view.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
             }
         }
         else {
