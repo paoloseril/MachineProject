@@ -75,6 +75,7 @@ public class EditExpenseActivity extends AppCompatActivity {
         datetimeText = findViewById(R.id.datetime);
 
         if (getIntent().getStringExtra("Status").equals("Existing")) {
+            saveBtn.setText(R.string.update_text);
             deleteBtn.setVisibility(View.VISIBLE);
             int id = getIntent().getIntExtra("Id", 0);
             existingEntry = Static.getDatabaseInstance().dao().getExpense(id);

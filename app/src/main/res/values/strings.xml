@@ -60,5 +60,6 @@
     <string name="delete">Delete</string>
     <string name="photo_gallery">Photo Gallery</string>
     <string name="capture_photo">Capture Photo</string>
+    <string name="update_text">Update</string>
 
 </resources>
