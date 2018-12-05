@@ -22,7 +22,7 @@ import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
 public class MainActivityFragment extends Fragment {
 
     private RecyclerView expenseHistoryRecyclerArea, futureExpensesRecyclerArea;
-    private PastExpenseAdapter view;
+    private PastExpenseAdapter pastExpenseAdapter;
     private FutureExpenseAdapter futureExpenseAdapter;
 
     private LinearLayout emptymessageLayoutH, emptymessageLayoutF;
@@ -49,11 +49,11 @@ public class MainActivityFragment extends Fragment {
         expenseHistoryRecyclerArea = view.findViewById(R.id.expense_history_rarea);
         futureExpensesRecyclerArea = view.findViewById(R.id.future_expense_rarea);
 
-        this.view = new PastExpenseAdapter(getActivity().getApplicationContext());
+        pastExpenseAdapter = new PastExpenseAdapter(getActivity().getApplicationContext());
         futureExpenseAdapter = new FutureExpenseAdapter(getActivity().getApplicationContext());
 
         expenseHistoryRecyclerArea.setLayoutManager(new LinearLayoutManager(getActivity()));
-        expenseHistoryRecyclerArea.setAdapter(this.view);
+        expenseHistoryRecyclerArea.setAdapter(pastExpenseAdapter);
 
         futureExpensesRecyclerArea.setLayoutManager(new LinearLayoutManager(getActivity()));
         futureExpensesRecyclerArea.setAdapter(futureExpenseAdapter);
@@ -71,12 +71,12 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void refreshHistory() {
-        view.clear();
+        pastExpenseAdapter.clear();
         int size = Static.getDatabaseInstance().dao().getPastExpenses().size();
         if (size != 0) {
             enableRecyclerViewH();
             for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses()) {
-                view.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
+                pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
             }
         }
         else {
