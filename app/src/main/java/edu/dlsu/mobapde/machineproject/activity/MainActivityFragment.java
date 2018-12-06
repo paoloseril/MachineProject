@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import edu.dlsu.mobapde.machineproject.R;
+import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.values.Static;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
@@ -76,7 +77,7 @@ public class MainActivityFragment extends Fragment {
         if (size != 0) {
             enableRecyclerViewH();
             for (Expense e: Static.getDatabaseInstance().dao().getPastExpenses()) {
-                pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
+                pastExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), Converter.toDate(e.getDateTimeMillis()), e.getCost());
             }
         }
         else {
@@ -91,7 +92,7 @@ public class MainActivityFragment extends Fragment {
             enableRecyclerViewF();
 
             for (Expense e: Static.getDatabaseInstance().dao().getFutureExpenses()) {
-                futureExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), e.getDateTime(), e.getCost());
+                futureExpenseAdapter.addView(e.getId(), e.getName(), e.getType(), Converter.toDate(e.getDateTimeMillis()), e.getCost());
             }
         }
         else {

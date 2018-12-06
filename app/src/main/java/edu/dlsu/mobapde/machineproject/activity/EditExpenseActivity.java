@@ -88,8 +88,8 @@ public class EditExpenseActivity extends AppCompatActivity {
             nameText.setText(existingEntry.getName());
             costText.setText(Constants.format.format(existingEntry.getCost()));
 
-            datetimeText.setText(existingEntry.getDateTime());
-            dateTime = existingEntry.getDateTime();
+            datetimeText.setText(Converter.toDate(existingEntry.getDateTimeMillis()));
+            dateTime = Converter.toDate(existingEntry.getDateTimeMillis());
             try {
                 if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
                     vibrationText.setEnabled(true);
@@ -234,7 +234,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             String type = (String) typeSpinner.getSelectedItem();
             long millis = Converter.toMilliseconds(dateTime);
 
-            existingEntry.setDateTime(dateTime);
+            existingEntry.setDateTimeMillis(millis);
             // cancel previous intent
             Intent intent = new Intent(UI_UPDATE_TAG);
             PendingIntent oldPendingIntent = PendingIntent.getBroadcast(this, 1000000+existingEntry.getJobId(), intent, 0);
@@ -278,7 +278,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             String type = (String) typeSpinner.getSelectedItem();
             long millis = Converter.toMilliseconds(dateTime);
 
-            Expense newEntry = new Expense(name, levelOfRegret, type, dateTime, cost);
+            Expense newEntry = new Expense(name, levelOfRegret, type, millis, cost);
 
             if (millis > System.currentTimeMillis()) {
                 newEntry.setPast(false);
@@ -353,7 +353,7 @@ public class EditExpenseActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("About the Regret Level")
-                .setMessage("")
+                .setMessage("A regret level is the opposite of having satisfaction. ")
                 .setPositiveButton("OK, Got it", (dialogInterface, i) -> {});
         builder.show();
     }

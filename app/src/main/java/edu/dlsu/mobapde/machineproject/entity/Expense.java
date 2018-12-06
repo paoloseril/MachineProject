@@ -18,7 +18,7 @@ public class Expense {
 
     private String type;
 
-    private String dateTime;
+    private long dateTimeMillis;
 
     private boolean past;
 
@@ -31,20 +31,20 @@ public class Expense {
 
     private int jobId;
 
-    public Expense(String name, int regretLevel, String type, String dateTime, double cost) {
+    public Expense(String name, int regretLevel, String type, long dateTimeMillis, double cost) {
         this.name = name;
         this.regretLevel = regretLevel;
         this.type = type;
-        this.dateTime = dateTime;
+        this.dateTimeMillis = dateTimeMillis;
         this.cost = cost;
     }
 
     @Ignore
-    public Expense(String name, int regretLevel, String type, boolean past, String dateTime, long vibratorSeconds, byte[] image, double cost, int jobId) {
+    public Expense(String name, int regretLevel, String type, boolean past, long dateTimeMillis, long vibratorSeconds, byte[] image, double cost, int jobId) {
         this.name = name;
         this.regretLevel = regretLevel;
         this.type = type;
-        this.dateTime = dateTime;
+        this.dateTimeMillis = dateTimeMillis;
         this.vibratorSeconds = vibratorSeconds;
         this.image = image;
         this.cost = cost;
@@ -84,14 +84,6 @@ public class Expense {
         this.type = type;
     }
 
-    public String getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
-
     public byte[] getImage() {
         return image;
     }
@@ -124,19 +116,19 @@ public class Expense {
         this.jobId = jobId;
     }
 
-    @Ignore
-    @NonNull
-    @Override
-    public String toString() {
-        return "Name: ".concat(name).concat("\n").concat("Regret Level: ").concat(String.valueOf(regretLevel))
-                .concat("\n").concat(String.valueOf(dateTime));
-    }
-
     public boolean getPast() {
         return past;
     }
 
     public void setPast(boolean past) {
         this.past = past;
+    }
+
+    public long getDateTimeMillis() {
+        return dateTimeMillis;
+    }
+
+    public void setDateTimeMillis(long dateTimeMillis) {
+        this.dateTimeMillis = dateTimeMillis;
     }
 }
