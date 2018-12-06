@@ -1,15 +1,20 @@
 package edu.dlsu.mobapde.machineproject.activity;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -102,7 +107,8 @@ public class BaseActivity extends AppCompatActivity {
                     alert(name);
                 }
                 else {
-                    // createNotification
+                    createNotificationChannel();
+                    createNotification(name);
                 }
             }
             else {
@@ -111,7 +117,7 @@ public class BaseActivity extends AppCompatActivity {
                     alert(name);
                 }
                 else {
-                    // createNotification
+                    createNotification(name);
                 }
             }
             Expense e = Static.getDatabaseInstance().dao().getExpense(id);
@@ -121,44 +127,41 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(Constants.UI_NOTIFICATION_CHANNEL, "The Farm APP", NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("PayNa Channel");
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void createNotification(String expenseNames) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), Constants.UI_NOTIFICATION_CHANNEL);
+
+        //(3) Various notification attributes can be declared here. Note that ones that are important:
+        builder.setSmallIcon(R.drawable.ic_stat_logo);
+        builder.setContentTitle("Alarm Alarm");
+        builder.setContentText("Item " + "'" + expenseNames + "'." + " is due today.");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        //(4) These attributes are still important though not required to execute
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_stat_logo));
+        builder.setAutoCancel(true);
+
+        //(5) Notifications are run by calling a notification manager and calling the notify function
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+        notificationManager.notify(Constants.NOTIFICATION_ID, builder.build());
+        Constants.NOTIFICATION_ID++;
 
     }
 
-    private void createNotification() {
-
-    }
-
-    private void alert(String... expenseNames) {
-
-        StringBuilder messageBuilder = new StringBuilder();
-
-        if (expenseNames.length == 1) {
-            messageBuilder.append("Item ");
-        }
-        else {
-            messageBuilder.append("Items ");
-        }
-
-        for (int i = 0; i < expenseNames.length; i++) {
-            if (i != expenseNames.length - 1)
-                messageBuilder.append("'").append(expenseNames[i])
-                        .append("'")
-                        .append("and ");
-            else
-                messageBuilder.append("'").append(expenseNames[i]).append("'.");
-        }
-
-        if (expenseNames.length == 1) {
-            messageBuilder.append(" is due today.");
-        }
-        else {
-            messageBuilder.append(" are due today.");
-        }
+    private void alert(String expenseNames) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Alarm Alarm")
-                .setMessage(messageBuilder.toString())
+                .setMessage("Item " + "'" + expenseNames + "'." + " is due today.")
                 .setPositiveButton("OK", (dialogInterface, i) -> {
                 });
 
