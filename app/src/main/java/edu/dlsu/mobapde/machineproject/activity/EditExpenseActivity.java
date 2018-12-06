@@ -13,6 +13,8 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +52,8 @@ public class EditExpenseActivity extends AppCompatActivity {
     private Button saveBtn, deleteBtn;
     private Bitmap selectedImage;
 
+    private TextWatcher watcher;
+
     private Expense existingEntry;
 
     private String dateTime = "";
@@ -74,6 +78,79 @@ public class EditExpenseActivity extends AppCompatActivity {
         vibrationText = findViewById(R.id.time);
         datetimeText = findViewById(R.id.datetime);
 
+        nameText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (nameText.getText().length() == 0) {
+                    saveBtn.setEnabled(false);
+                }
+            }
+        });
+        costText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (costText.getText().length() == 0) {
+                    saveBtn.setEnabled(false);
+                }
+            }
+        });
+        datetimeText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (datetimeText.getText().length() == 0) {
+                    saveBtn.setEnabled(false);
+                }
+            }
+        });
+
+        watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (vibrationText.getText().length() == 0) {
+                    saveBtn.setEnabled(false);
+                }
+            }
+        };
         if (getIntent().getStringExtra("Status").equals("Existing")) {
             saveBtn.setText(R.string.update_text);
             deleteBtn.setVisibility(View.VISIBLE);
@@ -144,9 +221,11 @@ public class EditExpenseActivity extends AppCompatActivity {
             try {
                 if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
                     vibrationText.setEnabled(true);
+                    vibrationText.addTextChangedListener(watcher);
                 }
                 else {
                     vibrationText.setEnabled(false);
+                    vibrationText.removeTextChangedListener(watcher);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
