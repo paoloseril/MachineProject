@@ -112,7 +112,7 @@
                             android:src="@drawable/info"
                             android:id="@+id/info_btn"
                             android:onClick="accessLvlRegretInfo"
-                            android:background="@null"
+                            android:background="@drawable/custom_ripple_3"
                             android:layout_centerVertical="true"
                             android:layout_toEndOf="@id/regret_title"
                             />
