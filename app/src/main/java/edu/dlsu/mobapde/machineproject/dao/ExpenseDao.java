@@ -32,7 +32,7 @@ public interface ExpenseDao {
     List<Expense> getExpensesByRegretLevel(int regretLevel);
 
     // future expenses
-    @Query("select * from Expense where past = 0 order by dateTimeMillis desc")
+    @Query("select * from Expense where past = 0 order by dateTimeMillis")
     List<Expense> getFutureExpenses();
 
     // expense history

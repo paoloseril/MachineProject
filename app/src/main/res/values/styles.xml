@@ -15,6 +15,9 @@
         <item name="android:colorBackground">@color/colorWhite</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <!-- for ripple effect !-->
+        <item name="android:colorControlHighlight">#008800</item>
+
     </style>
 
 </resources>
