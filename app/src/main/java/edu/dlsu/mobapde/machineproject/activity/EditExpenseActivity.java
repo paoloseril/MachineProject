@@ -171,9 +171,11 @@ public class EditExpenseActivity extends AppCompatActivity {
                 if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
                     vibrationText.setEnabled(true);
                     vibrationText.setText(String.valueOf(existingEntry.getVibratorSeconds()));
+                    vibrationText.addTextChangedListener(watcher);
                 }
                 else {
                     vibrationText.setEnabled(false);
+                    vibrationText.removeTextChangedListener(watcher);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
