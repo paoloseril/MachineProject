@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import edu.dlsu.mobapde.machineproject.R;
+import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.values.Constants;
 import edu.dlsu.mobapde.machineproject.values.Static;
 
@@ -113,6 +114,9 @@ public class BaseActivity extends AppCompatActivity {
                     // createNotification
                 }
             }
+            Expense e = Static.getDatabaseInstance().dao().getExpense(id);
+            e.setPast(true);
+            Static.getDatabaseInstance().dao().updateExpense(e);
         }
     }
 
