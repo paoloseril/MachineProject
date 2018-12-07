@@ -94,6 +94,9 @@ public class EditExpenseActivity extends AppCompatActivity {
                 if (nameText.getText().length() == 0) {
                     saveBtn.setEnabled(false);
                 }
+                else {
+                    saveBtn.setEnabled(true);
+                }
             }
         });
         costText.addTextChangedListener(new TextWatcher() {
@@ -111,6 +114,9 @@ public class EditExpenseActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (costText.getText().length() == 0) {
                     saveBtn.setEnabled(false);
+                }
+                else {
+                    saveBtn.setEnabled(true);
                 }
             }
         });
@@ -130,6 +136,9 @@ public class EditExpenseActivity extends AppCompatActivity {
                 if (datetimeText.getText().length() == 0) {
                     saveBtn.setEnabled(false);
                 }
+                else {
+                    saveBtn.setEnabled(true);
+                }
             }
         });
 
@@ -148,6 +157,9 @@ public class EditExpenseActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (vibrationText.getText().length() == 0) {
                     saveBtn.setEnabled(false);
+                }
+                else {
+                    saveBtn.setEnabled(true);
                 }
             }
         };

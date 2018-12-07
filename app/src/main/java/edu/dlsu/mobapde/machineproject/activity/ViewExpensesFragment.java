@@ -99,12 +99,13 @@ public class ViewExpensesFragment extends Fragment {
                 switch (selected) {
                     case "Name": {
                         categoryText.setEnabled(true);
+                        categoryText.setHint("Input a keyword.");
                         valueSpinner.setEnabled(false);
-
                         break;
                     }
                     case "Type": {
                         categoryText.setEnabled(false);
+                        categoryText.setHint("");
                         valueSpinner.setEnabled(true);
                         ArrayAdapter<CharSequence> valueAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
                                 R.array.types, android.R.layout.simple_spinner_item);
@@ -149,6 +150,7 @@ public class ViewExpensesFragment extends Fragment {
                     }
                     case "Regret Level": {
                         categoryText.setEnabled(false);
+                        categoryText.setHint("");
                         valueSpinner.setEnabled(true);
                         Log.d("Enabled", String.valueOf(valueSpinner.isEnabled()));
                         ArrayAdapter<CharSequence> valueAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
@@ -201,6 +203,7 @@ public class ViewExpensesFragment extends Fragment {
                     }
                     case "Default": {
                         valueSpinner.setEnabled(false);
+                        categoryText.setHint("");
                         categoryText.setEnabled(false);
                         refresh("default");
                     }
