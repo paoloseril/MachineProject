@@ -86,17 +86,16 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (nameText.getText().length() == 0) {
+                if (charSequence.toString().trim().length() == 0) {
                     saveBtn.setEnabled(false);
                 }
                 else {
                     saveBtn.setEnabled(true);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
         costText.addTextChangedListener(new TextWatcher() {
@@ -107,17 +106,16 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (costText.getText().length() == 0) {
+                if (charSequence.toString().trim().length() == 0) {
                     saveBtn.setEnabled(false);
                 }
                 else {
                     saveBtn.setEnabled(true);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
         datetimeText.addTextChangedListener(new TextWatcher() {
@@ -128,17 +126,16 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (datetimeText.getText().length() == 0) {
+                if (charSequence.toString().trim().length() == 0) {
                     saveBtn.setEnabled(false);
                 }
                 else {
                     saveBtn.setEnabled(true);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         });
 
@@ -150,17 +147,16 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (vibrationText.getText().length() == 0) {
+                if (charSequence.toString().trim().length() == 0) {
                     saveBtn.setEnabled(false);
                 }
                 else {
                     saveBtn.setEnabled(true);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
             }
         };
         if (getIntent().getStringExtra("Status").equals("Existing")) {
@@ -206,8 +202,6 @@ public class EditExpenseActivity extends AppCompatActivity {
         else {
             deleteBtn.setVisibility(View.GONE);
         }
-
-        datetimeText = findViewById(R.id.datetime);
 
         timePickerDialog = new TimePickerDialog(this, (timePicker, hour, minute) -> {
             String label, minutes;
