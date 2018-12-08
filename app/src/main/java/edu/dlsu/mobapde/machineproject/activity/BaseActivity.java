@@ -154,7 +154,7 @@ public class BaseActivity extends AppCompatActivity {
         builder.setSmallIcon(R.drawable.ic_stat_logo);
         builder.setContentTitle("Alarm Alarm");
         builder.setContentText("Item " + "'" + expenseNames + "'." + " is due today.");
-        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setPriority(NotificationCompat.PRIORITY_MAX);
 
         //(4) These attributes are still important though not required to execute
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_stat_logo));
