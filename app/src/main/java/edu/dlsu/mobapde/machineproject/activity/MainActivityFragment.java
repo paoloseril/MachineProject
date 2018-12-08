@@ -133,10 +133,10 @@ public class MainActivityFragment extends Fragment {
 
         if (Static.getDatabaseInstance().dao().getExpensesFromPast7DaysCount(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)) != 0) {
             double avgdc = Constants.round(Static.getDatabaseInstance().dao().getAverageCostOfPast7Days(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)), 2);
-            avgText.setText("P".concat(Constants.format.format(avgdc)));
+            avgText.setText("₱".concat(Constants.format.format(avgdc)));
         }
         else {
-            avgText.setText("P".concat("--.--"));
+            avgText.setText("₱".concat("--.--"));
         }
     }
 

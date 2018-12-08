@@ -52,7 +52,7 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
 
     public void setCost(double cost) {
         String formatted = Constants.format.format(cost);
-        String withPeso = "P".concat(" ").concat(formatted);
+        String withPeso = "₱".concat(" ").concat(formatted);
         costTextComponent.setText(withPeso);
     }
 
