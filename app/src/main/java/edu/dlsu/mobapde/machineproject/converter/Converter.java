@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -33,6 +34,17 @@ public class Converter {
 
     // Convert milliseconds to date and time in string format
     public static String toDate(Long value) {
+        if (value != null) {
+
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH);
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+
+            return formatter.format(value);
+        }
+        return null;
+    }
+
+    public static String toDate(Date value) {
         if (value != null) {
 
             DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH);

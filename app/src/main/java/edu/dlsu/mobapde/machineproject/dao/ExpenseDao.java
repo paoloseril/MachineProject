@@ -44,4 +44,13 @@ public interface ExpenseDao {
 
     @Query("select * from Expense where id = :id")
     Expense getExpense(int id);
+
+    @Query("select avg(cost) from Expense where dateTimeMillis between :millisLB and :millisUB")
+    double getAverageDailyCost(long millisLB, long millisUB);
+
+    @Query("select avg(satisfaction) / count(*) * 100 from Expense where dateTimeMillis between :millisLB and :millisUB")
+    double getDailySatisfaction(long millisLB, long millisUB);
+
+    @Query("select count(*) from Expense where dateTimeMillis between :millisLB and :millisUB")
+    int getExpenseTodayCount(long millisLB, long millisUB);
 }

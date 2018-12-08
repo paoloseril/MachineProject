@@ -4,7 +4,6 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 @Entity
 public class Expense {
@@ -15,6 +14,8 @@ public class Expense {
     private String name;
 
     private int regretLevel;
+
+    private int satisfaction;
 
     private String type;
 
@@ -34,13 +35,35 @@ public class Expense {
     public Expense(String name, int regretLevel, String type, long dateTimeMillis, double cost) {
         this.name = name;
         this.regretLevel = regretLevel;
+        switch (regretLevel) {
+            case 0: {
+                satisfaction = 100;
+                break;
+            }
+            case 1: {
+                satisfaction = 75;
+                break;
+            }
+            case 2: {
+                satisfaction = 50;
+                break;
+            }
+            case 3: {
+                satisfaction = 25;
+                break;
+            }
+            case 4: {
+                satisfaction = 0;
+                break;
+            }
+        }
         this.type = type;
         this.dateTimeMillis = dateTimeMillis;
         this.cost = cost;
     }
 
     @Ignore
-    public Expense(String name, int regretLevel, String type, boolean past, long dateTimeMillis, long vibratorSeconds, byte[] image, double cost, int jobId) {
+    public Expense(String name, int regretLevel, String type, int satisfaction, boolean past, long dateTimeMillis, long vibratorSeconds, byte[] image, double cost, int jobId) {
         this.name = name;
         this.regretLevel = regretLevel;
         this.type = type;
@@ -50,6 +73,11 @@ public class Expense {
         this.cost = cost;
         this.jobId = jobId;
         this.past = past;
+        this.satisfaction = satisfaction;
+    }
+
+    public int getSatisfaction() {
+        return satisfaction;
     }
 
     public int getId() {
@@ -74,6 +102,32 @@ public class Expense {
 
     public void setRegretLevel(int regretLevel) {
         this.regretLevel = regretLevel;
+        switch (regretLevel) {
+            case 0: {
+                setSatisfaction(100);
+                break;
+            }
+            case 1: {
+                setSatisfaction(75);
+                break;
+            }
+            case 2: {
+                setSatisfaction(50);
+                break;
+            }
+            case 3: {
+                setSatisfaction(25);
+                break;
+            }
+            case 4: {
+                setSatisfaction(0);
+                break;
+            }
+        }
+    }
+
+    public void setSatisfaction(int satisfaction) {
+        this.satisfaction = satisfaction;
     }
 
     public String getType() {

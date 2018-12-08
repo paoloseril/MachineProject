@@ -8,7 +8,7 @@ import android.content.Context;
 import edu.dlsu.mobapde.machineproject.dao.ExpenseDao;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 
-@Database(entities = {Expense.class}, version = 10, exportSchema = false)
+@Database(entities = {Expense.class}, version = 11, exportSchema = false)
 public abstract class ExpenseDatabase extends RoomDatabase {
 
     private static ExpenseDatabase INSTANCE;

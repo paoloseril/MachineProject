@@ -13,8 +13,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
+import edu.dlsu.mobapde.machineproject.values.Constants;
 import edu.dlsu.mobapde.machineproject.values.Static;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
@@ -45,6 +48,7 @@ public class MainActivityFragment extends Fragment {
         emptymessageLayoutF = view.findViewById(R.id.noexpensefuture_added);
 
         avgText = view.findViewById(R.id.avgCostText);
+
         satisfactionText = view.findViewById(R.id.satisfactionText);
 
         expenseHistoryRecyclerArea = view.findViewById(R.id.expense_history_rarea);
@@ -65,6 +69,9 @@ public class MainActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
+        updateAverageDailyCost();
+        updateDailySatisfaction();
 
         // Refresh the views if there are changes from the database
         refreshFutureExpenses();
@@ -119,5 +126,35 @@ public class MainActivityFragment extends Fragment {
         futureExpensesRecyclerArea.setVisibility(View.GONE);
         emptymessageLayoutF.setVisibility(View.VISIBLE);
     }
+
+    private void updateAverageDailyCost() {
+        // get lower bound: today 12:00 am
+        // get upper bound: today 11:59 pm
+        String dateTodayLB = Converter.toDate(new Date()).split(",")[0].concat(", 12:00 am");
+        String dateTodayUB = Converter.toDate(new Date()).split(",")[0].concat(", 11:59 pm");
+
+        if (Static.getDatabaseInstance().dao().getExpenseTodayCount(Converter.toMilliseconds(dateTodayLB), Converter.toMilliseconds(dateTodayUB)) != 0) {
+            double avgdc = Constants.round(Static.getDatabaseInstance().dao().getAverageDailyCost(Converter.toMilliseconds(dateTodayLB), Converter.toMilliseconds(dateTodayUB)), 2);
+            avgText.setText("P".concat(Constants.format.format(avgdc)));
+        }
+        else {
+            avgText.setText("P".concat("--.--"));
+        }
+    }
+
+    private void updateDailySatisfaction() {
+        // get lower bound: today 12:00 am
+        // get upper bound: today 11:59 pm
+        String dateTodayLB = Converter.toDate(new Date()).split(",")[0].concat(", 12:00 am");
+        String dateTodayUB = Converter.toDate(new Date()).split(",")[0].concat(", 11:59 pm");
+
+        if (Static.getDatabaseInstance().dao().getExpenseTodayCount(Converter.toMilliseconds(dateTodayLB), Converter.toMilliseconds(dateTodayUB)) != 0) {
+            double satis = Constants.round(Static.getDatabaseInstance().dao().getDailySatisfaction(Converter.toMilliseconds(dateTodayLB), Converter.toMilliseconds(dateTodayUB)), 2);
+            satisfactionText.setText(Constants.format.format(satis).concat("%"));
+        }
+        else {
+            satisfactionText.setText("-.--%");
+        }
+   }
 
 }
