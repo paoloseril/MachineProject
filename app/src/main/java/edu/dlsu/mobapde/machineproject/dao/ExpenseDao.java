@@ -48,7 +48,7 @@ public interface ExpenseDao {
     @Query("select avg(cost) from Expense where dateTimeMillis between :millisLB and :millisUB")
     double getAverageCostOfPast7Days(long millisLB, long millisUB);
 
-    @Query("select avg(satisfaction) / count(*) * 100 from Expense where dateTimeMillis between :millisLB and :millisUB")
+    @Query("select sum(satisfaction) / count(*) * 100 from Expense where dateTimeMillis between :millisLB and :millisUB")
     double getDailySatisfaction(long millisLB, long millisUB);
 
     @Query("select count(*) from Expense where dateTimeMillis between :millisLB and :millisUB")
