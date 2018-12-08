@@ -78,67 +78,6 @@ public class EditExpenseActivity extends AppCompatActivity {
         vibrationText = findViewById(R.id.time);
         datetimeText = findViewById(R.id.datetime);
 
-        nameText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() == 0) {
-                    saveBtn.setEnabled(false);
-                }
-                else {
-                    saveBtn.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-        costText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() == 0) {
-                    saveBtn.setEnabled(false);
-                }
-                else {
-                    saveBtn.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-        datetimeText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() == 0) {
-                    saveBtn.setEnabled(false);
-                }
-                else {
-                    saveBtn.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-
         watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -159,6 +98,69 @@ public class EditExpenseActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         };
+        nameText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (nameText.getText().length() == 0 || costText.getText().length() == 0 || datetimeText.getText().length() == 0) {
+                    saveBtn.setEnabled(false);
+                }
+                else {
+                    saveBtn.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        costText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (nameText.getText().length() == 0 || costText.getText().length() == 0 || datetimeText.getText().length() == 0) {
+                    saveBtn.setEnabled(false);
+                }
+                else {
+                    saveBtn.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        datetimeText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (nameText.getText().length() == 0 || costText.getText().length() == 0 || datetimeText.getText().length() == 0) {
+                    saveBtn.setEnabled(false);
+                }
+                else {
+                    saveBtn.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         if (getIntent().getStringExtra("Status").equals("Existing")) {
             saveBtn.setText(R.string.update_text);
             deleteBtn.setVisibility(View.VISIBLE);

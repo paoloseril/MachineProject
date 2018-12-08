@@ -333,9 +333,10 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/holo_green_dark"
+                    android:textColor="@drawable/custom_text_color"
                     android:background="@drawable/custom_ripple"
                     android:id="@+id/saveBtn"
+                    android:enabled="false"
                     android:onClick="saveInformation"
                     android:text="@string/save"
                     android:layout_alignParentEnd="true"
