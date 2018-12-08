@@ -381,8 +381,10 @@ public class EditExpenseActivity extends AppCompatActivity {
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
                 alarmIntent.putExtra("Name", newEntry.getName());
+                alarmIntent.putExtra("Id", newEntry.getId());
+                Log.d("NewId", String.valueOf(newEntry.getId()));
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, 0);
                 Constants.JOB_ID++;
                 Static.getManagerInstance().set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
             }
@@ -398,6 +400,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             }
 
             Static.getDatabaseInstance().dao().addExpense(newEntry);
+
         }
         Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
