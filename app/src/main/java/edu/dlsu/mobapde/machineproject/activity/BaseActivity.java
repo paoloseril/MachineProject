@@ -138,7 +138,7 @@ public class BaseActivity extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), Constants.UI_NOTIFICATION_CHANNEL);
 
         builder.setSmallIcon(R.drawable.ic_stat_logo);
-        builder.setContentTitle("Expense Due Today");
+        builder.setContentTitle("PayNa!");
         builder.setContentText("'" + expenseNames + "'." + " is due today.");
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
 
@@ -156,7 +156,7 @@ public class BaseActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Expense Due Today")
+        builder.setTitle("PayNa!")
                 .setMessage("'" + expenseNames + "'" + " is due today.")
                 .setPositiveButton("OK", (dialogInterface, i) -> {
                     Intent intent = new Intent(this, BaseActivity.class);
