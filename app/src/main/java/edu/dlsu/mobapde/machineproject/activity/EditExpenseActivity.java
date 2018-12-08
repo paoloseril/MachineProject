@@ -394,12 +394,20 @@ public class EditExpenseActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        String fragmentName = getIntent().getStringExtra("FragmentName");
+        if (fragmentName != null) {
+            intent.putExtra("FragmentName", fragmentName);
+        }
         startActivity(intent);
         finish();
     }
 
     public void revertBack(View view) {
         Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+        String fragmentName = getIntent().getStringExtra("FragmentName");
+        if (fragmentName != null) {
+            intent.putExtra("FragmentName", fragmentName);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
