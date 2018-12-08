@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -44,15 +45,15 @@ public class Converter {
         return null;
     }
 
-    public static String toDate(Date value) {
-        if (value != null) {
+    public static String toDate(int interval) {
 
-            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH);
-            formatter.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        final Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, interval);
 
-            return formatter.format(value);
-        }
-        return null;
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+
+        return formatter.format(calendar.getTime());
     }
 
     // Convert datetime in string to milliseconds

@@ -128,13 +128,13 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void updateAverageDailyCost() {
-        // get lower bound: today 12:00 am
-        // get upper bound: today 11:59 pm
-        String dateTodayLB = Converter.toDate(new Date()).split(",")[0].concat(", 12:00 am");
-        String dateTodayUB = Converter.toDate(new Date()).split(",")[0].concat(", 11:59 pm");
+        // get lower bound: today - 7 12:00 am
+        // get upper bound: today - 1 11:59 pm
+        String date7DaysAgoLB = Converter.toDate(-7).split(",")[0].concat(", 12:00 am");
+        String dateYesterdayUB = Converter.toDate(-1).split(",")[0].concat(", 11:59 pm");
 
-        if (Static.getDatabaseInstance().dao().getExpenseTodayCount(Converter.toMilliseconds(dateTodayLB), Converter.toMilliseconds(dateTodayUB)) != 0) {
-            double avgdc = Constants.round(Static.getDatabaseInstance().dao().getAverageDailyCost(Converter.toMilliseconds(dateTodayLB), Converter.toMilliseconds(dateTodayUB)), 2);
+        if (Static.getDatabaseInstance().dao().getExpenseTodayCount(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)) != 0) {
+            double avgdc = Constants.round(Static.getDatabaseInstance().dao().getAverageCostOfPast7Days(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)), 2);
             avgText.setText("P".concat(Constants.format.format(avgdc)));
         }
         else {
@@ -143,13 +143,13 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void updateDailySatisfaction() {
-        // get lower bound: today 12:00 am
-        // get upper bound: today 11:59 pm
-        String dateTodayLB = Converter.toDate(new Date()).split(",")[0].concat(", 12:00 am");
-        String dateTodayUB = Converter.toDate(new Date()).split(",")[0].concat(", 11:59 pm");
+        // get lower bound: today - 7 12:00 am
+        // get upper bound: today - 1 11:59 pm
+        String date7DaysAgoLB = Converter.toDate(-7).split(",")[0].concat(", 12:00 am");
+        String dateYesterdayUB = Converter.toDate(-1).split(",")[0].concat(", 11:59 pm");
 
-        if (Static.getDatabaseInstance().dao().getExpenseTodayCount(Converter.toMilliseconds(dateTodayLB), Converter.toMilliseconds(dateTodayUB)) != 0) {
-            double satis = Constants.round(Static.getDatabaseInstance().dao().getDailySatisfaction(Converter.toMilliseconds(dateTodayLB), Converter.toMilliseconds(dateTodayUB)), 2);
+        if (Static.getDatabaseInstance().dao().getExpenseTodayCount(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)) != 0) {
+            double satis = Constants.round(Static.getDatabaseInstance().dao().getDailySatisfaction(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)), 2);
             satisfactionText.setText(Constants.format.format(satis).concat("%"));
         }
         else {
