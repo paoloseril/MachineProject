@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import edu.dlsu.mobapde.machineproject.R;
-import edu.dlsu.mobapde.machineproject.converter.Converter;
+import edu.dlsu.mobapde.machineproject.activity.ViewExpensesFragment;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseHolder;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseModel;
 import edu.dlsu.mobapde.machineproject.values.Constants;
@@ -43,6 +43,7 @@ public class ExpensesViewAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         expenseHolder.setTimeStamp(listOfExpenses.get(i).getTimestamp());
         expenseHolder.setContext(context);
         expenseHolder.setId(listOfExpenses.get(i).getId());
+        expenseHolder.setFragmentName(ViewExpensesFragment.class.getSimpleName());
     }
 
     @Override

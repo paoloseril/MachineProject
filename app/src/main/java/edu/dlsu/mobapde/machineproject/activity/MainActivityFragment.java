@@ -50,8 +50,8 @@ public class MainActivityFragment extends Fragment {
         expenseHistoryRecyclerArea = view.findViewById(R.id.expense_history_rarea);
         futureExpensesRecyclerArea = view.findViewById(R.id.future_expense_rarea);
 
-        pastExpenseAdapter = new PastExpenseAdapter(getActivity().getApplicationContext());
-        futureExpenseAdapter = new FutureExpenseAdapter(getActivity().getApplicationContext());
+        pastExpenseAdapter = new PastExpenseAdapter(getContext());
+        futureExpenseAdapter = new FutureExpenseAdapter(getContext());
 
         expenseHistoryRecyclerArea.setLayoutManager(new LinearLayoutManager(getActivity()));
         expenseHistoryRecyclerArea.setAdapter(pastExpenseAdapter);

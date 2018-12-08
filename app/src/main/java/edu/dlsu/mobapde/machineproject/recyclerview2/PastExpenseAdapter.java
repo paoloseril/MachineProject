@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.activity.BaseActivity;
+import edu.dlsu.mobapde.machineproject.activity.MainActivityFragment;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseHolder;
 import edu.dlsu.mobapde.machineproject.recyclerview_common.ExpenseModel;
@@ -42,6 +43,7 @@ public class PastExpenseAdapter extends RecyclerView.Adapter<ExpenseHolder> {
         expenseHolder.setTimeStamp(expenseHistory.get(i).getTimestamp());
         expenseHolder.setContext(context);
         expenseHolder.setId(expenseHistory.get(i).getId());
+        expenseHolder.setFragmentName(MainActivityFragment.class.getSimpleName());
     }
 
     @Override

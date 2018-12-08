@@ -58,7 +58,18 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        navigationView.setSelectedItemId(R.id.list_expenses);
+        String fragmentName = getIntent().getStringExtra("FragmentName");
+        if (fragmentName != null) {
+            if (fragmentName.equals(MainActivityFragment.class.getSimpleName())) {
+                navigationView.setSelectedItemId(R.id.main_screen);
+            }
+            else {
+                navigationView.setSelectedItemId(R.id.list_expenses);
+            }
+        }
+        else {
+            navigationView.setSelectedItemId(R.id.list_expenses);
+        }
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UI_UPDATE_TAG);
         registerReceiver(alarmReceiver, intentFilter);

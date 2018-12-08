@@ -15,10 +15,11 @@ import edu.dlsu.mobapde.machineproject.values.Constants;
 public class ExpenseHolder extends RecyclerView.ViewHolder {
 
     private ImageView iconView;
-    private int id;
-    private TextView nameTextComponent, timestampTextComponent;
-    private TextView costTextComponent;
+    private TextView nameTextComponent, timestampTextComponent, costTextComponent;
     private Context context;
+
+    private int id;
+    private String fragmentName;
 
     public ExpenseHolder(@NonNull View view) {
         super(view);
@@ -27,6 +28,7 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
             Intent intent = new Intent(context, EditExpenseActivity.class);
             intent.putExtra("Status", "Existing");
             intent.putExtra("Id", id);
+            intent.putExtra("FragmentName", fragmentName);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
@@ -60,5 +62,9 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setFragmentName(String fragmentName) {
+        this.fragmentName = fragmentName;
     }
 }
