@@ -234,6 +234,12 @@ public class ViewExpensesFragment extends Fragment {
         warningIfEmptyView.setVisibility(View.GONE);
     }
 
+    private void disableRecyclerView(String warning) {
+        expenseRecyclerView.setVisibility(View.GONE);
+        warningIfEmptyView.setVisibility(View.VISIBLE);
+        warningIfEmptyView.setText(warning);
+    }
+
     private void disableRecyclerView() {
         expenseRecyclerView.setVisibility(View.GONE);
         warningIfEmptyView.setVisibility(View.VISIBLE);
@@ -254,7 +260,7 @@ public class ViewExpensesFragment extends Fragment {
                     }
                 }
                 else {
-                    disableRecyclerView();
+                    disableRecyclerView("No expenses containing the word ".concat(val).concat("\nTry again."));
                 }
                 break;
             }
@@ -270,7 +276,7 @@ public class ViewExpensesFragment extends Fragment {
                     }
                 }
                 else {
-                    disableRecyclerView();
+                    disableRecyclerView("No expenses with regret level ".concat(val.toString()));
                 }
                 break;
             }
@@ -284,7 +290,7 @@ public class ViewExpensesFragment extends Fragment {
                     }
                 }
                 else {
-                    disableRecyclerView();
+                    disableRecyclerView("No expenses which are of type ".concat(val));
                 }
                 break;
             }
