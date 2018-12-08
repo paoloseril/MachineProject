@@ -14,7 +14,7 @@ import edu.dlsu.mobapde.machineproject.entity.Expense;
 public interface ExpenseDao {
 
     @Insert
-    void addExpense(Expense expense);
+    long addExpense(Expense expense);
 
     @Update
     void updateExpense(Expense expense);

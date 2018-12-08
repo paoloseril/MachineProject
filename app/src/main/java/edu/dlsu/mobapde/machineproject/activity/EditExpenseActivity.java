@@ -373,33 +373,37 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             Expense newEntry = new Expense(name, levelOfRegret, type, millis, cost);
 
-            if (millis > System.currentTimeMillis()) {
-                newEntry.setPast(false);
-                int jobId = Constants.JOB_ID;
-                newEntry.setJobId(jobId);
-                newEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
-
-                Intent alarmIntent = new Intent(UI_UPDATE_TAG);
-                alarmIntent.putExtra("Name", newEntry.getName());
-                alarmIntent.putExtra("Id", newEntry.getId());
-                Log.d("NewId", String.valueOf(newEntry.getId()));
-
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, 0);
-                Constants.JOB_ID++;
-                Static.getManagerInstance().set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
-            }
-
-            else {
-                newEntry.setPast(true);
-                newEntry.setJobId(0);
-            }
-
             if (selectedImage != null) {
                 newEntry.setImage(Converter.toByteArray(selectedImage));
                 selectedImage = null;
             }
 
-            Static.getDatabaseInstance().dao().addExpense(newEntry);
+            Long id = Static.getDatabaseInstance().dao().addExpense(newEntry);
+            existingEntry = Static.getDatabaseInstance().dao().getExpense(id.intValue());
+
+            if (millis > System.currentTimeMillis()) {
+                existingEntry.setPast(false);
+                int jobId = Constants.JOB_ID;
+                existingEntry.setJobId(jobId);
+                existingEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
+
+                Intent alarmIntent = new Intent(UI_UPDATE_TAG);
+                alarmIntent.putExtra("Name", existingEntry.getName());
+                alarmIntent.putExtra("Id", existingEntry.getId());
+                Log.d("NewId", String.valueOf(existingEntry.getId()));
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, 0);
+                Constants.JOB_ID++;
+                Static.getManagerInstance().set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
+
+            }
+
+            else {
+                existingEntry.setPast(true);
+                existingEntry.setJobId(0);
+            }
+
+            Static.getDatabaseInstance().dao().updateExpense(existingEntry);
 
         }
         Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
