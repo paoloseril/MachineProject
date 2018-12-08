@@ -2,6 +2,9 @@ package edu.dlsu.mobapde.machineproject.values;
 
 import android.app.AlarmManager;
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Vibrator;
 
 import edu.dlsu.mobapde.machineproject.database.ExpenseDatabase;
@@ -45,5 +48,16 @@ public class Static extends Application {
         manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         activityVisible = true;
+        createNotificationChannel();
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(Constants.UI_NOTIFICATION_CHANNEL, "PayNa Channel", NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("PayNa Channel");
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

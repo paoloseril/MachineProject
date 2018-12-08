@@ -119,4 +119,5 @@ public class MainActivityFragment extends Fragment {
         futureExpensesRecyclerArea.setVisibility(View.GONE);
         emptymessageLayoutF.setVisibility(View.VISIBLE);
     }
+
 }

@@ -1,12 +1,10 @@
 package edu.dlsu.mobapde.machineproject.activity;
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -114,23 +112,15 @@ public class BaseActivity extends AppCompatActivity {
             long vibration = Static.getDatabaseInstance().dao().getExpense(id).getVibratorSeconds();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Static.getVibratorInstance().vibrate(VibrationEffect.createOneShot(vibration, VibrationEffect.DEFAULT_AMPLITUDE));
-                if (Static.isActivityVisible()) {
-                    alert(name);
-                }
-                else {
-                    createNotificationChannel();
-                    createNotification(name);
-                }
             }
             else {
                 Static.getVibratorInstance().vibrate(vibration);
-                if (Static.isActivityVisible()) {
-                    alert(name);
-                }
-                else {
-                    createNotificationChannel();
-                    createNotification(name);
-                }
+            }
+            if (Static.isActivityVisible()) {
+                alert(name);
+            }
+            else {
+                createNotification(name);
             }
             Expense e = Static.getDatabaseInstance().dao().getExpense(id);
             e.setPast(true);
@@ -138,32 +128,26 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(Constants.UI_NOTIFICATION_CHANNEL, "The Farm APP", NotificationManager.IMPORTANCE_HIGH);
-            channel.setDescription("PayNa Channel");
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
     private void createNotification(String expenseNames) {
+
+        Intent intent = new Intent(this, BaseActivity.class);
+        intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), Constants.UI_NOTIFICATION_CHANNEL);
 
-        //(3) Various notification attributes can be declared here. Note that ones that are important:
         builder.setSmallIcon(R.drawable.ic_stat_logo);
         builder.setContentTitle("Expense Due Today");
         builder.setContentText("'" + expenseNames + "'." + " is due today.");
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
 
-        //(4) These attributes are still important though not required to execute
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_stat_logo));
         builder.setAutoCancel(true);
+        builder.setContentIntent(pendingIntent);
 
-        //(5) Notifications are run by calling a notification manager and calling the notify function
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(Constants.NOTIFICATION_ID, builder.build());
+
         Constants.NOTIFICATION_ID++;
 
     }
@@ -180,4 +164,5 @@ public class BaseActivity extends AppCompatActivity {
 
         builder.show();
     }
+
 }
