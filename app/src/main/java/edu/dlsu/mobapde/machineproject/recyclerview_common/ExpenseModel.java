@@ -43,31 +43,15 @@ public class ExpenseModel {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getIcon() {
         return icon;
-    }
-
-    public void setIcon(int icon) {
-        this.icon = icon;
     }
 
     public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public double getCost() {
         return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
     }
 }
