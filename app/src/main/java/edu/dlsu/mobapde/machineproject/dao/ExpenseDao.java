@@ -52,5 +52,5 @@ public interface ExpenseDao {
     double getDailySatisfaction(long millisLB, long millisUB);
 
     @Query("select count(*) from Expense where dateTimeMillis between :millisLB and :millisUB")
-    int getExpenseTodayCount(long millisLB, long millisUB);
+    int getExpensesFromPast7DaysCount(long millisLB, long millisUB);
 }

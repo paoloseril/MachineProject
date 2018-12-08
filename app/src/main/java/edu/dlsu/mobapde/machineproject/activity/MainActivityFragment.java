@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Date;
-
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.values.Constants;
@@ -133,7 +131,7 @@ public class MainActivityFragment extends Fragment {
         String date7DaysAgoLB = Converter.toDate(-7).split(",")[0].concat(", 12:00 am");
         String dateYesterdayUB = Converter.toDate(-1).split(",")[0].concat(", 11:59 pm");
 
-        if (Static.getDatabaseInstance().dao().getExpenseTodayCount(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)) != 0) {
+        if (Static.getDatabaseInstance().dao().getExpensesFromPast7DaysCount(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)) != 0) {
             double avgdc = Constants.round(Static.getDatabaseInstance().dao().getAverageCostOfPast7Days(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)), 2);
             avgText.setText("P".concat(Constants.format.format(avgdc)));
         }
@@ -148,7 +146,7 @@ public class MainActivityFragment extends Fragment {
         String date7DaysAgoLB = Converter.toDate(-7).split(",")[0].concat(", 12:00 am");
         String dateYesterdayUB = Converter.toDate(-1).split(",")[0].concat(", 11:59 pm");
 
-        if (Static.getDatabaseInstance().dao().getExpenseTodayCount(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)) != 0) {
+        if (Static.getDatabaseInstance().dao().getExpensesFromPast7DaysCount(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)) != 0) {
             double satis = Constants.round(Static.getDatabaseInstance().dao().getDailySatisfaction(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)), 2);
             satisfactionText.setText(Constants.format.format(satis).concat("%"));
         }
