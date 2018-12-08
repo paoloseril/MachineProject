@@ -153,8 +153,8 @@ public class BaseActivity extends AppCompatActivity {
 
         //(3) Various notification attributes can be declared here. Note that ones that are important:
         builder.setSmallIcon(R.drawable.ic_stat_logo);
-        builder.setContentTitle("Alarm Alarm");
-        builder.setContentText("Item " + "'" + expenseNames + "'." + " is due today.");
+        builder.setContentTitle("Expense Due Today");
+        builder.setContentText("'" + expenseNames + "'." + " is due today.");
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
 
         //(4) These attributes are still important though not required to execute
@@ -172,8 +172,8 @@ public class BaseActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Alarm Alarm")
-                .setMessage("Item " + "'" + expenseNames + "'" + " is due today.")
+        builder.setTitle("Expense Due Today")
+                .setMessage("'" + expenseNames + "'" + " is due today.")
                 .setPositiveButton("OK", (dialogInterface, i) -> {
 
                 });
