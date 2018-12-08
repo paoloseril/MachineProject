@@ -159,7 +159,11 @@ public class BaseActivity extends AppCompatActivity {
         builder.setTitle("Expense Due Today")
                 .setMessage("'" + expenseNames + "'" + " is due today.")
                 .setPositiveButton("OK", (dialogInterface, i) -> {
-
+                    Intent intent = new Intent(this, BaseActivity.class);
+                    intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
                 });
 
         builder.show();

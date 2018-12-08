@@ -176,11 +176,12 @@ public class EditExpenseActivity extends AppCompatActivity {
             costText.setText(Constants.format.format(existingEntry.getCost()));
 
             datetimeText.setText(Converter.toDate(existingEntry.getDateTimeMillis()));
-            dateTime = Converter.toDate(existingEntry.getDateTimeMillis());
+            dateTime = datetimeText.getText().toString();
+            vibrationText.setText(String.valueOf(existingEntry.getVibratorSeconds()));
+
             try {
                 if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
                     vibrationText.setEnabled(true);
-                    vibrationText.setText(String.valueOf(existingEntry.getVibratorSeconds()));
                     vibrationText.addTextChangedListener(watcher);
                 }
                 else {
@@ -336,7 +337,8 @@ public class EditExpenseActivity extends AppCompatActivity {
                 existingEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
-                alarmIntent.putExtra("Name", existingEntry.getName());
+                alarmIntent.putExtra("Name", name);
+                Log.d("Name", name);
                 alarmIntent.putExtra("Id", existingEntry.getId());
 
                 PendingIntent newPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
