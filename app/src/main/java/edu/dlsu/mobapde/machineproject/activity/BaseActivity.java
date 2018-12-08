@@ -106,8 +106,8 @@ public class BaseActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            String name = getIntent().getStringExtra("Name");
-            int id = getIntent().getIntExtra("Id", 0);
+            String name = intent.getStringExtra("Name");
+            int id = intent.getIntExtra("Id", 0);
 
             Log.d("Name", name);
 
@@ -128,6 +128,7 @@ public class BaseActivity extends AppCompatActivity {
                     alert(name);
                 }
                 else {
+                    createNotificationChannel();
                     createNotification(name);
                 }
             }
@@ -172,8 +173,9 @@ public class BaseActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Alarm Alarm")
-                .setMessage("Item " + "'" + expenseNames + "'." + " is due today.")
+                .setMessage("Item " + "'" + expenseNames + "'" + " is due today.")
                 .setPositiveButton("OK", (dialogInterface, i) -> {
+
                 });
 
         builder.show();
