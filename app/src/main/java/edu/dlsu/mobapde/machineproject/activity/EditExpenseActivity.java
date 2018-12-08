@@ -233,8 +233,10 @@ public class EditExpenseActivity extends AppCompatActivity {
                 if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
                     vibrationText.setEnabled(true);
                     vibrationText.addTextChangedListener(watcher);
+                    saveBtn.setEnabled(false);
                 }
                 else {
+                    saveBtn.setEnabled(true);
                     vibrationText.setEnabled(false);
                     vibrationText.removeTextChangedListener(watcher);
                 }
@@ -387,6 +389,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             else {
                 newEntry.setPast(true);
+                newEntry.setJobId(0);
             }
 
             if (selectedImage != null) {
