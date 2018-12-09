@@ -274,7 +274,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Image"
+                        android:text="Receipt"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_centerVertical="true"
@@ -282,9 +282,9 @@
                         />
 
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/custom_ripple"
                         android:text="..."
                         android:layout_toEndOf="@id/image_text"
                         android:onClick="prompt"/>
@@ -294,7 +294,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="500sp"
-                    android:src="@color/colorHeavy2"
+                    android:src="@android:color/holo_blue_dark"
                     android:layout_marginTop="5sp"
                     android:layout_marginBottom="5sp"
                     android:id="@+id/image_receipt" />
