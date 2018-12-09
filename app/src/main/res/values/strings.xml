@@ -43,7 +43,7 @@
     <string name="warning_if_empty_1">Nothing to see here yet.</string>
     <string name="title_2">Expense History</string>
     <string name="warning_if_empty_2">Nothing to see here yet.</string>
-    <string name="label_1">avg. cost</string>
+    <string name="label_1">7 day average cost</string>
     <string name="satisfaction">satisfaction</string>
     <string name="expenses">Expenses</string>
     <string name="warning_if_empty_3">You have not added any expenses yet.\n\nTap on the \'+\' button to get started.</string>

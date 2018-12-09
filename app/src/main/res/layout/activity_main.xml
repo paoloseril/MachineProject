@@ -51,6 +51,8 @@
                 android:textStyle="bold"
                 android:textSize="36sp"
                 android:maxLines="1"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="15sp"
                 />
 
             <TextView

@@ -440,6 +440,10 @@ public class EditExpenseActivity extends AppCompatActivity {
                     Static.getDatabaseInstance().dao().deleteExpense(e);
                     Toast.makeText(this, "Expense successfully removed.", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+                    String fragmentName = getIntent().getStringExtra("FragmentName");
+                    if (fragmentName != null) {
+                        intent.putExtra("FragmentName", fragmentName);
+                    }
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
