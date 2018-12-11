@@ -73,12 +73,6 @@ public class BaseActivity extends AppCompatActivity {
         registerReceiver(alarmReceiver, intentFilter);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unregisterReceiver(alarmReceiver);
-    }
-
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -144,7 +138,7 @@ public class BaseActivity extends AppCompatActivity {
 
         builder.setSmallIcon(R.drawable.ic_stat_logo);
         builder.setContentTitle("PayNa!");
-        builder.setContentText("'" + expenseNames + "'." + " is due today.");
+        builder.setContentText("'" + expenseNames + "'" + " is due today.");
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
 
         builder.setAutoCancel(true);
@@ -174,4 +168,10 @@ public class BaseActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("onDestroy", "called");
+        unregisterReceiver(alarmReceiver);
+    }
 }
