@@ -106,14 +106,13 @@ public class BaseActivity extends AppCompatActivity {
             Log.d("Name", name);
             Log.d("Id", String.valueOf(id));
 
-            //Log.d("\n\n\n\n\n\n\n", ""+vibration+"\n\n\n\n\n\n\n");
+            Long vibration = intent.getLongExtra("Vibration", 0);
 
-            long vibration = intent.getLongExtra("Vibration", 0);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Static.getVibratorInstance().vibrate(VibrationEffect.createOneShot(vibration, VibrationEffect.DEFAULT_AMPLITUDE));
+                Static.getVibratorInstance().vibrate(VibrationEffect.createOneShot(vibration * 1000, VibrationEffect.DEFAULT_AMPLITUDE));
             }
             else {
-                Static.getVibratorInstance().vibrate(vibration);
+                Static.getVibratorInstance().vibrate(vibration * 1000);
             }
             if (Static.isActivityVisible()) {
                 alert(name);

@@ -179,17 +179,13 @@ public class EditExpenseActivity extends AppCompatActivity {
             dateTime = datetimeText.getText().toString();
             vibrationText.setText(String.valueOf(existingEntry.getVibratorSeconds()));
 
-            try {
-                if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
-                    vibrationText.setEnabled(true);
-                    vibrationText.addTextChangedListener(watcher);
-                }
-                else {
-                    vibrationText.setEnabled(false);
-                    vibrationText.removeTextChangedListener(watcher);
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (Converter.toMilliseconds(dateTime) > System.currentTimeMillis()) {
+                vibrationText.setEnabled(true);
+                vibrationText.addTextChangedListener(watcher);
+            }
+            else {
+                vibrationText.setEnabled(false);
+                vibrationText.removeTextChangedListener(watcher);
             }
 
             typeSpinner.setSelection(types.indexOf(existingEntry.getType()));
@@ -344,6 +340,7 @@ public class EditExpenseActivity extends AppCompatActivity {
                 Log.d("Name", name);
                 alarmIntent.putExtra("Id", existingEntry.getId());
                 alarmIntent.putExtra("Vibration", vibration);
+                Log.d("Vibration", String.valueOf(vibration));
 
                 PendingIntent newPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
                 Constants.JOB_ID++;
