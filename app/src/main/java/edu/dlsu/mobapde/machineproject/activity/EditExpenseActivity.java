@@ -385,7 +385,9 @@ public class EditExpenseActivity extends AppCompatActivity {
                 existingEntry.setPast(false);
                 int jobId = Constants.JOB_ID;
                 existingEntry.setJobId(jobId);
-                existingEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
+                existingEntry.setVibratorSeconds(
+                        cleanVibrationSeconds(vibrationText.getText().toString())
+                );
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
                 alarmIntent.putExtra("Name", existingEntry.getName());
@@ -412,17 +414,6 @@ public class EditExpenseActivity extends AppCompatActivity {
         if (fragmentName != null) {
             intent.putExtra("FragmentName", fragmentName);
         }
-        startActivity(intent);
-        finish();
-    }
-
-    public void revertBack(View view) {
-        Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
-        String fragmentName = getIntent().getStringExtra("FragmentName");
-        if (fragmentName != null) {
-            intent.putExtra("FragmentName", fragmentName);
-        }
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
@@ -469,5 +460,21 @@ public class EditExpenseActivity extends AppCompatActivity {
                 .setMessage("A regret level is the opposite of having satisfaction. ")
                 .setPositiveButton("OK, Got it", (dialogInterface, i) -> {});
         builder.show();
+    }
+
+    public void revertBack(View view) {
+        Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+        String fragmentName = getIntent().getStringExtra("FragmentName");
+        if (fragmentName != null) {
+            intent.putExtra("FragmentName", fragmentName);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private long cleanVibrationSeconds(String val) {
+        return (val.equals("") || Long.parseLong(val) < 0) ?
+                1 : Long.parseLong(val);
     }
 }
