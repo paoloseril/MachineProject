@@ -104,7 +104,9 @@ public class BaseActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            String name = intent.getStringExtra("Name");
+            String tname = intent.getStringExtra("Name");
+            String name = tname == null ? "" : tname;
+
             int id = intent.getIntExtra("Id", 0);
 
             Log.d("Name", name);
