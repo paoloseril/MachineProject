@@ -177,9 +177,11 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             datetimeText.setText(Converter.toDate(existingEntry.getDateTimeMillis()));
             dateTime = datetimeText.getText().toString();
-            vibrationText.setText(String.valueOf(existingEntry.getVibratorSeconds()));
 
+            Log.d("Vibration on deck", String.valueOf(existingEntry.getVibratorSeconds()));
+            Log.d("Datetime", String.valueOf(Converter.toMilliseconds(dateTime)));
             if (Converter.toMilliseconds(dateTime) > System.currentTimeMillis()) {
+                vibrationText.setText(String.valueOf(existingEntry.getVibratorSeconds()));
                 vibrationText.setEnabled(true);
                 vibrationText.addTextChangedListener(watcher);
             }
@@ -325,7 +327,8 @@ public class EditExpenseActivity extends AppCompatActivity {
             Static.getManagerInstance().cancel(oldPendingIntent);
 
             if (millis > System.currentTimeMillis()) {
-                long vibration = cleanVibrationSeconds(vibrationText.getText().toString());
+                long vibration = Long.parseLong(vibrationText.getText().toString());
+                Log.d("Vibration", String.valueOf(vibration));
                 existingEntry.setPast(false);
                 int jobId = Constants.JOB_ID;
                 existingEntry.setJobId(jobId);
@@ -336,7 +339,6 @@ public class EditExpenseActivity extends AppCompatActivity {
                 Log.d("Name", name);
                 alarmIntent.putExtra("Id", existingEntry.getId());
                 alarmIntent.putExtra("Vibration", vibration);
-                Log.d("Vibration", String.valueOf(vibration));
 
                 PendingIntent newPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
                 Constants.JOB_ID++;
