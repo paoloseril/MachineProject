@@ -333,15 +333,17 @@ public class EditExpenseActivity extends AppCompatActivity {
             Static.getManagerInstance().cancel(oldPendingIntent);
 
             if (millis > System.currentTimeMillis()) {
+                long vibration = Long.parseLong(vibrationText.getText().toString());
                 existingEntry.setPast(false);
                 int jobId = Constants.JOB_ID;
                 existingEntry.setJobId(jobId);
-                existingEntry.setVibratorSeconds(Long.parseLong(vibrationText.getText().toString()));
+                existingEntry.setVibratorSeconds(vibration);
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
                 alarmIntent.putExtra("Name", name);
                 Log.d("Name", name);
                 alarmIntent.putExtra("Id", existingEntry.getId());
+                alarmIntent.putExtra("Vibration", vibration);
 
                 PendingIntent newPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
                 Constants.JOB_ID++;
@@ -382,16 +384,16 @@ public class EditExpenseActivity extends AppCompatActivity {
             existingEntry = Static.getDatabaseInstance().dao().getExpense(id.intValue());
 
             if (millis > System.currentTimeMillis()) {
+                long vibration = Long.parseLong(vibrationText.getText().toString());
                 existingEntry.setPast(false);
                 int jobId = Constants.JOB_ID;
                 existingEntry.setJobId(jobId);
-                existingEntry.setVibratorSeconds(
-                        cleanVibrationSeconds(vibrationText.getText().toString())
-                );
+                existingEntry.setVibratorSeconds(vibration);
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
-                alarmIntent.putExtra("Name", existingEntry.getName());
+                alarmIntent.putExtra("Name", name);
                 alarmIntent.putExtra("Id", existingEntry.getId());
+                alarmIntent.putExtra("Vibration", vibration);
                 Log.d("NewId", String.valueOf(existingEntry.getId()));
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, 0);
