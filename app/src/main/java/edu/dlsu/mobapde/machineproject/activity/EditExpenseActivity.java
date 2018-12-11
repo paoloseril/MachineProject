@@ -225,19 +225,15 @@ public class EditExpenseActivity extends AppCompatActivity {
                 minutes = String.valueOf(minute);
             dateTime = dateTime.concat(", ").concat(String.valueOf(hour)).concat(":").concat(String.valueOf(minutes).concat(" ").concat(label));
             timePickerDialog.dismiss();
-            try {
-                if (new SimpleDateFormat("MM/dd/yyyy, h:mm a", Locale.ENGLISH).parse(dateTime).after(new Date())) {
-                    vibrationText.setEnabled(true);
-                    vibrationText.addTextChangedListener(watcher);
-                    saveBtn.setEnabled(false);
-                }
-                else {
-                    saveBtn.setEnabled(true);
-                    vibrationText.setEnabled(false);
-                    vibrationText.removeTextChangedListener(watcher);
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (Converter.toMilliseconds(dateTime) > System.currentTimeMillis()) {
+                vibrationText.setEnabled(true);
+                vibrationText.addTextChangedListener(watcher);
+                saveBtn.setEnabled(false);
+            }
+            else {
+                saveBtn.setEnabled(true);
+                vibrationText.setEnabled(false);
+                vibrationText.removeTextChangedListener(watcher);
             }
             datetimeText.setText(dateTime);
         }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), false);
@@ -329,7 +325,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             Static.getManagerInstance().cancel(oldPendingIntent);
 
             if (millis > System.currentTimeMillis()) {
-                long vibration = Long.parseLong(vibrationText.getText().toString());
+                long vibration = cleanVibrationSeconds(vibrationText.getText().toString());
                 existingEntry.setPast(false);
                 int jobId = Constants.JOB_ID;
                 existingEntry.setJobId(jobId);
