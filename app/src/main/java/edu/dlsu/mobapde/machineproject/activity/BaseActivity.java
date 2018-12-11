@@ -112,6 +112,9 @@ public class BaseActivity extends AppCompatActivity {
             Log.d("Name", name);
 
             long vibration = Static.getDatabaseInstance().dao().getExpense(id).getVibratorSeconds();
+
+            Log.d("\n\n\n\n\n\n\n", ""+vibration+"\n\n\n\n\n\n\n");
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Static.getVibratorInstance().vibrate(VibrationEffect.createOneShot(vibration, VibrationEffect.DEFAULT_AMPLITUDE));
             }

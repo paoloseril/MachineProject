@@ -38,10 +38,10 @@
     </string-array>
 
     <string name="peso_sign">₱</string>
-    <string name="your_profile">Your Profile</string>
-    <string name="expense_list">Expense List</string>
+    <string name="your_profile">Dashboard</string>
+    <string name="expense_list">History</string>
     <string name="warning_if_empty_1">Nothing to see here yet.</string>
-    <string name="title_2">Expense History</string>
+    <string name="title_2">Recent</string>
     <string name="warning_if_empty_2">Nothing to see here yet.</string>
     <string name="label_1">avg daily expenses</string>
     <string name="satisfaction">satisfaction level</string>
