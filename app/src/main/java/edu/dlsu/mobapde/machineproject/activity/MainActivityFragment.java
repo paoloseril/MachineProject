@@ -1,5 +1,6 @@
 package edu.dlsu.mobapde.machineproject.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,6 +47,13 @@ public class MainActivityFragment extends Fragment {
         emptymessageLayoutH = view.findViewById(R.id.noexpense_added);
         emptymessageLayoutF = view.findViewById(R.id.noexpensefuture_added);
 
+        ImageButton addButton = view.findViewById(R.id.add_Btn);
+        addButton.setOnClickListener(ev -> {
+            Intent intent = new Intent(getContext(), EditExpenseActivity.class);
+            intent.putExtra("Status", "New");
+            intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
+            startActivity(intent);
+        });
         avgText = view.findViewById(R.id.avgCostText);
 
         satisfactionText = view.findViewById(R.id.satisfactionText);

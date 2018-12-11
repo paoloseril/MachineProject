@@ -56,6 +56,7 @@ public class ViewExpensesFragment extends Fragment {
         addButton.setOnClickListener(ev -> {
             Intent intent = new Intent(getContext(), EditExpenseActivity.class);
             intent.putExtra("Status", "New");
+            intent.putExtra("FragmentName", ViewExpensesFragment.class.getSimpleName());
             startActivity(intent);
         });
         warningIfEmptyView = view.findViewById(R.id.empty_warning);

@@ -66,7 +66,7 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
         else {
-            navigationView.setSelectedItemId(R.id.list_expenses);
+            navigationView.setSelectedItemId(R.id.main_screen);
         }
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UI_UPDATE_TAG);
@@ -99,7 +99,7 @@ public class BaseActivity extends AppCompatActivity {
         Static.activityPaused();
     }
 
-    class AlarmReceiver extends BroadcastReceiver {
+    public class AlarmReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -110,11 +110,11 @@ public class BaseActivity extends AppCompatActivity {
             int id = intent.getIntExtra("Id", 0);
 
             Log.d("Name", name);
+            Log.d("Id", String.valueOf(id));
 
-            long vibration = Static.getDatabaseInstance().dao().getExpense(id).getVibratorSeconds();
+            //Log.d("\n\n\n\n\n\n\n", ""+vibration+"\n\n\n\n\n\n\n");
 
-            Log.d("\n\n\n\n\n\n\n", ""+vibration+"\n\n\n\n\n\n\n");
-
+            long vibration = intent.getLongExtra("Vibration", 0);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Static.getVibratorInstance().vibrate(VibrationEffect.createOneShot(vibration, VibrationEffect.DEFAULT_AMPLITUDE));
             }
