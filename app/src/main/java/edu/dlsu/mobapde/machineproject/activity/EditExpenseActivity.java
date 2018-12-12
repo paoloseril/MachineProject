@@ -347,7 +347,7 @@ public class EditExpenseActivity extends AppCompatActivity {
                 alarmIntent.putExtra("Id", id);
                 alarmIntent.putExtra("Vib", vibration);
 
-                PendingIntent newPendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, 0);
+                PendingIntent newPendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 Constants.JOB_ID++;
                 Static.getManagerInstance().set(AlarmManager.RTC_WAKEUP, millis, newPendingIntent);
             }
@@ -405,7 +405,7 @@ public class EditExpenseActivity extends AppCompatActivity {
                 alarmIntent.putExtra("Vib", vibration);
                 Log.d("NewId", String.valueOf(existingEntry.getId()));
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, 0);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 Constants.JOB_ID++;
                 Static.getManagerInstance().set(AlarmManager.RTC_WAKEUP, millis, pendingIntent);
 
@@ -446,7 +446,6 @@ public class EditExpenseActivity extends AppCompatActivity {
                     if (fragmentName != null) {
                         intent.putExtra("FragmentName", fragmentName);
                     }
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
                 });
@@ -479,7 +478,6 @@ public class EditExpenseActivity extends AppCompatActivity {
         if (fragmentName != null) {
             intent.putExtra("FragmentName", fragmentName);
         }
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }

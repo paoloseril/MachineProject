@@ -160,6 +160,7 @@ public class BaseActivity extends AppCompatActivity {
                 .setPositiveButton("OK", (dialogInterface, i) -> {
                     Intent intent = new Intent(this, BaseActivity.class);
                     intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     finish();
                 });
