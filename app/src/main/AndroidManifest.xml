@@ -28,6 +28,9 @@
         </activity>
 
         <receiver android:name=".activity.BaseActivity$AlarmReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="ph.mobapde.machineproject"></action>
+            </intent-filter>
         </receiver>
 
         <meta-data

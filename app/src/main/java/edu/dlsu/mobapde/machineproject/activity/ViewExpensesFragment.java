@@ -246,6 +246,12 @@ public class ViewExpensesFragment extends Fragment {
         warningIfEmptyView.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh("default");
+    }
+
     private void refresh(String key) {
         adapter.clear();
         disableRecyclerView();

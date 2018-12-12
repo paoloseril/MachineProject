@@ -85,7 +85,7 @@
                         android:id="@+id/type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/types"></Spinner>
+                        android:entries="@array/types"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -129,7 +129,7 @@
                         android:id="@+id/regret_level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:entries="@array/regret_levels"></Spinner>
+                        android:entries="@array/regret_levels"/>
 
                 </LinearLayout>
             </RelativeLayout>
@@ -289,6 +289,7 @@
                     android:layout_height="wrap_content">
 
                     <Button
+                        android:id="@+id/addReceiptBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
@@ -296,7 +297,7 @@
                         android:background="@color/colorWhite"
                         android:onClick="prompt"
                         android:padding="10dp"
-                        android:text="+ Add Receipt"
+                        android:text="@string/add_receipt_text"
                         android:textColor="@color/colorHeavy1"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -349,7 +350,7 @@
                     android:enabled="false"
                     android:onClick="saveInformation"
                     android:text="@string/save"
-                    android:textColor="@color/colorHeavy1" />
+                    android:textColor="@drawable/custom_text_color" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

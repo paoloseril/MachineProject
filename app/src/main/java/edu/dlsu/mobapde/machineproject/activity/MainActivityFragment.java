@@ -99,6 +99,15 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshFutureExpenses();
+        refreshHistory();
+        updateAverageDailyCost();
+        updateDailySatisfaction();
+    }
+
     private void refreshFutureExpenses() {
         futureExpenseAdapter.clear();
         int size = Static.getDatabaseInstance().dao().getFutureExpenses().size();
@@ -138,7 +147,7 @@ public class MainActivityFragment extends Fragment {
         // get lower bound: today - 7 12:00 am
         // get upper bound: today - 1 11:59 pm
         String date7DaysAgoLB = Converter.toDate(-7).split(",")[0].concat(", 12:00 am");
-        String dateYesterdayUB = Converter.toDate(-1).split(",")[0].concat(", 11:59 pm");
+        String dateYesterdayUB = Converter.toDate(0).split(",")[0].concat(", 11:59 pm");
 
         if (Static.getDatabaseInstance().dao().getExpensesFromPast7DaysCount(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)) != 0) {
             double avgdc = Constants.round(Static.getDatabaseInstance().dao().getAverageCostOfPast7Days(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)), 2);
@@ -153,7 +162,7 @@ public class MainActivityFragment extends Fragment {
         // get lower bound: today - 7 12:00 am
         // get upper bound: today - 1 11:59 pm
         String date7DaysAgoLB = Converter.toDate(-7).split(",")[0].concat(", 12:00 am");
-        String dateYesterdayUB = Converter.toDate(-1).split(",")[0].concat(", 11:59 pm");
+        String dateYesterdayUB = Converter.toDate(0).split(",")[0].concat(", 11:59 pm");
 
         if (Static.getDatabaseInstance().dao().getExpensesFromPast7DaysCount(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)) != 0) {
             double satis = Constants.round(Static.getDatabaseInstance().dao().getDailySatisfaction(Converter.toMilliseconds(date7DaysAgoLB), Converter.toMilliseconds(dateYesterdayUB)), 2);

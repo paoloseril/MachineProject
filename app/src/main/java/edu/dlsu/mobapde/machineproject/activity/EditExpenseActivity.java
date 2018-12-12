@@ -45,7 +45,7 @@ public class EditExpenseActivity extends AppCompatActivity {
     private TimePickerDialog timePickerDialog;
     private ImageView thumbnailView;
     private Spinner typeSpinner, regretLvlSpinner;
-    private Button saveBtn, deleteBtn;
+    private Button saveBtn, deleteBtn, addReceiptBtn;
     private Bitmap selectedImage;
 
     private TextWatcher watcher;
@@ -53,6 +53,7 @@ public class EditExpenseActivity extends AppCompatActivity {
     private Expense existingEntry;
 
     private String dateTime = "";
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.saveBtn);
         deleteBtn = findViewById(R.id.deleteBtn);
+        addReceiptBtn = findViewById(R.id.addReceiptBtn);
         vibrationText = findViewById(R.id.time);
         datetimeText = findViewById(R.id.datetime);
 
@@ -102,7 +104,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (nameText.getText().length() == 0 || costText.getText().length() == 0 || datetimeText.getText().length() == 0) {
+                if (nameText.getText().length() == 0 || costText.getText().length() == 0) {
                     saveBtn.setEnabled(false);
                 }
                 else {
@@ -123,7 +125,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (nameText.getText().length() == 0 || costText.getText().length() == 0 || datetimeText.getText().length() == 0) {
+                if (nameText.getText().length() == 0 || costText.getText().length() == 0) {
                     saveBtn.setEnabled(false);
                 }
                 else {
@@ -144,7 +146,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (nameText.getText().length() == 0 || costText.getText().length() == 0 || datetimeText.getText().length() == 0) {
+                if (nameText.getText().length() == 0 || costText.getText().length() == 0) {
                     saveBtn.setEnabled(false);
                 }
                 else {
@@ -160,7 +162,8 @@ public class EditExpenseActivity extends AppCompatActivity {
         if (getIntent().getStringExtra("Status").equals("Existing")) {
             saveBtn.setText(R.string.update_text);
             deleteBtn.setVisibility(View.VISIBLE);
-            int id = getIntent().getIntExtra("Id", 0);
+            id = getIntent().getIntExtra("Id", 0);
+            Log.d("MId", String.valueOf(id));
             existingEntry = Static.getDatabaseInstance().dao().getExpense(id);
 
             List<String> types = Arrays.asList(getResources().getStringArray(R.array.types));
@@ -192,6 +195,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             if (existingEntry.getImage() != null) {
                 selectedImage = Converter.toImage(existingEntry.getImage());
+                addReceiptBtn.setText(getString(R.string.change_receipt_prompt));
                 thumbnailView.setImageBitmap(selectedImage);
             }
         }
@@ -314,7 +318,13 @@ public class EditExpenseActivity extends AppCompatActivity {
             double cost = Double.parseDouble(costText.getText().toString());
             int levelOfRegret = Integer.parseInt(regretLvlSpinner.getSelectedItem().toString());
             String type = (String) typeSpinner.getSelectedItem();
-            long millis = Converter.toMilliseconds(dateTime);
+            long millis;
+            if (!dateTime.equals("")) {
+                millis = Converter.toMilliseconds(dateTime);
+            }
+            else {
+                millis = System.currentTimeMillis();
+            }
 
             existingEntry.setDateTimeMillis(millis);
             // cancel previous intent
@@ -333,7 +343,8 @@ public class EditExpenseActivity extends AppCompatActivity {
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
                 alarmIntent.putExtra("Name", name);
                 Log.d("Name", name);
-                alarmIntent.putExtra("Id", existingEntry.getId());
+                Log.d("Id", String.valueOf(id));
+                alarmIntent.putExtra("Id", id);
                 alarmIntent.putExtra("Vib", vibration);
 
                 PendingIntent newPendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, 0);
@@ -362,7 +373,13 @@ public class EditExpenseActivity extends AppCompatActivity {
             double cost = Double.parseDouble(costText.getText().toString());
             int levelOfRegret = Integer.parseInt(regretLvlSpinner.getSelectedItem().toString());
             String type = (String) typeSpinner.getSelectedItem();
-            long millis = Converter.toMilliseconds(dateTime);
+            long millis;
+            if (!dateTime.equals("")) {
+                millis = Converter.toMilliseconds(dateTime);
+            }
+            else {
+                millis = System.currentTimeMillis();
+            }
 
             Expense newEntry = new Expense(name, levelOfRegret, type, millis, cost);
 

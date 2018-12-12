@@ -54,7 +54,7 @@
     <string name="type">Type *</string>
     <string name="regret_level">Regret Level *</string>
     <string name="cost">Cost *</string>
-    <string name="date_time">Date/Time *</string>
+    <string name="date_time">Date/Time</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
@@ -62,5 +62,8 @@
     <string name="capture_photo">Capture Photo</string>
     <string name="update_text">Update</string>
     <string name="filter_expenses_by">Filter Expenses by:</string>
+    <string name="future_expenses_t">Future Expenses</string>
+    <string name="change_receipt_prompt">+ Change Receipt</string>
+    <string name="add_receipt_text">+ Add Receipt</string>
 
 </resources>

@@ -25,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
 
     BottomNavigationView navigationView;
     Fragment mainActivityFragment, viewExpensesFragment;
+    private BroadcastReceiver receiver = new AlarmReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,9 @@ public class BaseActivity extends AppCompatActivity {
         else {
             navigationView.setSelectedItemId(R.id.main_screen);
         }
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.UI_UPDATE_TAG);
+        registerReceiver(receiver, filter);
     }
 
     private void loadFragment(Fragment fragment) {
@@ -81,6 +85,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Static.activityResumed();
+
     }
 
     @Override
@@ -102,10 +107,9 @@ public class BaseActivity extends AppCompatActivity {
             Log.d("Name", name);
             Log.d("Id", String.valueOf(id));
 
-            long vibration = intent.getLongExtra("Vib", 0L);
+            long vibration = intent.getLongExtra("Vib", 2);
 
             Log.d("Vibration received", String.valueOf(vibration));
-
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Static.getVibratorInstance().vibrate(VibrationEffect.createOneShot(vibration * 1000, VibrationEffect.DEFAULT_AMPLITUDE));
@@ -164,5 +168,11 @@ public class BaseActivity extends AppCompatActivity {
                 });
 
         builder.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
     }
 }
