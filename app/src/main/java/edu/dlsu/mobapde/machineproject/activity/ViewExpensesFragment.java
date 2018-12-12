@@ -327,7 +327,7 @@ public class ViewExpensesFragment extends Fragment {
                         adapter.addView(e.getId(), e.getName(), e.getType(), Converter.toDate(e.getDateTimeMillis()), e.getCost());
                     }
                 } else {
-                    disableRecyclerView();
+                    disableRecyclerView("No expenses yet.\n\nCreate one by tapping on the '+' button there at the upper right.");
                 }
                 break;
             }
