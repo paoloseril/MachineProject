@@ -132,7 +132,6 @@ public class BaseActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, BaseActivity.class);
         intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), Constants.UI_NOTIFICATION_CHANNEL);
@@ -161,7 +160,6 @@ public class BaseActivity extends AppCompatActivity {
                 .setPositiveButton("OK", (dialogInterface, i) -> {
                     Intent intent = new Intent(this, BaseActivity.class);
                     intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
                 });

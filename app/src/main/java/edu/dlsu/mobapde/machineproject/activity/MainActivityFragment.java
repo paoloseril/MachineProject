@@ -87,6 +87,7 @@ public class MainActivityFragment extends Fragment {
 
     private void refreshHistory() {
         pastExpenseAdapter.clear();
+        disableRecyclerViewH();
         int size = Static.getDatabaseInstance().dao().getPastExpenses().size();
         if (size != 0) {
             enableRecyclerViewH();
@@ -110,6 +111,7 @@ public class MainActivityFragment extends Fragment {
 
     private void refreshFutureExpenses() {
         futureExpenseAdapter.clear();
+        disableRecyclerViewF();
         int size = Static.getDatabaseInstance().dao().getFutureExpenses().size();
         if (size != 0) {
             enableRecyclerViewF();
