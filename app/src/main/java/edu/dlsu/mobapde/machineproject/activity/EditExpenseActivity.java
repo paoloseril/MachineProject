@@ -25,13 +25,9 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 import edu.dlsu.mobapde.machineproject.R;
@@ -379,7 +375,7 @@ public class EditExpenseActivity extends AppCompatActivity {
             existingEntry = Static.getDatabaseInstance().dao().getExpense(id.intValue());
 
             if (millis > System.currentTimeMillis()) {
-                long vibration = Long.parseLong(vibrationText.getText().toString());
+                long vibration = validateVibrationSeconds(vibrationText.getText().toString());
                 existingEntry.setPast(false);
                 int jobId = Constants.JOB_ID;
                 existingEntry.setJobId(jobId);
@@ -470,7 +466,7 @@ public class EditExpenseActivity extends AppCompatActivity {
         finish();
     }
 
-    private long cleanVibrationSeconds(String val) {
+    private long validateVibrationSeconds(String val) {
         return (val.equals("") || Long.parseLong(val) < 0) ?
                 1 : Long.parseLong(val);
     }
