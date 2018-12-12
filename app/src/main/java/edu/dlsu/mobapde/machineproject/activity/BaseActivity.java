@@ -25,7 +25,6 @@ public class BaseActivity extends AppCompatActivity {
 
     BottomNavigationView navigationView;
     Fragment mainActivityFragment, viewExpensesFragment;
-    private BroadcastReceiver alarmReceiver = new AlarmReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +67,6 @@ public class BaseActivity extends AppCompatActivity {
         else {
             navigationView.setSelectedItemId(R.id.main_screen);
         }
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Constants.UI_UPDATE_TAG);
-        registerReceiver(alarmReceiver, intentFilter);
     }
 
     private void loadFragment(Fragment fragment) {

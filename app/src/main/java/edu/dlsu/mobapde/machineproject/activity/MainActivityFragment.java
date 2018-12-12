@@ -24,7 +24,7 @@ import edu.dlsu.mobapde.machineproject.recyclerview1.FutureExpenseAdapter;
 import edu.dlsu.mobapde.machineproject.recyclerview2.PastExpenseAdapter;
 
 public class MainActivityFragment extends Fragment {
-
+    
     private RecyclerView expenseHistoryRecyclerArea, futureExpensesRecyclerArea;
     private PastExpenseAdapter pastExpenseAdapter;
     private FutureExpenseAdapter futureExpenseAdapter;
@@ -64,10 +64,10 @@ public class MainActivityFragment extends Fragment {
         pastExpenseAdapter = new PastExpenseAdapter(getContext());
         futureExpenseAdapter = new FutureExpenseAdapter(getContext());
 
-        expenseHistoryRecyclerArea.setLayoutManager(new LinearLayoutManager(getActivity()));
+        expenseHistoryRecyclerArea.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         expenseHistoryRecyclerArea.setAdapter(pastExpenseAdapter);
 
-        futureExpensesRecyclerArea.setLayoutManager(new LinearLayoutManager(getActivity()));
+        futureExpensesRecyclerArea.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         futureExpensesRecyclerArea.setAdapter(futureExpenseAdapter);
     }
 

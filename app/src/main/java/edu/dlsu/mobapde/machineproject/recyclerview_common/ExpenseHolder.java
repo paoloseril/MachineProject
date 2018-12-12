@@ -47,7 +47,9 @@ public class ExpenseHolder extends RecyclerView.ViewHolder {
     }
 
     public void setTimeStamp(String timestamp) {
-        timestampTextComponent.setText(timestamp);
+        if (timestampTextComponent != null) {
+            timestampTextComponent.setText(timestamp);
+        }
     }
 
     public void setCost(double cost) {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5sp"
+    android:layout_marginBottom="5sp"
+    android:layout_marginStart="10sp"
+    android:layout_marginEnd="10sp"
+    android:orientation="vertical"
+    android:background="@drawable/custom_ripple_3">
+
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/logo"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:src="@drawable/cutlery"
+        android:tint="@color/colorAccent" />
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/nameofexpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        android:fontFamily="@font/montserrat"
+        android:text="Some Expense Entry........."
+        android:textColor="@color/colorTextLight" />
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/totalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoSizeMinTextSize="15sp"
+        android:autoSizeTextType="uniform"
+        android:ellipsize="end"
+        android:fontFamily="@font/montserrat"
+        android:maxLines="1"
+        android:text="P 450.05"
+        android:textColor="@color/colorTextLight"
+        android:textStyle="bold" />
+
+
+</LinearLayout>
