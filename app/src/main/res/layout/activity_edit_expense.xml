@@ -36,9 +36,8 @@
                 android:id="@+id/name_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
                 android:orientation="vertical"
-                android:paddingBottom="15dp">
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
