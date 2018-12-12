@@ -169,11 +169,4 @@ public class BaseActivity extends AppCompatActivity {
 
         builder.show();
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("onDestroy", "called");
-        unregisterReceiver(alarmReceiver);
-    }
 }
