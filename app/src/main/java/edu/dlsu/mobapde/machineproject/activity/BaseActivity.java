@@ -34,16 +34,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame);
 
-        String status = getIntent().getStringExtra("Update");
-        if (status != null && status.equals("Yes")) {
-            List<Expense> expenses = Static.getDatabaseInstance().dao().getAllExpenses();
-            for (int i = 0; i < expenses.size(); i++) {
-                if (!expenses.get(i).getPast() && expenses.get(i).getDateTimeMillis() <= System.currentTimeMillis()) {
-                    expenses.get(i).setPast(true);
-                }
-            }
-        }
-
         mainActivityFragment = MainActivityFragment.newInstance();
         viewExpensesFragment = ViewExpensesFragment.newInstance();
 
@@ -71,6 +61,17 @@ public class BaseActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         String fragmentName = getIntent().getStringExtra("FragmentName");
+        String status = getIntent().getStringExtra("Update");
+        if (status != null && status.equals("Yes")) {
+            List<Expense> expenses = Static.getDatabaseInstance().dao().getAllExpenses();
+            for (int i = 0; i < expenses.size(); i++) {
+                if (!expenses.get(i).getPast() && expenses.get(i).getDateTimeMillis() <= System.currentTimeMillis()) {
+                    expenses.get(i).setPast(true);
+                    Static.getDatabaseInstance().dao().updateExpense(expenses.get(i));
+                    break;
+                }
+            }
+        }
         if (fragmentName != null) {
             if (fragmentName.equals(MainActivityFragment.class.getSimpleName())) {
                 navigationView.setSelectedItemId(R.id.main_screen);
