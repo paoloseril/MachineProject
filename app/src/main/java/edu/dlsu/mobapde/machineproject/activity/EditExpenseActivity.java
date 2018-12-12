@@ -180,7 +180,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
             Log.d("Vibration on deck", String.valueOf(existingEntry.getVibratorSeconds()));
             Log.d("Datetime", String.valueOf(Converter.toMilliseconds(dateTime)));
-            if (Converter.toMilliseconds(dateTime) > System.currentTimeMillis()) {
+            if (!existingEntry.getPast()) {
                 vibrationText.setText(String.valueOf(existingEntry.getVibratorSeconds()));
                 vibrationText.setEnabled(true);
                 vibrationText.addTextChangedListener(watcher);
