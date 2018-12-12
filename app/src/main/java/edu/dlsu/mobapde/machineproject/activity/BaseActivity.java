@@ -61,17 +61,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         String fragmentName = getIntent().getStringExtra("FragmentName");
-        String status = getIntent().getStringExtra("Update");
-        if (status != null && status.equals("Yes")) {
-            List<Expense> expenses = Static.getDatabaseInstance().dao().getAllExpenses();
-            for (int i = 0; i < expenses.size(); i++) {
-                if (!expenses.get(i).getPast() && expenses.get(i).getDateTimeMillis() <= System.currentTimeMillis()) {
-                    expenses.get(i).setPast(true);
-                    Static.getDatabaseInstance().dao().updateExpense(expenses.get(i));
-                    break;
-                }
-            }
-        }
         if (fragmentName != null) {
             if (fragmentName.equals(MainActivityFragment.class.getSimpleName())) {
                 navigationView.setSelectedItemId(R.id.main_screen);
@@ -138,7 +127,6 @@ public class BaseActivity extends AppCompatActivity {
     private void createNotification(String expenseNames) {
 
         Intent intent = new Intent(this, BaseActivity.class);
-        intent.putExtra("Update", "Yes");
         intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -168,7 +156,6 @@ public class BaseActivity extends AppCompatActivity {
                 .setPositiveButton("OK", (dialogInterface, i) -> {
                     Intent intent = new Intent(this, BaseActivity.class);
                     intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
-                    intent.putExtra("Update", "Yes");
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     finish();

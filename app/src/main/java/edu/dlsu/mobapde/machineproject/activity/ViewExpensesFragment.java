@@ -21,6 +21,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.List;
+
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.values.Static;
@@ -227,7 +229,20 @@ public class ViewExpensesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        doRefresh();
+    }
 
+    private void doRefresh() {
+        List<Expense> expenses = Static.getDatabaseInstance().dao().getAllExpenses();
+        if (expenses.size() != 0) {
+            for (int i = 0; i < expenses.size(); i++) {
+                if (!expenses.get(i).getPast() && expenses.get(i).getDateTimeMillis() <= System.currentTimeMillis()) {
+                    expenses.get(i).setPast(true);
+                    Static.getDatabaseInstance().dao().updateExpense(expenses.get(i));
+                    break;
+                }
+            }
+        }
     }
 
     private void enableRecyclerView() {
@@ -249,8 +264,10 @@ public class ViewExpensesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        doRefresh();
         refresh("default");
     }
+
 
     private void refresh(String key) {
         adapter.clear();

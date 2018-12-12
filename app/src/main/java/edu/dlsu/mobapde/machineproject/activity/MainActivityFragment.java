@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.converter.Converter;
 import edu.dlsu.mobapde.machineproject.values.Constants;
@@ -79,6 +81,7 @@ public class MainActivityFragment extends Fragment {
 
         updateAverageDailyCost();
         updateDailySatisfaction();
+        doRefresh();
 
         // Refresh the views if there are changes from the database
         refreshFutureExpenses();
@@ -103,10 +106,24 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        doRefresh();
         refreshFutureExpenses();
         refreshHistory();
         updateAverageDailyCost();
         updateDailySatisfaction();
+    }
+
+    private void doRefresh() {
+        List<Expense> expenses = Static.getDatabaseInstance().dao().getAllExpenses();
+        if (expenses.size() != 0) {
+            for (int i = 0; i < expenses.size(); i++) {
+                if (!expenses.get(i).getPast() && expenses.get(i).getDateTimeMillis() <= System.currentTimeMillis()) {
+                    expenses.get(i).setPast(true);
+                    Static.getDatabaseInstance().dao().updateExpense(expenses.get(i));
+                    break;
+                }
+            }
+        }
     }
 
     private void refreshFutureExpenses() {
