@@ -106,7 +106,7 @@ public class BaseActivity extends AppCompatActivity {
             Log.d("Name", name);
             Log.d("Id", String.valueOf(id));
 
-            Long vibration = intent.getLongExtra("Vibration", 0L);
+            long vibration = intent.getLongExtra("Vib", 0L);
 
             Log.d("Vibration received", String.valueOf(vibration));
 

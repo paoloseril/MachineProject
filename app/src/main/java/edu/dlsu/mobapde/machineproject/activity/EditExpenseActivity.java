@@ -338,9 +338,9 @@ public class EditExpenseActivity extends AppCompatActivity {
                 alarmIntent.putExtra("Name", name);
                 Log.d("Name", name);
                 alarmIntent.putExtra("Id", existingEntry.getId());
-                alarmIntent.putExtra("Vibration", vibration);
+                alarmIntent.putExtra("Vib", vibration);
 
-                PendingIntent newPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1000000+jobId, alarmIntent, 0);
+                PendingIntent newPendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, 0);
                 Constants.JOB_ID++;
                 Static.getManagerInstance().set(AlarmManager.RTC_WAKEUP, millis, newPendingIntent);
             }
@@ -388,7 +388,7 @@ public class EditExpenseActivity extends AppCompatActivity {
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
                 alarmIntent.putExtra("Name", name);
                 alarmIntent.putExtra("Id", existingEntry.getId());
-                alarmIntent.putExtra("Vibration", vibration);
+                alarmIntent.putExtra("Vib", vibration);
                 Log.d("NewId", String.valueOf(existingEntry.getId()));
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, 0);
