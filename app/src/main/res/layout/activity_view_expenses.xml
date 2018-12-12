@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorHeavy4"
+    android:background="@color/colorHeavy2"
     tools:context=".activity.ViewExpensesFragment">
 
     <RelativeLayout
         android:id="@+id/ll1p"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorHeavy4"
+        android:background="@color/colorHeavy2"
         android:orientation="horizontal">
 
         <ImageView
@@ -101,6 +101,7 @@
                 android:layout_toEndOf="@id/valueSpinner"
                 android:backgroundTint="@color/colorLight1"
                 android:ems="10"
+                android:textColor="@android:color/white"
                 android:enabled="false"
                 android:foregroundTint="@color/colorLight1" />
 
@@ -129,7 +130,6 @@
         android:layout_marginStart="20sp"
         android:layout_marginTop="5sp"
         android:layout_marginEnd="20sp"
-        android:background="@color/colorHeavy4"
         android:scrollbars="vertical"
         android:visibility="gone">
 

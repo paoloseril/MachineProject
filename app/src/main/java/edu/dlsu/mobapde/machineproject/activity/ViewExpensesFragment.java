@@ -267,7 +267,7 @@ public class ViewExpensesFragment extends Fragment {
                     }
                 }
                 else {
-                    disableRecyclerView("No expenses containing the word ".concat(val).concat("\n\nTry again."));
+                    disableRecyclerView("No expenses containing the word ".concat("'").concat(val).concat("'").concat("\n\nTry again."));
                 }
                 break;
             }
@@ -297,7 +297,7 @@ public class ViewExpensesFragment extends Fragment {
                     }
                 }
                 else {
-                    disableRecyclerView("No expenses which are of type ".concat(val).concat("\n\nTry again."));
+                    disableRecyclerView("No expenses which are of type ".concat("'").concat(val).concat("'").concat("\n\nTry again."));
                 }
                 break;
             }
