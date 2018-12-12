@@ -16,6 +16,8 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.List;
+
 import edu.dlsu.mobapde.machineproject.R;
 import edu.dlsu.mobapde.machineproject.entity.Expense;
 import edu.dlsu.mobapde.machineproject.values.Constants;
@@ -31,6 +33,16 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame);
+
+        String status = getIntent().getStringExtra("Update");
+        if (status != null && status.equals("Yes")) {
+            List<Expense> expenses = Static.getDatabaseInstance().dao().getAllExpenses();
+            for (int i = 0; i < expenses.size(); i++) {
+                if (!expenses.get(i).getPast() && expenses.get(i).getDateTimeMillis() <= System.currentTimeMillis()) {
+                    expenses.get(i).setPast(true);
+                }
+            }
+        }
 
         mainActivityFragment = MainActivityFragment.newInstance();
         viewExpensesFragment = ViewExpensesFragment.newInstance();
@@ -101,10 +113,7 @@ public class BaseActivity extends AppCompatActivity {
             String tname = intent.getStringExtra("Name");
             String name = tname == null ? "" : tname;
 
-            int id = intent.getIntExtra("Id", 0);
-
             Log.d("Name", name);
-            Log.d("Id", String.valueOf(id));
 
             long vibration = intent.getLongExtra("Vib", 2);
 
@@ -122,15 +131,13 @@ public class BaseActivity extends AppCompatActivity {
             else {
                 createNotification(name);
             }
-            Expense e = Static.getDatabaseInstance().dao().getExpense(id);
-            e.setPast(true);
-            Static.getDatabaseInstance().dao().updateExpense(e);
         }
     }
 
     private void createNotification(String expenseNames) {
 
         Intent intent = new Intent(this, BaseActivity.class);
+        intent.putExtra("Update", "Yes");
         intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -160,12 +167,14 @@ public class BaseActivity extends AppCompatActivity {
                 .setPositiveButton("OK", (dialogInterface, i) -> {
                     Intent intent = new Intent(this, BaseActivity.class);
                     intent.putExtra("FragmentName", MainActivityFragment.class.getSimpleName());
+                    intent.putExtra("Update", "Yes");
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
                     finish();
                 });
 
-        builder.show();
+        AlertDialog dialog = builder.show();
+        dialog.setCanceledOnTouchOutside(false);
     }
 
     @Override

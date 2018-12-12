@@ -53,7 +53,7 @@ public class EditExpenseActivity extends AppCompatActivity {
     private Expense existingEntry;
 
     private String dateTime = "";
-    private int id;
+    private int id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -344,7 +344,6 @@ public class EditExpenseActivity extends AppCompatActivity {
                 alarmIntent.putExtra("Name", name);
                 Log.d("Name", name);
                 Log.d("SetId", String.valueOf(id));
-                alarmIntent.putExtra("Id", id);
                 alarmIntent.putExtra("Vib", vibration);
 
                 PendingIntent newPendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -400,10 +399,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
                 Intent alarmIntent = new Intent(UI_UPDATE_TAG);
                 alarmIntent.putExtra("Name", name);
-                Log.d("SetId", String.valueOf(existingEntry.getId()));
-                alarmIntent.putExtra("Id", existingEntry.getId());
                 alarmIntent.putExtra("Vib", vibration);
-                Log.d("NewId", String.valueOf(existingEntry.getId()));
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1000000+jobId, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 Constants.JOB_ID++;
